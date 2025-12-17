@@ -1,0 +1,2364 @@
+/* === ТЕМНАЯ ЯПОНСКАЯ РЕТРО-ГАММА (вайбы, глубина, атмосфера) === */
+:root {
+  --bg: #1E1E1E;          /* темно-серый */
+  --card-bg: #2D2D30;     /* фон карточек */
+  --text: #E0E0E0;        /* светлый текст */
+  --text-muted: #A0A0A0;  /* серый текст */
+  --accent: #B83A2D;      /* киноварь */
+  --accent2: #4E6851;     /* зелёный сосны */
+  --accent3: #DCC9A9;     /* пергамент */
+  --border: #3A3A3D;      /* тёмная граница */
+  --glow: #B83A2D40;      /* свечение акцента */
+  --glow2: #4E685140;     /* свечение вторичного */
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  --radius: 16px;
+  --radius-btn: 50px;
+  --radius-course: 70px;
+  --transition: all 0.3s ease;
+  --gradient-primary: linear-gradient(135deg, var(--accent), var(--accent2));
+  --gradient-secondary: linear-gradient(135deg, var(--accent2), var(--accent));
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Montserrat', sans-serif; /* Шрифт везде */
+  line-height: 1.7;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* === ФОН С ЯПОНСКИМИ УЗОРАМИ, САКУРОЙ, КОДОМ И ЦИФРОВЫМ ШУМОМ === */
+.code-bg {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-image: 
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Ctext x='10' y='20' fill='%233a3a3d' font-size='10' font-family='monospace'%3E%3C%21--%20%2F*%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%......%3E%3C/text%3E%3C/svg%3E");
+  background-size: 200px;
+  opacity: 0.15;
+  z-index: -3;
+  pointer-events: none;
+  animation: scrollCode 120s linear infinite;
+}
+
+@keyframes scrollCode {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 1000px; }
+}
+
+/* === КОНТЕЙНЕР === */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  position: relative;
+}
+
+/* === НАВБАР === */
+.navbar {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  background: rgba(30, 30, 30, 0.95);
+  backdrop-filter: blur(8px);
+  padding: 1.2rem 0;
+  z-index: 1000;
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+.navbar .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.nav-logo {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--accent);
+  position: relative;
+}
+.nav-logo::before {
+  content: '┐';
+  position: absolute;
+  top: -10px;
+  left: -15px;
+  color: var(--accent2);
+  font-family: monospace;
+}
+.nav-phone {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--accent2);
+  margin-top: 4px;
+  font-weight: 400;
+  font-style: italic;
+}
+.nav-links {
+  display: flex;
+  gap: 1.2rem;
+  align-items: center;
+}
+.nav-btn {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 1.05rem;
+  color: var(--text);
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: var(--radius-btn);
+  transition: var(--transition);
+  position: relative;
+  border: 1px solid transparent;
+}
+.nav-btn::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background: var(--accent);
+  transition: width 0.3s;
+}
+.nav-btn:hover {
+  background: rgba(184, 58, 45, 0.1);
+  border-color: var(--border);
+  color: #fff;
+}
+.nav-btn:hover::after {
+  width: 70%;
+}
+.nav-btn.primary {
+  background: var(--gradient-primary);
+  color: white;
+  box-shadow: 0 0 15px var(--glow);
+}
+.nav-btn.primary:hover {
+  background: var(--gradient-secondary);
+  box-shadow: 0 0 20px var(--glow);
+  transform: translateY(-2px);
+}
+
+/* === БУРГЕР МЕНЮ === */
+.burger-menu {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 21px;
+  cursor: pointer;
+  z-index: 1001;
+}
+.burger-menu span {
+  height: 3px;
+  width: 100%;
+  background: var(--accent);
+  border-radius: 2px;
+  transition: 0.3s;
+}
+.navbar.active .nav-links {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 70%;
+  background: var(--bg);
+  padding: 80px 20px;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 2rem;
+  transform: translateX(100%);
+  transition: transform 0.5s ease;
+  z-index: 1000;
+}
+.navbar.active .nav-links.show {
+  transform: translateX(0);
+}
+.navbar.active .burger-menu span:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+.navbar.active .burger-menu span:nth-child(2) {
+  opacity: 0;
+}
+.navbar.active .burger-menu span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* === HERO (растянутый, украшенный) === */
+.hero {
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: radial-gradient(circle at center, rgba(78, 104, 81, 0.08), transparent 80%);
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(184, 58, 45, 0.1), transparent 70%);
+  filter: blur(50px);
+  z-index: -1;
+  animation: pulseGlow 6s ease-in-out infinite alternate;
+}
+@keyframes pulseGlow {
+  0% { opacity: 0.08; transform: translateX(-50%) scale(1); }
+  100% { opacity: 0.15; transform: translateX(-50%) scale(1.2); }
+}
+.hero h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 4.5rem;
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 1.8rem;
+  color: var(--text);
+  text-shadow: 0 0 20px var(--glow2);
+  position: relative;
+  letter-spacing: -1px;
+}
+.hero h1 span {
+  color: var(--accent);
+  animation: pulse 2.5s infinite;
+  display: inline-block;
+}
+@keyframes pulse {
+  0%, 100% { text-shadow: 0 0 15px var(--accent), 0 0 30px var(--accent); }
+  50% { text-shadow: 0 0 8px var(--accent), 0 0 15px var(--accent); }
+}
+.hero h1::before {
+  content: '未来';
+  position: absolute;
+  top: -70px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.5rem;
+  color: var(--accent2);
+  opacity: 0.6;
+  font-family: 'Space Grotesk', sans-serif;
+  text-shadow: 0 0 10px var(--glow2);
+}
+.subtitle {
+  font-size: 1.3rem;
+  color: var(--text-muted);
+  max-width: 700px;
+  margin: 0 auto 3rem;
+  font-style: italic;
+}
+.hero-cta {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* === КНОПКИ === */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 32px;
+  border-radius: var(--radius-btn);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 1.05rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transition);
+  border: none;
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid transparent;
+}
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  transition: left 0.5s;
+}
+.btn:hover::before {
+  left: 100%;
+}
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+}
+.btn.primary {
+  background: var(--gradient-primary);
+  color: white;
+  box-shadow: 0 0 15px var(--glow);
+}
+.btn.primary:hover {
+  background: var(--gradient-secondary);
+  box-shadow: 0 0 20px var(--glow2);
+}
+.btn.outline {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+.btn.outline:hover {
+  background: rgba(184, 58, 45, 0.1);
+  border-color: var(--accent);
+  color: white;
+}
+.btn.small {
+  padding: 10px 24px;
+  font-size: 0.95rem;
+}
+.btn.big {
+  padding: 18px 40px;
+  font-size: 1.15rem;
+}
+
+/* === СЕКЦИИ === */
+.section {
+  padding: 10rem 0;
+  position: relative;
+  background: radial-gradient(circle at center, rgba(78, 104, 81, 0.03), transparent 80%);
+}
+.section-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 2rem;
+  text-align: center;
+  position: relative;
+  color: #fff;
+  text-shadow: 0 0 10px var(--glow2);
+}
+.section-title::before,
+.section-title::after {
+  content: ' ≪ ≫ ';
+  position: absolute;
+  top: 0;
+  color: var(--accent2);
+  font-size: 1.2rem;
+  opacity: 0.6;
+}
+.section-title::before {
+  left: -60px;
+}
+.section-title::after {
+  right: -60px;
+}
+.section-lead {
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  max-width: 800px;
+  margin: 0 auto 3.5rem;
+}
+
+/* === ОБО МНЕ === */
+.about-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+}
+.about-text p {
+  font-size: 1.15rem;
+  margin-bottom: 1.2rem;
+  position: relative;
+  line-height: 1.8;
+}
+.about-text p::first-letter {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--accent);
+  float: left;
+  margin-right: 0.5rem;
+  line-height: 1;
+  text-shadow: 0 0 10px var(--glow);
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+.stat {
+  text-align: center;
+  background: var(--card-bg);
+  padding: 1.4rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+.stat::before {
+  content: '学';
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.8rem;
+  color: var(--accent2);
+  font-family: 'Space Grotesk', sans-serif;
+  text-shadow: 0 0 5px var(--glow2);
+}
+.stat:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+  border-color: var(--accent);
+}
+.stat-num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: var(--accent);
+  display: block;
+  text-shadow: 0 0 10px var(--glow);
+}
+.stat-label {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+.photo-img {
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  display: block;
+  margin: 0 auto;
+  border: 2px solid var(--border);
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  object-fit: cover;
+}
+.photo-img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px var(--glow);
+}
+
+/* === ПОЧЕМУ Я? === */
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2.5rem;
+  margin-top: 2.5rem;
+}
+.why-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 2.4rem;
+  text-align: center;
+  transition: var(--transition);
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+.why-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 6px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s ease;
+}
+.why-card:hover::before {
+  transform: scaleX(1);
+}
+.why-card:hover {
+  transform: translateY(-8px);
+  background: rgba(184, 58, 45, 0.05);
+  border-color: var(--accent);
+}
+.why-icon {
+  font-size: 3rem;
+  margin-bottom: 1.4rem;
+  color: var(--accent);
+  transition: transform 0.4s;
+  text-shadow: 0 0 10px var(--glow);
+  font-weight: 700;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.why-card:hover .why-icon {
+  transform: scale(1.2) rotate(10deg);
+}
+.why-card h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.5rem;
+  margin-bottom: 1.2rem;
+  color: var(--text);
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+.why-card p {
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+/* === КУРСЫ === */
+.courses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2.5rem;
+}
+.course-card {
+  background: var(--card-bg);
+  border-radius: var(--radius-course); /* 70px */
+  padding: 2.4rem;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+.course-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 6px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s ease;
+}
+.course-card:hover::before {
+  transform: scaleX(1);
+}
+.course-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+}
+.course-card.featured {
+  border-top: 6px solid var(--accent);
+}
+.course-tag {
+  display: inline-block;
+  background: rgba(184, 58, 45, 0.1);
+  color: var(--accent);
+  font-size: 0.85rem;
+  padding: 6px 16px;
+  border-radius: var(--radius-btn);
+  margin-bottom: 1.4rem;
+  font-weight: 600;
+  font-family: 'Montserrat', sans-serif;
+}
+.course-card h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.5rem;
+  margin-bottom: 1.4rem;
+  color: var(--text);
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+.course-features {
+  list-style: none;
+  margin: 1.8rem 0;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+.course-features li {
+  margin-bottom: 0.8rem;
+  position: relative;
+  padding-left: 1.8rem;
+}
+.course-features li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--accent2);
+  font-weight: bold;
+  text-shadow: 0 0 5px var(--glow2);
+}
+.centered-btn {
+  text-align: center;
+  margin-top: 1.5rem;
+  position: relative;
+}
+.centered-btn .btn {
+  padding: 14px 40px !important; /* 40px padding */
+  border-radius: 30px !important; /* 30px radius */
+  color: #fff !important; /* White text */
+  text-decoration: none !important;
+}
+/* === ПРАЙС === */
+.price-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2.5rem;
+  margin-top: 2.5rem;
+}
+.price-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 3rem 2.4rem;
+  text-align: center;
+  box-shadow: var(--shadow);
+  position: relative;
+  border: 1px solid var(--border);
+  transition: var(--transition);
+}
+.price-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+}
+.popular-badge {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent);
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 6px 20px;
+  border-radius: var(--radius-btn);
+  font-family: 'Montserrat', sans-serif;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+.price-card h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.6rem;
+  margin-bottom: 1.2rem;
+  color: var(--text);
+}
+.price {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin: 1.2rem 0;
+  text-shadow: 0 0 10px var(--glow);
+}
+.price-features {
+  list-style: none;
+  margin: 1.8rem 0;
+  color: var(--text-muted);
+}
+.price-features li {
+  margin-bottom: 0.9rem;
+}
+.price-note {
+  text-align: center;
+  font-size: 1.1rem;
+  margin-top: 2.5rem;
+  color: var(--accent);
+  font-weight: 600;
+  text-shadow: 0 0 10px var(--glow);
+}
+/* === КНОПКА В ПОПУЛЯРНОМ ПАКЕТЕ === */
+.price-card.popular {
+  border: 2px solid var(--accent); /* Highlight */
+  box-shadow: 0 0 20px rgba(184, 58, 45, 0.4); /* Glow */
+  transform: scale(1.05); /* Bigger */
+}
+.price-card.popular .btn {
+  position: absolute;
+  bottom: 2.4rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+/* === ОТЗЫВЫ === */
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2.5rem;
+  margin-top: 2.5rem;
+}
+.review-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 2.4rem;
+  position: relative;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+}
+.review-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+}
+.review-card::before {
+  content: '"';
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 4rem;
+  color: var(--accent);
+  opacity: 0.1;
+  line-height: 1;
+  text-shadow: 0 0 10px var(--glow);
+}
+.review-card p {
+  font-style: italic;
+  margin-bottom: 1.4rem;
+  color: var(--text);
+  position: relative;
+  line-height: 1.8;
+}
+.review-card p::first-line {
+  font-weight: 600;
+  color: var(--accent2);
+}
+.review-author {
+  font-weight: 600;
+  color: var(--accent);
+}
+
+/* === КОНТАКТЫ === */
+.contact-methods {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 3.5rem;
+}
+.contact-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 32px;
+  border-radius: var(--radius-btn);
+  font-weight: 600;
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+  transition: var(--transition);
+  border: 1px solid transparent;
+}
+.contact-btn:hover {
+  transform: translateY(-4px);
+}
+.contact-btn.telegram {
+  background: #26a7e4;
+  color: white;
+  box-shadow: 0 0 15px rgba(38, 167, 228, 0.3);
+}
+.contact-btn.email {
+  background: var(--card-bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+.contact-btn.email:hover {
+  background: rgba(184, 58, 45, 0.1);
+  border-color: var(--accent);
+}
+.contact-form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+.contact-form input,
+.contact-form select {
+  width: 100%;
+  padding: 16px 24px;
+  margin-bottom: 1.2rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: 1.1rem;
+  background: var(--card-bg);
+  color: var(--text);
+  transition: border 0.3s, box-shadow 0.3s;
+}
+.contact-form input:focus,
+.contact-form select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 15px var(--glow);
+}
+.contact-form button {
+  width: 100%;
+}
+
+/* === FOOTER === */
+footer {
+  padding: 4rem 0;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  border-top: 1px solid var(--border);
+  background: rgba(30, 30, 30, 0.8);
+  backdrop-filter: blur(4px);
+  position: relative;
+}
+.footer-deco {
+  color: var(--accent);
+  font-size: 1.2rem;
+  letter-spacing: 4px;
+  margin-top: 1rem;
+}
+
+/* === АНИМАЦИИ === */
+[data-animate] {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: opacity 1s ease, transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-animate].visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* === АДАПТИВ === */
+@media (max-width: 950px) {
+  .hero h1 { font-size: 3.5rem; }
+  .about-content { grid-template-columns: 1fr; text-align: center; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .navbar .container { flex-direction: column; gap: 1.2rem; }
+  .nav-links { display: none; }
+  .burger-menu { display: flex; }
+  .nav-links.show { display: flex; }
+}
+@media (max-width: 650px) {
+  .hero { min-height: 100vh; padding: 160px 0 80px; }
+  .hero h1 { font-size: 2.8rem; }
+  .section { padding: 6rem 0; }
+  .btn { padding: 12px 24px; font-size: 1rem; }
+  .contact-methods { flex-direction: column; }
+  .section-title { font-size: 2.5rem; }
+}
+
+/* === ТЕМНАЯ ЯПОНСКАЯ РЕТРО-ГАММА (вайбы, глубина, атмосфера) === */
+:root {
+  --bg: #1E1E1E;          /* темно-серый */
+  --card-bg: #2D2D30;     /* фон карточек */
+  --text: #E0E0E0;        /* светлый текст */
+  --text-muted: #A0A0A0;  /* серый текст */
+  --accent: #B83A2D;      /* киноварь */
+  --accent2: #4E6851;     /* зелёный сосны */
+  --accent3: #DCC9A9;     /* пергамент */
+  --border: #3A3A3D;      /* тёмная граница */
+  --glow: #B83A2D40;      /* свечение акцента */
+  --glow2: #4E685140;     /* свечение вторичного */
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  --radius: 16px;
+  --radius-btn: 50px;
+  --transition: all 0.3s ease;
+  --gradient-primary: linear-gradient(135deg, var(--accent), var(--accent2));
+  --gradient-secondary: linear-gradient(135deg, var(--accent2), var(--accent));
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'IBM Plex Mono', monospace;
+  line-height: 1.7;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* === ФОН С КОДОМ, НЕОНОМ, ГЛИТЧАМИ === */
+.code-bg {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-image: 
+    url("image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Ctext x='10' y='20' fill='%233a3a3d' font-size='10' font-family='monospace'%3E%3C%21--%20%2F*%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F......%3E%3C/text%3E%3C/svg%3E");
+  background-size: 200px;
+  opacity: 0.15;
+  z-index: -3;
+  pointer-events: none;
+  animation: scrollCode 120s linear infinite;
+}
+
+@keyframes scrollCode {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 1000px; }
+}
+
+/* === КОНТЕЙНЕР === */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  position: relative;
+}
+
+/* === НАВБАР (увеличенный, с анимацией, свечением, глитчами, японскими узорами, кодом, глубиной, вайбом, атмосферой будущего, красиво, дорого) === */
+.navbar {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100px; /* ← увеличили высоту */
+  background: rgba(30, 30, 30, 0.95);
+  backdrop-filter: blur(8px);
+  padding: 2rem 0; /* ← увеличили внутренний отступ */
+  z-index: 1000;
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+.navbar .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%; /* ← чтобы элементы были по центру */
+}
+.nav-logo {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 2rem; /* ← увеличили размер */
+  font-weight: 700;
+  color: var(--accent);
+  position: relative;
+  animation: glowPulse 3s infinite alternate; /* ← добавили анимацию свечения */
+}
+@keyframes glowPulse {
+  0% { text-shadow: 0 0 5px var(--accent); }
+  100% { text-shadow: 0 0 20px var(--accent), 0 0 30px var(--accent); }
+}
+.nav-logo::before {
+  content: '┐';
+  position: absolute;
+  top: -12px;
+  left: -18px;
+  color: var(--accent2);
+  font-family: monospace;
+  font-size: 1.2rem; /* ← увеличили размер */
+}
+.nav-phone {
+  display: block;
+  font-size: 1rem; /* ← увеличили размер */
+  color: var(--accent2);
+  margin-top: 6px;
+  font-weight: 400;
+  font-style: italic;
+}
+.nav-links {
+  display: flex;
+  gap: 1.5rem; /* ← увеличили отступ между кнопками */
+}
+.nav-btn {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 500;
+  font-size: 1.1rem; /* ← увеличили размер */
+  color: var(--text);
+  text-decoration: none;
+  padding: 12px 24px; /* ← увеличили внутренний отступ */
+  border-radius: var(--radius-btn);
+  transition: var(--transition);
+  position: relative;
+  border: 1px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px; /* ← зафиксировали высоту */
+}
+.nav-btn::after {
+  content: '';
+  position: absolute;
+  bottom: -6px; /* ← увеличили отступ снизу */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 3px; /* ← увеличили высоту линии */
+  background: var(--accent);
+  transition: width 0.3s;
+}
+.nav-btn:hover {
+  background: rgba(184, 58, 45, 0.1);
+  border-color: var(--border);
+  color: #fff;
+  transform: translateY(-3px); /* ← добавили поднятие при наведении */
+  box-shadow: 0 4px 10px var(--glow); /* ← добавили тень */
+}
+.nav-btn:hover::after {
+  width: 80%; /* ← увеличили ширину линии */
+}
+.nav-btn.primary {
+  background: var(--gradient-primary);
+  color: white;
+  box-shadow: 0 0 15px var(--glow);
+}
+.nav-btn.primary:hover {
+  background: var(--gradient-secondary);
+  box-shadow: 0 0 20px var(--glow2);
+  transform: translateY(-5px) scale(1.05); /* ← увеличили поднятие и масштаб */
+}
+
+/* === HERO (увеличенный, с анимацией, свечением, глитчами, японскими узорами, кодом, глубиной, вайбом, атмосферой будущего, красиво, дорого) === */
+.hero {
+  min-height: 100dvh; /* ← растянули на всю высоту экрана */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: radial-gradient(circle at center, rgba(78, 104, 81, 0.08), transparent 80%);
+  position: relative;
+  overflow: hidden;
+  padding: 0; /* ← убрали отступы */
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(184, 58, 45, 0.1), transparent 70%);
+  filter: blur(50px);
+  z-index: -1;
+  animation: pulseGlow 6s ease-in-out infinite alternate;
+}
+@keyframes pulseGlow {
+  0% { opacity: 0.08; transform: translateX(-50%) scale(1); }
+  100% { opacity: 0.15; transform: translateX(-50%) scale(1.2); }
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 900px; /* ← увеличили максимальную ширину */
+}
+.hero-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+  filter: blur(50px);
+  opacity: 0.1;
+  z-index: 1;
+  animation: pulseMainGlow 8s ease-in-out infinite alternate;
+}
+@keyframes pulseMainGlow {
+  0% { opacity: 0.08; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0.12; transform: translate(-50%, -50%) scale(1.3); }
+}
+.hero h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 4.5rem; /* ← увеличили размер */
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 1.8rem;
+  color: var(--text);
+  text-shadow: 0 0 20px var(--glow2);
+  position: relative;
+  letter-spacing: -1px;
+}
+.hero h1 span {
+  color: var(--accent);
+  animation: pulse 2.5s infinite;
+  display: inline-block;
+}
+@keyframes pulse {
+  0%, 100% { text-shadow: 0 0 15px var(--accent), 0 0 30px var(--accent); }
+  50% { text-shadow: 0 0 8px var(--accent), 0 0 15px var(--accent); }
+}
+.hero h1::before {
+  content: '未来'; /* ← добавили японские иероглифы */
+  position: absolute;
+  top: -70px; /* ← подняли выше */
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.5rem;
+  color: var(--accent2);
+  opacity: 0.6;
+  font-family: 'Space Grotesk', sans-serif;
+  text-shadow: 0 0 10px var(--glow2);
+}
+.subtitle {
+  font-size: 1.3rem; /* ← увеличили размер */
+  color: var(--text-muted);
+  max-width: 700px;
+  margin: 0 auto 2.5rem; /* ← увеличили отступ снизу */
+  font-style: italic;
+}
+.hero-cta {
+  display: flex;
+  gap: 1.5rem; /* ← увеличили отступ между кнопками */
+  justify-content: center;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 3;
+}
+
+/* === КНОПКИ (все на одной высоте, красивые, с анимацией, свечением, глитчами, японскими узорами, кодом, глубиной, вайбом, атмосферой будущего, красиво, дорого) === */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px 36px; /* ← увеличили внутренний отступ */
+  border-radius: var(--radius-btn);
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 600;
+  font-size: 1.1rem; /* ← увеличили размер */
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transition);
+  border: none;
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid transparent;
+  min-height: 60px; /* ← зафиксировали минимальную высоту */
+  min-width: 220px; /* ← зафиксировали минимальную ширину для выравнивания */
+  text-align: center;
+}
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  transition: left 0.5s;
+}
+.btn:hover::before {
+  left: 100%;
+}
+.btn:hover {
+  transform: translateY(-4px) scale(1.03); /* ← увеличили поднятие и масштаб */
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4); /* ← увеличили тень */
+}
+.btn.primary {
+  background: var(--gradient-primary);
+  color: white;
+  box-shadow: 0 0 15px var(--glow);
+}
+.btn.primary:hover {
+  background: var(--gradient-secondary);
+  box-shadow: 0 0 25px var(--glow2); /* ← увеличили свечение */
+}
+.btn.outline {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+.btn.outline:hover {
+  background: rgba(184, 58, 45, 0.15); /* ← увеличили прозрачность фона */
+  border-color: var(--accent);
+  color: white;
+  box-shadow: 0 0 15px var(--glow); /* ← добавили свечение */
+}
+.btn.small {
+  padding: 12px 28px; /* ← увеличили внутренний отступ */
+  font-size: 1rem; /* ← увеличили размер */
+  min-width: 180px; /* ← зафиксировали минимальную ширину */
+  min-height: 50px; /* ← зафиксировали минимальную высоту */
+}
+.btn.big {
+  padding: 20px 44px; /* ← увеличили внутренний отступ */
+  font-size: 1.2rem; /* ← увеличили размер */
+  min-width: 260px; /* ← зафиксировали минимальную ширину */
+  min-height: 60px; /* ← зафиксировали минимальную высоту */
+}
+
+/* === СЕКЦИИ === */
+.section {
+  padding: 12rem 0; /* ← увеличили отступы сверху и снизу */
+  position: relative;
+  background: radial-gradient(circle at center, rgba(78, 104, 81, 0.03), transparent 80%);
+}
+.section-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 3rem; /* ← увеличили размер */
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 2rem;
+  text-align: center;
+  position: relative;
+  color: #fff;
+  text-shadow: 0 0 10px var(--glow2);
+}
+.section-title::before,
+.section-title::after {
+  content: ' ≪ ≫ '; /* ← заменили на японские скобки */
+  position: absolute;
+  top: 0;
+  color: var(--accent2);
+  font-size: 1.2rem;
+  opacity: 0.6;
+}
+.section-title::before {
+  left: -70px; /* ← увеличили отступ */
+}
+.section-title::after {
+  right: -70px; /* ← увеличили отступ */
+}
+.section-lead {
+  text-align: center;
+  font-size: 1.25rem; /* ← увеличили размер */
+  color: var(--text-muted);
+  max-width: 800px;
+  margin: 0 auto 3.5rem; /* ← увеличили отступ снизу */
+}
+
+/* === ОТЗЫВЫ (увеличенный, с анимацией, свечением, глитчами, японскими узорами, кодом, глубиной, вайбом, атмосферой будущего, красиво, дорого) === */
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* ← уменьшили минимальную ширину карточки */
+  gap: 3rem; /* ← увеличили отступ между карточками */
+  margin-top: 3rem; /* ← увеличили отступ сверху */
+}
+.review-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 2.6rem; /* ← увеличили внутренний отступ */
+  position: relative;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  min-height: 220px; /* ← зафиксировали минимальную высоту */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.review-card::before {
+  content: '"';
+  position: absolute;
+  top: 26px; /* ← увеличили отступ сверху */
+  left: 26px; /* ← увеличили отступ слева */
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 4.5rem; /* ← увеличили размер */
+  color: var(--accent);
+  opacity: 0.1;
+  line-height: 1;
+  text-shadow: 0 0 15px var(--glow); /* ← увеличили свечение */
+}
+.review-card p {
+  font-style: italic;
+  margin-bottom: 1.6rem; /* ← увеличили отступ снизу */
+  color: var(--text);
+  position: relative;
+  line-height: 1.8;
+  flex-grow: 1; /* ← растягиваем текст */
+}
+.review-card p::first-line {
+  font-weight: 600;
+  color: var(--accent2);
+}
+.review-author {
+  font-weight: 600;
+  color: var(--accent);
+  align-self: flex-end; /* ← выравниваем автора по правому краю */
+}
+.review-card:hover {
+  transform: translateY(-8px); /* ← увеличили поднятие */
+  box-shadow: 0 12px 30px rgba(0,0,0,0.3), 0 0 20px var(--glow); /* ← добавили свечение */
+  border-color: var(--accent);
+}
+
+/* === ОСТАЛЬНОЕ (без изменений) === */
+/* (Здесь идут стили для .about-content, .why-grid, .courses-grid, .price-grid и т.д.) */
+/* (Они остаются как есть, но можно тоже "улучшить по вайбу", если хочешь) */
+
+/* === FOOTER === */
+footer {
+  padding: 5rem 0; /* ← увеличили отступы */
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 1rem; /* ← увеличили размер */
+  border-top: 1px solid var(--border);
+  background: rgba(30, 30, 30, 0.8);
+  backdrop-filter: blur(4px);
+  position: relative;
+}
+.footer-deco {
+  color: var(--accent);
+  font-size: 1.4rem; /* ← увеличили размер */
+  letter-spacing: 5px; /* ← увеличили интервал */
+  margin-top: 1.2rem; /* ← увеличили отступ сверху */
+}
+
+/* === АНИМАЦИИ === */
+[data-animate] {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: opacity 1s ease, transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-animate].visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* === АДАПТИВ === */
+@media (max-width: 950px) {
+  .hero h1 { font-size: 3.5rem; }
+  .about-content { grid-template-columns: 1fr; text-align: center; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .navbar .container { flex-direction: column; gap: 1.2rem; }
+  .nav-links { flex-wrap: wrap; justify-content: center; }
+  .hero-cta { flex-direction: column; align-items: center; }
+  .btn.big { width: 100%; } /* ← кнопки на мобильных - на всю ширину */
+}
+@media (max-width: 650px) {
+  .hero { min-height: 90vh; padding: 160px 0 80px; }
+  .hero h1 { font-size: 2.8rem; }
+  .section { padding: 8rem 0; } /* ← уменьшили отступы на мобильных */
+  .btn { padding: 14px 24px; font-size: 1rem; min-width: auto; } /* ← убрали фиксированную ширину на мобильных */
+  .contact-methods { flex-direction: column; }
+  .section-title { font-size: 2.5rem; }
+  .reviews-grid { grid-template-columns: 1fr; } /* ← отзывы на мобильных - одна колонка */
+}
+
+/* === ТЕМНАЯ ЯПОНСКАЯ РЕТРО-ГАММА (вайбы, глубина, атмосфера) === */
+:root {
+  --bg: #0D1210;          /* глубокий тёплый чёрный */
+  --card-bg: #1A1F1C;     /* фон карточек */
+  --text: #E8E8E8;        /* светлый текст */
+  --text-muted: #C0C0C0;  /* серый текст */
+  --text-subtle: #A0A0A0; /* светло-серый текст */
+  --accent: #D94A3C;      /* тёплый бархатный красный */
+  --accent2: #5A7A63;     /* свежий зелёный */
+  --accent3: #F0E6D2;     /* кремовый пергамент */
+  --border: #2D322F;      /* тёплая граница */
+  --glow: #D94A3C40;      /* свечение акцента */
+  --glow2: #5A7A6340;     /* свечение вторичного */
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  --radius: 16px;
+  --radius-btn: 50px;
+  --transition: all 0.3s ease;
+  --gradient-primary: linear-gradient(135deg, var(--accent), var(--accent2));
+  --gradient-secondary: linear-gradient(135deg, var(--accent2), var(--accent));
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'IBM Plex Mono', monospace;
+  line-height: 1.7;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* === ФОН С КОДОМ, НЕОНОМ, ГЛИТЧАМИ === */
+.code-bg {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-image: 
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Ctext x='10' y='20' fill='%232d322f' font-size='10' font-family='monospace'%3E%3C%21--%20%2F*%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2F%2F%20%2......%3E%3C/text%3E%3C/svg%3E");
+  background-size: 200px;
+  opacity: 0.12;
+  z-index: -3;
+  pointer-events: none;
+  animation: scrollCode 120s linear infinite;
+}
+
+@keyframes scrollCode {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 1000px; }
+}
+
+/* === КОНТЕЙНЕР === */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  position: relative;
+}
+
+/* === НАВБАР (увеличенный, с анимацией, свечением, глитчами, японскими узорами, кодом, глубиной, вайбом, атмосферой будущего, красиво, дорого) === */
+.navbar {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 90px; /* ← увеличили высоту */
+  background: rgba(13, 18, 16, 0.95); /* ← обновили цвет */
+  backdrop-filter: blur(8px);
+  padding: 1.8rem 0; /* ← увеличили внутренний отступ */
+  z-index: 1000;
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+.navbar .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%; /* ← зафиксировали высоту */
+}
+.nav-logo {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.9rem; /* ← увеличили размер */
+  font-weight: 700;
+  color: var(--accent);
+  position: relative;
+  animation: logoGlow 3s infinite alternate; /* ← добавили анимацию свечения */
+}
+@keyframes logoGlow {
+  0% { text-shadow: 0 0 5px var(--accent); }
+  100% { text-shadow: 0 0 15px var(--accent), 0 0 25px var(--accent); }
+}
+.nav-logo::before {
+  content: '┐';
+  position: absolute;
+  top: -12px;
+  left: -18px;
+  color: var(--accent2);
+  font-family: monospace;
+  font-size: 1.1rem; /* ← увеличили размер */
+}
+.nav-phone {
+  display: block;
+  font-size: 0.95rem; /* ← увеличили размер */
+  color: var(--accent2);
+  margin-top: 5px; /* ← увеличили отступ */
+  font-weight: 400;
+  font-style: italic;
+}
+.nav-links {
+  display: flex;
+  gap: 1.3rem; /* ← увеличили отступ */
+  align-items: center;
+}
+.nav-btn {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 500;
+  font-size: 1.1rem; /* ← увеличили размер */
+  color: var(--text);
+  text-decoration: none;
+  padding: 12px 20px; /* ← увеличили внутренний отступ */
+  border-radius: var(--radius-btn);
+  transition: var(--transition);
+  position: relative;
+  border: 1px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px; /* ← зафиксировали высоту */
+  min-width: 120px; /* ← зафиксировали ширину */
+}
+.nav-btn::after {
+  content: '';
+  position: absolute;
+  bottom: -6px; /* ← увеличили отступ */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 3px; /* ← увеличили высоту */
+  background: var(--accent);
+  transition: width 0.3s;
+}
+.nav-btn:hover {
+  background: rgba(217, 74, 60, 0.12); /* ← увеличили прозрачность */
+  border-color: var(--border);
+  color: #fff;
+  transform: translateY(-3px); /* ← добавили поднятие */
+  box-shadow: 0 4px 12px var(--glow); /* ← добавили тень */
+}
+.nav-btn:hover::after {
+  width: 80%; /* ← увеличили ширину */
+}
+.nav-btn.primary {
+  background: var(--gradient-primary);
+  color: white;
+  box-shadow: 0 0 15px var(--glow);
+}
+.nav-btn.primary:hover {
+  background: var(--gradient-secondary);
+  box-shadow: 0 0 20px var(--glow2);
+  transform: translateY(-5px) scale(1.03); /* ← увеличили поднятие и масштаб */
+}
+
+/* === HERO (увеличенный, с анимацией, свечением, глитчами, японскими узорами, кодом, глубиной, вайбом, атмосферой будущего, красиво, дорого) === */
+.hero {
+  min-height: 100dvh; /* ← растянули на всю высоту */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: radial-gradient(circle at center, rgba(90, 122, 99, 0.08), transparent 80%);
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(217, 74, 60, 0.1), transparent 70%);
+  filter: blur(50px);
+  z-index: -1;
+  animation: pulseGlow 6s ease-in-out infinite alternate;
+}
+@keyframes pulseGlow {
+  0% { opacity: 0.08; transform: translateX(-50%) scale(1); }
+  100% { opacity: 0.15; transform: translateX(-50%) scale(1.2); }
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 900px; /* ← увеличили ширину */
+}
+.hero-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+  filter: blur(50px);
+  opacity: 0.1;
+  z-index: 1;
+  animation: pulseMainGlow 8s ease-in-out infinite alternate;
+}
+@keyframes pulseMainGlow {
+  0% { opacity: 0.08; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0.12; transform: translate(-50%, -50%) scale(1.3); }
+}
+.hero h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 4.8rem; /* ← увеличили размер */
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 2rem; /* ← увеличили отступ */
+  color: var(--text);
+  text-shadow: 0 0 20px var(--glow2);
+  position: relative;
+  letter-spacing: -1px;
+}
+.hero h1 span {
+  color: var(--accent);
+  animation: pulse 2.5s infinite;
+  display: inline-block;
+}
+@keyframes pulse {
+  0%, 100% { text-shadow: 0 0 15px var(--accent), 0 0 30px var(--accent); }
+  50% { text-shadow: 0 0 8px var(--accent), 0 0 15px var(--accent); }
+}
+.hero h1::before {
+  content: '未来';
+  position: absolute;
+  top: -70px; /* ← подняли выше */
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.6rem; /* ← увеличили размер */
+  color: var(--accent2);
+  opacity: 0.6;
+  font-family: 'Space Grotesk', sans-serif;
+  text-shadow: 0 0 10px var(--glow2);
+}
+.subtitle {
+  font-size: 1.4rem; /* ← увеличили размер */
+  color: var(--text-muted);
+  max-width: 720px; /* ← увеличили ширину */
+  margin: 0 auto 3rem; /* ← увеличили отступ */
+  font-style: italic;
+}
+.hero-cta {
+  display: flex;
+  gap: 1.8rem; /* ← увеличили отступ */
+  justify-content: center;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 3;
+}
+
+/* === КНОПКИ (все на одном уровне, красивые, с анимацией, свечением, глитчами, японскими узорами, кодом, глубиной, вайбом, атмосферой будущего, красиво, дорого) === */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px 36px; /* ← увеличили внутренний отступ */
+  border-radius: var(--radius-btn);
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 600;
+  font-size: 1.1rem; /* ← увеличили размер */
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transition);
+  border: none;
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid transparent;
+  min-height: 60px; /* ← зафиксировали высоту */
+  min-width: 240px; /* ← зафиксировали ширину */
+  text-align: center;
+}
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  transition: left 0.6s;
+}
+.btn:hover::before {
+  left: 100%;
+}
+.btn:hover {
+  transform: translateY(-4px) scale(1.03); /* ← увеличили поднятие и масштаб */
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4); /* ← увеличили тень */
+}
+.btn.primary {
+  background: var(--gradient-primary);
+  color: white;
+  box-shadow: 0 0 15px var(--glow);
+}
+.btn.primary:hover {
+  background: var(--gradient-secondary);
+  box-shadow: 0 0 25px var(--glow2); /* ← увеличили свечение */
+}
+.btn.outline {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+.btn.outline:hover {
+  background: rgba(217, 74, 60, 0.15); /* ← увеличили прозрачность */
+  border-color: var(--accent);
+  color: white;
+  box-shadow: 0 0 15px var(--glow); /* ← добавили свечение */
+}
+.btn.small {
+  padding: 12px 28px; /* ← увеличили внутренний отступ */
+  font-size: 1rem; /* ← увеличили размер */
+  min-width: 180px; /* ← зафиксировали ширину */
+  min-height: 50px; /* ← зафиксировали высоту */
+}
+.btn.big {
+  padding: 20px 44px; /* ← увеличили внутренний отступ */
+  font-size: 1.2rem; /* ← увеличили размер */
+  min-width: 280px; /* ← зафиксировали ширину */
+  min-height: 60px; /* ← зафиксировали высоту */
+}
+
+/* === СЕКЦИИ === */
+.section {
+  padding: 11rem 0; /* ← увеличили отступ */
+  position: relative;
+  background: radial-gradient(circle at center, rgba(90, 122, 99, 0.04), transparent 80%);
+}
+.section-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 3.2rem; /* ← увеличили размер */
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 2.2rem; /* ← увеличили отступ */
+  text-align: center;
+  position: relative;
+  color: #fff;
+  text-shadow: 0 0 12px var(--glow2);
+}
+.section-title::before,
+.section-title::after {
+  content: ' ≪ ≫ '; /* ← заменили на японские скобки */
+  position: absolute;
+  top: 0;
+  color: var(--accent2);
+  font-size: 1.3rem; /* ← увеличили размер */
+  opacity: 0.6;
+}
+.section-title::before {
+  left: -70px; /* ← увеличили отступ */
+}
+.section-title::after {
+  right: -70px; /* ← увеличили отступ */
+}
+.section-lead {
+  text-align: center;
+  font-size: 1.3rem; /* ← увеличили размер */
+  color: var(--text-muted);
+  max-width: 820px; /* ← увеличили ширину */
+  margin: 0 auto 3.8rem; /* ← увеличили отступ */
+}
+
+/* === ОБО МНЕ === */
+.about-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5.5rem; /* ← увеличили отступ */
+  align-items: center;
+}
+.about-text p {
+  font-size: 1.2rem; /* ← увеличили размер */
+  margin-bottom: 1.4rem; /* ← увеличили отступ */
+  position: relative;
+  line-height: 1.8;
+}
+.about-text p::first-letter {
+  font-size: 2.8rem; /* ← увеличили размер */
+  font-weight: 700;
+  color: var(--accent);
+  float: left;
+  margin-right: 0.6rem; /* ← увеличили отступ */
+  line-height: 1;
+  text-shadow: 0 0 12px var(--glow); /* ← увеличили свечение */
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.6rem; /* ← увеличили отступ */
+  margin-top: 2.8rem; /* ← увеличили отступ */
+}
+.stat {
+  text-align: center;
+  background: var(--card-bg);
+  padding: 1.6rem; /* ← увеличили внутренний отступ */
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+.stat::before {
+  content: '学';
+  position: absolute;
+  top: -12px; /* ← увеличили отступ */
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.9rem; /* ← увеличили размер */
+  color: var(--accent2);
+  font-family: 'Space Grotesk', sans-serif;
+  text-shadow: 0 0 6px var(--glow2); /* ← увеличили свечение */
+}
+.stat:hover {
+  transform: translateY(-6px); /* ← увеличили поднятие */
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3); /* ← увеличили тень */
+  border-color: var(--accent);
+}
+.stat-num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 2.6rem; /* ← увеличили размер */
+  font-weight: 700;
+  color: var(--accent);
+  display: block;
+  text-shadow: 0 0 12px var(--glow); /* ← увеличили свечение */
+}
+.stat-label {
+  font-size: 1rem; /* ← увеличили размер */
+  color: var(--text-subtle);
+}
+.photo-img {
+  width: 280px; /* ← увеличили ширину */
+  height: 280px; /* ← увеличили высоту */
+  border-radius: 50%;
+  display: block;
+  margin: 0 auto;
+  border: 2px solid var(--border);
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  object-fit: cover;
+}
+.photo-img:hover {
+  transform: scale(1.08); /* ← увеличили масштаб */
+  box-shadow: 0 0 35px var(--glow); /* ← увеличили свечение */
+}
+
+/* === ПОЧЕМУ Я? === */
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2.8rem; /* ← увеличили отступ */
+  margin-top: 2.8rem; /* ← увеличили отступ */
+}
+.why-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 2.6rem; /* ← увеличили внутренний отступ */
+  text-align: center;
+  transition: var(--transition);
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+.why-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 6px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s ease;
+}
+.why-card:hover::before {
+  transform: scaleX(1);
+}
+.why-card:hover {
+  transform: translateY(-10px); /* ← увеличили поднятие */
+  background: rgba(217, 74, 60, 0.06); /* ← увеличили прозрачность */
+  border-color: var(--accent);
+}
+.why-icon {
+  font-size: 3.2rem; /* ← увеличили размер */
+  margin-bottom: 1.6rem; /* ← увеличили отступ */
+  color: var(--accent);
+  transition: transform 0.4s;
+  text-shadow: 0 0 12px var(--glow); /* ← увеличили свечение */
+  font-weight: 700;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.why-card:hover .why-icon {
+  transform: scale(1.25) rotate(12deg); /* ← увеличили масштаб и поворот */
+}
+.why-card h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.6rem; /* ← увеличили размер */
+  margin-bottom: 1.4rem; /* ← увеличили отступ */
+  color: var(--text);
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.4); /* ← увеличили свечение */
+}
+.why-card p {
+  color: var(--text-muted);
+  font-size: 1.1rem; /* ← увеличили размер */
+  line-height: 1.75; /* ← увеличили интерлиньяж */
+}
+
+/* === КУРСЫ === */
+.courses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2.8rem; /* ← увеличили отступ */
+}
+.course-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 2.6rem; /* ← увеличили внутренний отступ */
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+.course-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 6px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s ease;
+}
+.course-card:hover::before {
+  transform: scaleX(1);
+}
+.course-card:hover {
+  transform: translateY(-12px); /* ← увеличили поднятие */
+  box-shadow: 0 14px 35px rgba(0,0,0,0.35); /* ← увеличили тень */
+}
+.course-card.featured {
+  border-top: 6px solid var(--accent);
+}
+.course-tag {
+  display: inline-block;
+  background: rgba(217, 74, 60, 0.12); /* ← увеличили прозрачность */
+  color: var(--accent);
+  font-size: 0.9rem; /* ← увеличили размер */
+  padding: 7px 18px; /* ← увеличили внутренний отступ */
+  border-radius: var(--radius-btn);
+  margin-bottom: 1.6rem; /* ← увеличили отступ */
+  font-weight: 600;
+  font-family: 'IBM Plex Mono', monospace;
+}
+.course-card h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.6rem; /* ← увеличили размер */
+  margin-bottom: 1.6rem; /* ← увеличили отступ */
+  color: var(--text);
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.35); /* ← увеличили свечение */
+}
+.course-features {
+  list-style: none;
+  margin: 2rem 0; /* ← увеличили отступ */
+  font-size: 1rem; /* ← увеличили размер */
+  color: var(--text-muted);
+  line-height: 1.75; /* ← увеличили интерлиньяж */
+}
+.course-features li {
+  margin-bottom: 0.9rem; /* ← увеличили отступ */
+  position: relative;
+  padding-left: 1.8rem; /* ← увеличили отступ */
+}
+.course-features li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--accent2);
+  font-weight: bold;
+  text-shadow: 0 0 6px var(--glow2); /* ← увеличили свечение */
+}
+.centered-btn {
+  text-align: center;
+  margin-top: 2rem; /* ← увеличили отступ */
+  position: absolute;
+  bottom: 2.6rem; /* ← зафиксировали положение внизу */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 240px; /* ← зафиксировали ширину кнопки */
+}
+
+/* === ПРАЙС === */
+.price-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2.8rem; /* ← увеличили отступ */
+  margin-top: 2.8rem; /* ← увеличили отступ */
+}
+.price-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 3.2rem 2.6rem; /* ← увеличили внутренний отступ */
+  text-align: center;
+  box-shadow: var(--shadow);
+  position: relative;
+  border: 1px solid var(--border);
+  transition: var(--transition);
+}
+.price-card:hover {
+  transform: translateY(-10px); /* ← увеличили поднятие */
+  box-shadow: 0 14px 35px rgba(0,0,0,0.35); /* ← увеличили тень */
+}
+.popular-badge {
+  position: absolute;
+  top: -16px; /* ← увеличили отступ */
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent);
+  color: white;
+  font-size: 0.9rem; /* ← увеличили размер */
+  font-weight: 600;
+  padding: 7px 22px; /* ← увеличили внутренний отступ */
+  border-radius: var(--radius-btn);
+  font-family: 'IBM Plex Mono', monospace;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* ← увеличили тень */
+}
+.price-card h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.7rem; /* ← увеличили размер */
+  margin-bottom: 1.4rem; /* ← увеличили отступ */
+  color: var(--text);
+}
+.price {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 2rem; /* ← увеличили размер */
+  font-weight: 700;
+  color: var(--accent);
+  margin: 1.4rem 0; /* ← увеличили отступ */
+  text-shadow: 0 0 12px var(--glow); /* ← увеличили свечение */
+}
+.price-features {
+  list-style: none;
+  margin: 2rem 0; /* ← увеличили отступ */
+  color: var(--text-muted);
+}
+.price-features li {
+  margin-bottom: 1rem; /* ← увеличили отступ */
+}
+.price-note {
+  text-align: center;
+  font-size: 1.2rem; /* ← увеличили размер */
+  margin-top: 2.8rem; /* ← увеличили отступ */
+  color: var(--accent);
+  font-weight: 600;
+  text-shadow: 0 0 12px var(--glow); /* ← увеличили свечение */
+}
+
+/* === ОТЗЫВЫ (увеличенный, с анимацией, свечением, глитчами, японскими узорами, кодом, глубиной, вайбом, атмосферой будущего, красиво, дорого) === */
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 3rem; /* ← увеличили отступ */
+  margin-top: 3rem; /* ← увеличили отступ */
+}
+.review-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 2.6rem; /* ← увеличили внутренний отступ */
+  position: relative;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  min-height: 240px; /* ← зафиксировали минимальную высоту */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.review-card::before {
+  content: '"';
+  position: absolute;
+  top: 26px; /* ← увеличили отступ */
+  left: 26px; /* ← увеличили отступ */
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 4.8rem; /* ← увеличили размер */
+  color: var(--accent);
+  opacity: 0.12; /* ← увеличили прозрачность */
+  line-height: 1;
+  text-shadow: 0 0 15px var(--glow); /* ← увеличили свечение */
+}
+.review-card p {
+  font-style: italic;
+  margin-bottom: 1.6rem; /* ← увеличили отступ */
+  color: var(--text);
+  position: relative;
+  line-height: 1.8;
+  flex-grow: 1; /* ← растягиваем текст */
+}
+.review-card p::first-line {
+  font-weight: 600;
+  color: var(--accent2);
+}
+.review-author {
+  font-weight: 600;
+  color: var(--accent);
+  align-self: flex-end; /* ← выравниваем автора по правому краю */
+}
+.review-card:hover {
+  transform: translateY(-8px); /* ← увеличили поднятие */
+  box-shadow: 0 14px 35px rgba(0,0,0,0.35), 0 0 25px var(--glow); /* ← добавили свечение */
+  border-color: var(--accent);
+}
+
+/* === КОНТАКТЫ === */
+.contact-methods {
+  display: flex;
+  gap: 1.8rem; /* ← увеличили отступ */
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 3.8rem; /* ← увеличили отступ */
+}
+.contact-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* ← увеличили отступ */
+  padding: 16px 34px; /* ← увеличили внутренний отступ */
+  border-radius: var(--radius-btn);
+  font-weight: 600;
+  text-decoration: none;
+  font-family: 'IBM Plex Mono', monospace;
+  transition: var(--transition);
+  border: 1px solid transparent;
+  min-height: 60px; /* ← зафиксировали высоту */
+}
+.contact-btn:hover {
+  transform: translateY(-4px); /* ← увеличили поднятие */
+}
+.contact-btn.telegram {
+  background: #26a7e4;
+  color: white;
+  box-shadow: 0 0 18px rgba(38, 167, 228, 0.35); /* ← увеличили свечение */
+}
+.contact-btn.email {
+  background: var(--card-bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+.contact-btn.email:hover {
+  background: rgba(217, 74, 60, 0.15); /* ← увеличили прозрачность */
+  border-color: var(--accent);
+  box-shadow: 0 0 18px var(--glow); /* ← добавили свечение */
+}
+.contact-form {
+  max-width: 620px; /* ← увеличили ширину */
+  margin: 0 auto;
+}
+.contact-form input,
+.contact-form select {
+  width: 100%;
+  padding: 16px 26px; /* ← увеличили внутренний отступ */
+  margin-bottom: 1.4rem; /* ← увеличили отступ */
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: 1.1rem; /* ← увеличили размер */
+  background: var(--card-bg);
+  color: var(--text);
+  transition: border 0.3s, box-shadow 0.3s;
+}
+.contact-form input:focus,
+.contact-form select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 18px var(--glow); /* ← увеличили свечение */
+}
+.contact-form button {
+  width: 100%;
+}
+
+/* === FOOTER === */
+footer {
+  padding: 4.2rem 0; /* ← увеличили отступ */
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 1rem; /* ← увеличили размер */
+  border-top: 1px solid var(--border);
+  background: rgba(13, 18, 16, 0.85); /* ← обновили цвет */
+  backdrop-filter: blur(4px);
+  position: relative;
+}
+.footer-deco {
+  color: var(--accent);
+  font-size: 1.3rem; /* ← увеличили размер */
+  letter-spacing: 5px; /* ← увеличили интервал */
+  margin-top: 1.2rem; /* ← увеличили отступ */
+}
+
+/* === АНИМАЦИИ === */
+[data-animate] {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: opacity 1s ease, transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-animate].visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* === АДАПТИВ === */
+@media (max-width: 950px) {
+  .hero h1 { font-size: 3.8rem; } /* ← увеличили размер */
+  .about-content { grid-template-columns: 1fr; text-align: center; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .navbar .container { flex-direction: column; gap: 1.3rem; } /* ← увеличили отступ */
+  .nav-links { flex-wrap: wrap; justify-content: center; }
+  .hero-cta { flex-direction: column; align-items: center; }
+  .btn.big { width: 100%; } /* ← кнопки на мобильных - на всю ширину */
+}
+@media (max-width: 650px) {
+  .hero { min-height: 95vh; padding: 160px 0 80px; } /* ← увеличили высоту */
+  .hero h1 { font-size: 3rem; } /* ← увеличили размер */
+  .section { padding: 7rem 0; } /* ← увеличили отступ */
+  .btn { padding: 14px 28px; font-size: 1rem; min-width: auto; } /* ← убрали фиксированную ширину на мобильных */
+  .contact-methods { flex-direction: column; }
+  .section-title { font-size: 2.8rem; } /* ← увеличили размер */
+}
+
+/* === КНОПКИ (исправлено: все на одном уровне, одинаковой высоты, не улетают, не съезжают) === */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px 36px; /* ← фиксированный внутренний отступ */
+  border-radius: 50px; /* ← фиксированный радиус */
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 600;
+  font-size: 1.1rem; /* ← фиксированный размер */
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease; /* ← плавность */
+  border: none;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4); /* ← фиксированная тень */
+  position: relative;
+  overflow: hidden;
+  border: 1px solid transparent;
+  min-height: 60px; /* ← фиксированная высота */
+  min-width: 240px; /* ← фиксированная ширина */
+  text-align: center; /* ← выравнивание текста по центру */
+  vertical-align: middle; /* ← выравнивание по вертикали */
+}
+
+/* ← УБРАЛ ЭТОТ БЛОК (анимация при наведении) */
+/*
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  transition: left 0.5s;
+}
+.btn:hover::before {
+  left: 100%;
+}
+*/
+
+/* ← ПОПРАВИЛ АНИМАЦИЮ НА ПРОСТО ПОДЪЁМ */
+.btn:hover {
+  transform: translateY(-4px); /* ← только подъём */
+  box-shadow: 0 8px 25px rgba(0,0,0,0.5); /* ← увеличили тень при наведении */
+}
+
+.btn.primary {
+  background: linear-gradient(135deg, #B83A2D, #A03226); /* ← твой акцент */
+  color: white;
+  box-shadow: 0 0 15px rgba(184, 58, 45, 0.4); /* ← свечение */
+}
+.btn.primary:hover {
+  background: linear-gradient(135deg, #A03226, #B83A2D); /* ← поменяли местами для вайба */
+  box-shadow: 0 0 20px rgba(184, 58, 45, 0.6); /* ← увеличили свечение */
+}
+
+.btn.outline {
+  background: transparent;
+  color: #E0E0E0; /* ← белый текст */
+  border: 1px solid #3A3A3D; /* ← твоя граница */
+}
+.btn.outline:hover {
+  background: rgba(184, 58, 45, 0.15); /* ← фон при наведении */
+  border-color: #B83A2D; /* ← цвет границы при наведении */
+  color: white; /* ← текст остаётся белым */
+  box-shadow: 0 0 15px rgba(184, 58, 45, 0.3); /* ← добавили свечение */
+}
+
+.btn.small {
+  padding: 12px 28px; /* ← фиксированный отступ */
+  font-size: 1rem; /* ← фиксированный размер */
+  min-width: 180px; /* ← фиксированная ширина */
+  min-height: 50px; /* ← фиксированная высота */
+}
+
+.btn.big {
+  padding: 20px 44px; /* ← фиксированный отступ */
+  font-size: 1.2rem; /* ← фиксированный размер */
+  min-width: 280px; /* ← фиксированная ширина */
+  min-height: 60px; /* ← фиксированная высота */
+}
+
+/* === КНОПКИ В КАРТОЧКАХ КУРСОВ (исправлено: теперь на одном уровне) === */
+.course-card {
+  position: relative;
+}
+.centered-btn {
+  position: absolute;
+  bottom: 34px; /* ← фиксированное расстояние от низа карточки */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 240px; /* ← зафиксировали ширину кнопки */
+  margin-top: 0; /* ← убрали отступ сверху */
+}
+
+/* === КНОПКИ В ПРАЙСЕ (исправлено: теперь на одном уровне, популярная не улетает) === */
+.price-card {
+  position: relative;
+  padding-top: 60px; /* ← добавили отступ сверху, чтобы бейдж не съезжал */
+}
+.popular-badge {
+  position: absolute;
+  top: 20px; /* ← фиксированное положение бейджа */
+  left: 50%;
+  transform: translateX(-50%);
+  background: #B83A2D;
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 6px 20px;
+  border-radius: 50px;
+  font-family: 'IBM Plex Mono', monospace;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+}
+.price-card .btn {
+  position: absolute;
+  bottom: 36px; /* ← фиксированное расстояние от низа карточки */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 240px; /* ← зафиксировали ширину кнопки */
+  margin-top: 0; /* ← убрали отступ сверху */
+}
+
+/* ← УБРАЛ ЭТОТ БЛОК (анимация при наведении на популярную карточку) */
+/*
+.price-card.popular:hover {
+  transform: scale(1.03);  <- Это заставляло её "улетать"
+}
+*/
+.price-card.popular {
+  border: 1px solid #B83A2D; /* ← просто фиксированная граница */
+  box-shadow: 0 0 20px rgba(184, 58, 45, 0.2); /* ← фиксированное свечение */
+}
+.price-card.popular:hover {
+  transform: translateY(-10px); /* ← теперь только подъём */
+  box-shadow: 0 14px 40px rgba(0,0,0,0.4), 0 0 25px rgba(184, 58, 45, 0.3); /* ← фиксированное свечение */
+}
+
+/* === КНОПКИ В ОТЗЫВАХ (исправлено: выровнены) === */
+.contact-methods {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 3.5rem;
+}
+.contact-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 32px;
+  border-radius: 50px;
+  font-weight: 600;
+  text-decoration: none;
+  font-family: 'IBM Plex Mono', monospace;
+  transition: all 0.3s ease; /* ← плавность */
+  border: 1px solid transparent;
+  min-height: 60px; /* ← фиксированная высота */
+  text-align: center;
+}
+.contact-btn:hover {
+  transform: translateY(-4px); /* ← только подъём */
+}
+.contact-btn.telegram {
+  background: #26a7e4;
+  color: white;
+  box-shadow: 0 0 15px rgba(38, 167, 228, 0.3);
+}
+.contact-btn.email {
+  background: #2D2D30; /* ← твой фон */
+  color: #E0E0E0; /* ← белый текст */
+  border: 1px solid #3A3A3D; /* ← твоя граница */
+}
+.contact-btn.email:hover {
+  background: rgba(184, 58, 45, 0.15); /* ← фон при наведении */
+  border-color: #B83A2D; /* ← цвет границы при наведении */
+  color: white; /* ← текст остаётся белым */
+  box-shadow: 0 0 15px rgba(184, 58, 45, 0.3); /* ← добавили свечение */
+}
+
+/* === ФОРМА (кнопка) === */
+.contact-form button {
+  width: 100%;
+  padding: 16px;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  background: linear-gradient(135deg, #B83A2D, #A03226);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+.contact-form button:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.5), 0 0 20px rgba(184, 58, 45, 0.4);
+}
