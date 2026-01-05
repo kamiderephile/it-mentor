@@ -13,7 +13,6 @@
 
   <div class="code-bg"></div>
 
-  <!-- Фиксированный хедер с навигацией -->
   <header class="navbar">
     <div class="container">
       <div class="nav-logo">
@@ -22,7 +21,7 @@
       </div>
       <nav class="nav-links" id="navLinks">
         <a href="#about" class="nav-btn">Обо мне</a>
-        <a href="#why" class="nav-btn">Почему я?</a>
+        <a href="#why" class="nav-btn">Почему со мной?</a>
         <a href="#courses" class="nav-btn">Курсы</a>
         <a href="#price" class="nav-btn">Прайс</a>
         <a href="#contact" class="nav-btn primary">Записаться</a>
@@ -35,11 +34,10 @@
     </div>
   </header>
 
-  <!-- Hero -->
   <section id="hero" class="hero">
     <div class="container">
       <div class="hero-content">
-        <h1>Программируй будущее<br><span>с тем, кто <em>понимает</em></span></h1>
+        <h1>Программируй будущее<br><span>с тем, кто понимает</span></h1>
         <p class="subtitle">IT-репетитор в Приднестровье. Индивидуальные занятия для детей, подростков и взрослых.</p>
         <div class="hero-cta">
           <a href="#contact" class="btn primary big">Записаться на пробное занятие</a>
@@ -119,103 +117,147 @@
     </div>
   </section>
 
-  <section id="courses" class="section" data-animate>
-    <div class="container">
-      <h2 class="section-title">Мои курсы</h2>
-      <p class="section-lead">Все занятия - online, в Discord или Telegram. Возможны и offline встречи - обязательно наличие ПК. Первое занятие - скидка в 60% от стоимости = 25Р.</p>
+<section id="courses" class="section" data-animate>
+  <div class="container">
+    <h2 class="section-title">Мои курсы</h2>
+    <p class="section-lead">Все занятия - online, в Discord или Telegram. Возможны и offline встречи - обязательно наличие ПК. Первое занятие - скидка в 60% от стоимости = 50Р.</p>
 
-      <div class="courses-grid">
-        <div class="course-card featured">
-          <div class="course-tag">Детям 6–12 лет</div>
-          <h3>Программирование для детей: 2D-игры на сайте</h3>
-          <ul class="course-features">
-            <li>Итог: своя игра</li>
-            <li>Длительность: 5 занятий по 45/60 мин (зависит от возраста)</li>
-          </ul>
-          <div class="centered-btn">
-            <a href="#contact" class="btn small">Записаться</a>
-          </div>
+    <div class="courses-grid">
+      <div class="course-card featured">
+        <div class="course-tag">Детям 8–12 лет</div>
+        <h3>Программирование для детей: 2D-игры</h3>
+        <ul class="course-features">
+          <li>Изучение основ программирования и логики</li>
+          <li>5 занятий + финальный проект</li>
+        </ul>
+        <div class="centered-btn">
+          <a href="#contact" class="btn small">Записаться</a>
         </div>
+      </div>
 
-        <div class="course-card">
-          <div class="course-tag">Начинающим</div>
-          <h3>Python: от нуля - до проекта</h3>
-          <ul class="course-features">
-            <li>Telegram-бот, игры, сайты</li>
-            <li>Git, виртуальные окружения, тесты</li>
-            <li>5 занятий + финальный проект</li>
-          </ul>
-          <div class="centered-btn">
-            <a href="#contact" class="btn small">Записаться</a>
-          </div>
+      <div class="course-card">
+        <div class="course-tag">Старшеклассникам</div>
+        <h3>Алгоритмика и искусственный интеллект</h3>
+        <ul class="course-features">
+          <li>Изучение искусственного интеллекта, AI-промты</li>
+          <li>Структуры данных, оценка сложности</li>
+          <li>5 занятий + финальный проект</li>
+        </ul>
+        <div class="centered-btn">
+          <a href="#contact" class="btn small">Записаться</a>
         </div>
+      </div>
 
-        <div class="course-card">
-          <div class="course-tag">Творческим</div>
-          <h3>Визуальное программирование</h3>
-          <ul class="course-features">
-            <li>Анимации, генеративное искусство</li>
-            <li>2D-физика, одно/многостраничные сайты</li>
-            <li>5 занятий + выставка работ</li>
-          </ul>
-          <div class="centered-btn">
-            <a href="#contact" class="btn small">Записаться</a>
-          </div>
+      <div class="course-card">
+        <div class="course-tag">Творческим</div>
+        <h3>Визуальное программирование</h3>
+        <ul class="course-features">
+          <li>Анимации, генеративное искусство</li>
+          <li>2D-физика, одно/многостраничные сайты</li>
+          <li>5 занятий + выставка работ</li>
+        </ul>
+        <div class="centered-btn">
+          <a href="#contact" class="btn small">Записаться</a>
         </div>
+      </div>
 
-        <div class="course-card">
-          <div class="course-tag">Старшеклассникам</div>
-          <h3>Алгоритмика и искуственнй интеллект</h3>
-          <ul class="course-features">
-            <li>Изучение искуственного интеллекта, AI-промты</li>
-            <li>Структуры данных, оценка сложности</li>
-          </ul>
-          <div class="centered-btn">
-            <a href="#contact" class="btn small">Записаться</a>
-          </div>
+      <div class="course-card">
+        <div class="course-tag">Веб-разработка</div>
+        <h3>Создание сайтов</h3>
+        <ul class="course-features">
+          <li>HTML5, CSS3, JavaScript (ES6+)</li>
+          <li>React.js / Vue.js / Angular</li>
+          <li>Backend на Node.js или Python</li>
+          <li>Базы данных и API</li>
+          <li>Деплой и хостинг проектов</li>
+          <li>Создание портфолио</li>
+        </ul>
+        <div class="centered-btn">
+          <a href="#contact" class="btn small">Записаться</a>
+        </div>
+      </div>
+
+      <div class="course-card">
+        <div class="course-tag">Системное программирование</div>
+        <h3>Языки C: C++, C# и прочее</h3>
+        <ul class="course-features">
+          <li>C, C++, C# с нуля</li>
+          <li>Работа с памятью и указателями</li>
+          <li>Создание desktop-приложений</li>
+          <li>Игровая разработка на Unity (C#)</li>
+          <li>Оптимизация и многопоточность</li>
+          <li>Подготовка к собеседованиям</li>
+        </ul>
+        <div class="centered-btn">
+          <a href="#contact" class="btn small">Записаться</a>
+        </div>
+      </div>
+
+      <div class="course-card">
+        <div class="course-tag">Начинающим</div>
+        <h3>Python: от нуля - до проекта</h3>
+        <ul class="course-features">
+          <li>Telegram-бот, игры, сайты</li>
+          <li>Git, виртуальные окружения, тесты</li>
+          <li>5 занятий + финальный проект</li>
+        </ul>
+        <div class="centered-btn">
+          <a href="#contact" class="btn small">Записаться</a>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section id="price" class="section" data-animate>
-    <div class="container">
-      <h2 class="section-title">Прайс-лист</h2>
-      <div class="price-grid">
-        <div class="price-card">
-          <h3>Индивидуально</h3>
-          <div class="price">60Р = 1 занятие</div>
-          <ul class="price-features">
-            <li>Персональный план</li>
-            <li>Домашнее задание с объяснением</li>
-            <li>Стабильный прогресс</li>
-            <li>Записи занятий</li>
-          </ul>
-          <a href="#contact" class="btn outline small">Выбрать</a>
-        </div>
-        <div class="price-card popular">
-          <div class="popular-badge">Популярно</div>
-          <h3>Интенсив «Старт»</h3>
-          <div class="price">60Р = 1 занятие / 225Р = 5 занятий (экономия 75Р)</div>
-          <ul class="price-features">
-            <li>Путь в изучении программирования с нуля</li>
-            <li>Понятное объяснение, мини-проекты</li>
-          </ul>
-          <a href="#contact" class="btn primary small">Выбрать</a>
-        </div>
-        <div class="price-card">
-          <h3>Интенсив «Пользователь»</h3>
-          <div class="price">60Р = 1 занятие / 475Р = 10 занятий (экономия 125Р)</div>
-          <ul class="price-features">
-            <li>Уверенный старт в современном мире</li>
-            <li>Финальный проект</li>
-          </ul>
-          <a href="#contact" class="btn outline small">Выбрать</a>
+<section id="pricing" class="section" data-animate>
+  <div class="container">
+    <h2 class="section-title">Стоимость занятий</h2>
+    <p class="section-lead">Все цены - в рублях Приднестровья (Р ПМР)</p>
+
+    <div class="price-grid">
+      <div class="price-card">
+        <h3>Пробное занятие</h3>
+        <div class="price">50P</div>
+        <p>60% скидка. Познакомимся и напишем первую программу</p>
+        <ul class="price-features">
+          <li>45–60 минут</li>
+          <li>Диагностика уровня</li>
+          <li>План обучения</li>
+        </ul>
+        <div class="centered-btn">
+          <a href="#contact" class="btn">Записаться</a>
         </div>
       </div>
-      <p class="price-note">❗ Первое занятие - <strong>25Р | 60% СКИДКА</strong>.</p>
+
+      <div class="price-card recommended">
+        <div class="recommended-badge">Рекомендуется</div>
+        <h3>Индивидуальное</h3>
+        <div class="price">80P</div>
+        <ul class="price-features">
+          <li>60 минут</li>
+          <li>Домашнее задание + разбор</li>
+          <li>План обучения</li>
+        </ul>
+        <div class="centered-btn">
+          <a href="#contact" class="btn">Выбрать</a>
+        </div>
+      </div>
+
+      <div class="price-card">
+        <h3>Абонемент (5)</h3>
+        <div class="price">350P</div>
+        <p>5 занятий. Действует в течение прохождения занятий.</p>
+        <ul class="price-features">
+          <li>Экономия 50P</li>
+          <li>Гибкое расписание</li>
+        </ul>
+        <div class="centered-btn">
+          <a href="#contact" class="btn">Выбрать</a>
+        </div>
+      </div>
     </div>
-  </section>
+  </div>
+</section>
 
   <section id="reviews" class="section" data-animate>
     <div class="container">
