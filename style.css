@@ -2362,3 +2362,2986 @@ footer {
   transform: translateY(-4px);
   box-shadow: 0 8px 25px rgba(0,0,0,0.5), 0 0 20px rgba(184, 58, 45, 0.4);
 }
+
+/* === ГЛАСС-ЭФФЕКТ (как в iOS 18 — настоящее жидкое стекло) === */
+.glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 16px;
+  border: 1px solid rgba(105, 146, 154, 0.15);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 440px; /* ← текст влезает */
+}
+.glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(135deg,
+    rgba(105, 146, 154, 0.05) 0%,
+    transparent 50%,
+    rgba(185, 19, 10, 0.03) 100%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+.glass-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* === СЕТКА: 3 + 1 по центру (четвёртая — НЕ спичка!) === */
+.price-grid, .courses-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.2rem;
+}
+.price-card:nth-child(4), .course-card:nth-child(4) {
+  grid-column: 2 / span 1;
+  justify-self: center;
+  width: 100%; /* ← не узкая! */
+}
+
+/* === КНОПКИ В КАРТОЧКАХ — ВНИЗУ, ПО ЦЕНТРУ, БЕЛЫЙ ТЕКСТ === */
+.centered-btn {
+  margin-top: auto;
+  text-align: center;
+}
+.centered-btn .btn {
+  width: 240px;
+  margin: 0 auto;
+  color: #fff !important; /* ← белый текст — фиксировано */
+}
+
+/* === ВЫДЕЛЕНИЕ "РЕКОМЕНДУЕТСЯ" === */
+.recommended {
+  transform: translateY(-8px);
+  border: 2px solid var(--accent);
+  box-shadow:
+    0 8px 30px rgba(185, 19, 10, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+.recommended::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  z-index: 2;
+}
+.recommended-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--accent), #8a1a0a);
+  color: white;
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 6px 20px;
+  border-radius: 30px;
+  margin-bottom: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 12px rgba(185, 19, 10, 0.4);
+  position: relative;
+  z-index: 3;
+}
+.recommended-badge::before {
+  content: '★';
+  margin-right: 6px;
+}
+
+/* === СТИЛИ ЦЕН И СПИСКОВ === */
+.price {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin: 1rem 0;
+}
+.price-note {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin: 1rem 0;
+  line-height: 1.5;
+}
+.price-features {
+  list-style: none;
+  margin: 1.4rem 0;
+  padding: 0;
+  font-size: 0.95rem;
+}
+.price-features li {
+  margin: 0.7rem 0;
+  position: relative;
+  padding-left: 1.6rem;
+}
+.price-features li::before {
+  content: '•';
+  color: var(--accent);
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+}
+
+.courses-grid,
+.price-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.2rem;
+  margin-top: 2.5rem;
+}
+.course-card,
+.price-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 2rem;
+  border: 1px solid var(--border);
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.course-card:nth-child(4),
+.price-card:nth-child(4) {
+  grid-column: 2 / span 1;
+  justify-self: center;
+  width: 100%;
+}
+.course-tag,
+.price h3 {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  color: var(--accent);
+  font-weight: 600;
+}
+.course-features,
+.price-features {
+  list-style: none;
+  margin: 1.5rem 0;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+.course-features li,
+.price-features li {
+  margin: 0.6rem 0;
+  position: relative;
+  padding-left: 1.4rem;
+}
+.course-features li::before,
+.price-features li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: bold;
+}
+.centered-btn {
+  margin-top: auto;
+  text-align: center;
+}
+.centered-btn .btn {
+  width: 100%;
+  max-width: 240px;
+  margin: 0 auto;
+}
+.price {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin: 1rem 0;
+}
+.price-note {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-top: 1rem;
+}
+
+/* === ОБЩИЕ СТИЛИ ДЛЯ КАРТОЧЕК С КНОПКАМИ === */
+.courses-grid,
+.price-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2.5rem;
+  margin-top: 2.5rem;
+}
+
+/* КАРТОЧКИ КУРСОВ */
+.course-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 2.4rem;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 520px; /* Фиксированная высота для всех карточек */
+}
+
+.course-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+}
+
+/* КОНТЕНТ КАРТОЧКИ (выше кнопки) */
+.course-content {
+  flex: 1; /* Растягивается, заполняя доступное пространство */
+  margin-bottom: 1.5rem;
+}
+
+.course-tag {
+  display: inline-block;
+  background: rgba(184, 58, 45, 0.1);
+  color: var(--accent);
+  font-size: 0.85rem;
+  padding: 6px 16px;
+  border-radius: var(--radius-btn);
+  margin-bottom: 1.4rem;
+  font-weight: 600;
+}
+
+.course-card h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text);
+  min-height: 3.5rem; /* Фиксированная высота заголовка */
+}
+
+.course-features {
+  list-style: none;
+  margin: 1.5rem 0;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  flex: 1;
+}
+
+.course-features li {
+  margin-bottom: 0.8rem;
+  position: relative;
+  padding-left: 1.8rem;
+}
+
+.course-features li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--accent2);
+  font-weight: bold;
+}
+
+/* КНОПКА В КАРТОЧКЕ КУРСА (фиксированная внизу) */
+.course-card .centered-btn {
+  margin-top: auto; /* Прижимает кнопку к низу */
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  text-align: center;
+}
+
+.course-card .btn {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 14px 24px !important;
+  border-radius: 30px !important;
+  color: #fff !important;
+  text-decoration: none !important;
+  font-size: 1rem;
+  font-weight: 600;
+  background: var(--gradient-primary);
+  border: none;
+  transition: var(--transition);
+}
+
+.course-card .btn:hover {
+  background: var(--gradient-secondary);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px var(--glow);
+}
+
+/* КАРТОЧКИ ЦЕН */
+.price-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 2.4rem;
+  text-align: center;
+  box-shadow: var(--shadow);
+  position: relative;
+  border: 1px solid var(--border);
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  min-height: 480px; /* Фиксированная высота */
+}
+
+.price-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+}
+
+/* БЕЙДЖ ПОПУЛЯРНОГО */
+.popular-badge {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent);
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 6px 20px;
+  border-radius: var(--radius-btn);
+  font-family: 'Montserrat', sans-serif;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  z-index: 2;
+}
+
+/* СТИЛИ ДЛЯ ПОПУЛЯРНОЙ КАРТОЧКИ */
+.price-card.popular {
+  border: 2px solid var(--accent);
+  box-shadow: 0 0 20px rgba(184, 58, 45, 0.4);
+  transform: scale(1.05);
+  z-index: 1;
+}
+
+.price-card.popular:hover {
+  transform: scale(1.05) translateY(-8px);
+}
+
+/* КОНТЕНТ ЦЕНОВОЙ КАРТОЧКИ */
+.price-content {
+  flex: 1;
+  margin-bottom: 1.5rem;
+}
+
+.price-card h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.6rem;
+  margin-bottom: 1.2rem;
+  color: var(--text);
+  min-height: 3rem;
+}
+
+.price {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin: 1.2rem 0;
+  text-shadow: 0 0 10px var(--glow);
+}
+
+.price-features {
+  list-style: none;
+  margin: 1.5rem 0;
+  color: var(--text-muted);
+  flex: 1;
+  text-align: left;
+  padding-left: 0.5rem;
+}
+
+.price-features li {
+  margin-bottom: 0.9rem;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.price-features li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--accent2);
+  font-weight: bold;
+}
+
+/* КНОПКА В ЦЕНОВОЙ КАРТОЧКЕ (фиксированная внизу) */
+.price-card .centered-btn {
+  margin-top: auto;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  text-align: center;
+}
+
+.price-card .btn {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 14px 24px !important;
+  border-radius: 30px !important;
+  color: #fff !important;
+  text-decoration: none !important;
+  font-size: 1rem;
+  font-weight: 600;
+  background: var(--gradient-primary);
+  border: none;
+  transition: var(--transition);
+}
+
+.price-card .btn:hover {
+  background: var(--gradient-secondary);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px var(--glow);
+}
+
+/* АДАПТИВ ДЛЯ МОБИЛЬНЫХ */
+@media (max-width: 768px) {
+  .courses-grid,
+  .price-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .course-card,
+  .price-card {
+    min-height: auto;
+    padding: 1.8rem;
+  }
+  
+  .price-card.popular {
+    transform: none;
+  }
+  
+  .price-card.popular:hover {
+    transform: translateY(-5px);
+  }
+}
+
+/* ДЛЯ ПЛАНШЕТОВ */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .courses-grid,
+  .price-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .price-card:nth-child(3),
+  .course-card:nth-child(3) {
+    grid-column: span 2;
+    max-width: 400px;
+    justify-self: center;
+  }
+}
+
+/* === КАРТОЧКИ КУРСОВ (с оригинальными кнопками) === */
+.courses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2.5rem;
+  margin-top: 2.5rem;
+}
+
+.course-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 2.4rem;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 520px;
+}
+
+.course-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+}
+
+.course-card.featured {
+  border-top: 6px solid var(--accent);
+}
+
+.course-content {
+  flex: 1;
+  margin-bottom: 1.5rem;
+}
+
+.course-tag {
+  display: inline-block;
+  background: rgba(184, 58, 45, 0.1);
+  color: var(--accent);
+  font-size: 0.85rem;
+  padding: 6px 16px;
+  border-radius: var(--radius-btn);
+  margin-bottom: 1.4rem;
+  font-weight: 600;
+}
+
+.course-card h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.5rem;
+  margin-bottom: 1.4rem;
+  color: var(--text);
+  min-height: 3.5rem;
+}
+
+.course-features {
+  list-style: none;
+  margin: 1.8rem 0;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  flex: 1;
+}
+
+.course-features li {
+  margin-bottom: 0.8rem;
+  position: relative;
+  padding-left: 1.8rem;
+}
+
+.course-features li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--accent2);
+  font-weight: bold;
+  text-shadow: 0 0 5px var(--glow2);
+}
+
+/* КНОПКИ В КАРТОЧКАХ КУРСОВ (оригинальный стиль) */
+.course-card .centered-btn {
+  margin-top: auto;
+  padding-top: 2rem;
+  text-align: center;
+  position: relative;
+}
+
+.course-card .centered-btn .btn {
+  padding: 14px 40px !important;
+  border-radius: 50px !important;
+  color: #fff !important;
+  text-decoration: none !important;
+  background: var(--gradient-primary);
+  border: none;
+  font-weight: 600;
+  font-size: 1rem;
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition);
+  box-shadow: 0 4px 15px var(--glow);
+  width: 240px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+/* ОРИГИНАЛЬНАЯ АНИМАЦИЯ КНОПОК */
+.course-card .centered-btn .btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  transition: left 0.5s;
+}
+
+.course-card .centered-btn .btn:hover::before {
+  left: 100%;
+}
+
+.course-card .centered-btn .btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px var(--glow);
+  background: var(--gradient-secondary);
+}
+
+/* === КАРТОЧКИ ЦЕН (стоимость занятий) === */
+.price-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2.5rem;
+  margin-top: 2.5rem;
+}
+
+.price-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 3rem 2.4rem;
+  text-align: center;
+  box-shadow: var(--shadow);
+  position: relative;
+  border: 1px solid var(--border);
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  min-height: 480px;
+}
+
+/* ОБЫЧНЫЕ КАРТОЧКИ ЦЕН */
+.price-card:not(.recommended):hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+}
+
+/* РЕКОМЕНДУЕМАЯ КАРТОЧКА (БОЛЬШАЯ И ЯРКАЯ) */
+.price-card.recommended {
+  border: 3px solid var(--accent);
+  transform: scale(1.08);
+  box-shadow: 
+    0 0 30px var(--glow),
+    0 15px 40px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  z-index: 2;
+  min-height: 520px;
+  background: linear-gradient(145deg, 
+    rgba(45, 45, 48, 0.9) 0%,
+    rgba(35, 35, 38, 0.95) 100%);
+  position: relative;
+  overflow: visible;
+}
+
+.price-card.recommended:hover {
+  transform: scale(1.08) translateY(-8px);
+  box-shadow: 
+    0 0 40px var(--glow),
+    0 20px 50px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+/* БЕЙДЖ "РЕКОМЕНДУЕТСЯ" (БОЛЬШОЙ И ЯРКИЙ) */
+.recommended-badge {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--gradient-primary);
+  color: white;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 10px 30px;
+  border-radius: 50px;
+  letter-spacing: 1px;
+  box-shadow: 
+    0 6px 20px rgba(184, 58, 45, 0.5),
+    0 0 15px rgba(184, 58, 45, 0.3);
+  text-transform: uppercase;
+  z-index: 3;
+  white-space: nowrap;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  animation: pulseBadge 2s infinite alternate;
+}
+
+@keyframes pulseBadge {
+  0% {
+    box-shadow: 
+      0 6px 20px rgba(184, 58, 45, 0.5),
+      0 0 15px rgba(184, 58, 45, 0.3);
+  }
+  100% {
+    box-shadow: 
+      0 6px 25px rgba(184, 58, 45, 0.7),
+      0 0 20px rgba(184, 58, 45, 0.5);
+  }
+}
+
+/* КОНТЕНТ ЦЕНОВОЙ КАРТОЧКИ */
+.price-content {
+  flex: 1;
+  margin-bottom: 1.5rem;
+}
+
+.price-card h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.6rem;
+  margin-bottom: 1.2rem;
+  color: var(--text);
+  min-height: 3rem;
+}
+
+.price-card.recommended h3 {
+  font-size: 1.8rem;
+  color: #fff;
+  text-shadow: 0 0 10px var(--glow);
+}
+
+.price {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin: 1.2rem 0;
+  text-shadow: 0 0 12px var(--glow);
+}
+
+.price-card.recommended .price {
+  font-size: 2.4rem;
+  color: #fff;
+  text-shadow: 0 0 15px var(--accent);
+}
+
+.price-features {
+  list-style: none;
+  margin: 1.8rem 0;
+  color: var(--text-muted);
+  flex: 1;
+  text-align: left;
+  padding-left: 1rem;
+}
+
+.price-card.recommended .price-features {
+  color: var(--text);
+}
+
+.price-features li {
+  margin-bottom: 0.9rem;
+  position: relative;
+  padding-left: 1.8rem;
+}
+
+.price-features li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--accent2);
+  font-weight: bold;
+}
+
+.price-card.recommended .price-features li::before {
+  color: var(--accent);
+  text-shadow: 0 0 5px var(--glow);
+}
+
+/* КНОПКИ В ЦЕНОВЫХ КАРТОЧКАХ (ОРИГИНАЛЬНЫЙ СТИЛЬ) */
+.price-card .centered-btn {
+  margin-top: auto;
+  padding-top: 2rem;
+  text-align: center;
+  position: relative;
+}
+
+.price-card .centered-btn .btn {
+  width: 240px;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 16px 32px !important;
+  border-radius: 50px !important;
+  color: #fff !important;
+  text-decoration: none !important;
+  font-weight: 600;
+  font-size: 1.05rem;
+  background: var(--gradient-primary);
+  border: none;
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition);
+  box-shadow: 0 4px 20px var(--glow);
+}
+
+/* ОРИГИНАЛЬНАЯ АНИМАЦИЯ КНОПОК В ЦЕНАХ */
+.price-card .centered-btn .btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  transition: left 0.5s;
+}
+
+.price-card .centered-btn .btn:hover::before {
+  left: 100%;
+}
+
+.price-card .centered-btn .btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px var(--glow2);
+  background: var(--gradient-secondary);
+}
+
+/* ОСОБАЯ КНОПКА В РЕКОМЕНДУЕМОЙ КАРТОЧКЕ */
+.price-card.recommended .centered-btn .btn {
+  background: var(--gradient-primary);
+  box-shadow: 
+    0 4px 20px var(--glow),
+    0 0 15px rgba(184, 58, 45, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 1.1rem;
+  padding: 18px 36px !important;
+}
+
+.price-card.recommended .centered-btn .btn:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 
+    0 8px 30px var(--glow),
+    0 0 20px rgba(184, 58, 45, 0.5);
+  background: var(--gradient-secondary);
+}
+
+/* GLASS-EFFECT ДЛЯ РЕКОМЕНДУЕМОЙ КАРТОЧКИ */
+.price-card.recommended {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 2px solid rgba(184, 58, 45, 0.3);
+}
+
+.price-card.recommended::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    145deg,
+    rgba(184, 58, 45, 0.05) 0%,
+    rgba(78, 104, 81, 0.03) 50%,
+    rgba(184, 58, 45, 0.02) 100%
+  );
+  border-radius: var(--radius);
+  z-index: -1;
+}
+
+/* АДАПТИВ */
+@media (max-width: 768px) {
+  .courses-grid,
+  .price-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .price-card.recommended {
+    transform: scale(1) !important;
+    min-height: auto;
+  }
+  
+  .price-card.recommended:hover {
+    transform: translateY(-5px) !important;
+  }
+  
+  .recommended-badge {
+    font-size: 0.9rem;
+    padding: 8px 20px;
+  }
+}
+
+/* ДЛЯ ПЛАНШЕТОВ */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .courses-grid,
+  .price-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .price-card.recommended {
+    grid-column: span 2;
+    max-width: 450px;
+    justify-self: center;
+    transform: scale(1.05);
+  }
+  
+  .price-card.recommended:hover {
+    transform: scale(1.05) translateY(-8px);
+  }
+}
+
+/* ДЛЯ ДЕСКТОПА */
+@media (min-width: 1025px) {
+  .price-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .price-card.recommended {
+    transform: scale(1.12);
+    position: relative;
+    top: -20px;
+  }
+  
+  .price-card.recommended:hover {
+    transform: scale(1.12) translateY(-8px);
+  }
+}
+/* === КНОПКИ - ПРОЗРАЧНЫЕ С GLASS EFFECT === */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 32px;
+  border-radius: var(--radius-btn);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 1.05rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transition);
+  border: none;
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(184, 58, 45, 0.3);
+  
+  /* GLASS EFFECT */
+  background: rgba(255, 255, 255, 0.08) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: var(--text) !important;
+}
+
+/* ОРИГИНАЛЬНАЯ АНИМАЦИЯ БЕЛОЙ ПОЛОСЫ */
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
+}
+
+.btn:hover::before {
+  left: 100%;
+}
+
+/* ХОВЕР ЭФФЕКТ */
+.btn:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent);
+  box-shadow: 
+    0 6px 20px var(--glow),
+    0 0 30px rgba(184, 58, 45, 0.2);
+  background: rgba(184, 58, 45, 0.1) !important;
+}
+
+/* ОСОБЫЙ СТИЛЬ ДЛЯ PRIMARY КНОПОК (если нужны) */
+.btn.primary {
+  background: rgba(184, 58, 45, 0.2) !important;
+  border-color: var(--accent);
+  color: #fff !important;
+}
+
+.btn.primary:hover {
+  background: rgba(184, 58, 45, 0.3) !important;
+  box-shadow: 
+    0 8px 25px var(--glow),
+    0 0 40px rgba(184, 58, 45, 0.3);
+}
+
+/* === КАРТОЧКИ ЦЕН - НОРМАЛЬНЫЙ РАЗМЕР === */
+.price-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 2.4rem;
+  text-align: center;
+  box-shadow: var(--shadow);
+  position: relative;
+  border: 1px solid var(--border);
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  min-height: 450px; /* нормальная высота */
+}
+
+.price-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+/* === РЕКОМЕНДУЕМАЯ КАРТОЧКА - СУПЕР ВЫДЕЛЕННАЯ === */
+.price-card.recommended {
+  border: 3px solid var(--accent) !important; /* ТОЛСТАЯ ОБВОДКА */
+  box-shadow: 
+    0 0 0 2px rgba(184, 58, 45, 0.4), /* ВНУТРЕННЯЯ ТЕНИ */
+    0 15px 40px rgba(184, 58, 45, 0.4), /* ВНЕШНЯЯ ТЕНИ */
+    inset 0 0 30px rgba(184, 58, 45, 0.15); /* ВНУТРЕННЕЕ СВЕЧЕНИЕ */
+  background: linear-gradient(
+    145deg,
+    rgba(184, 58, 45, 0.08) 0%,
+    rgba(45, 45, 48, 0.95) 50%,
+    rgba(78, 104, 81, 0.05) 100%
+  );
+  position: relative;
+  overflow: visible;
+  z-index: 10;
+  min-height: 460px; /* чуть выше, но не х2! */
+}
+
+/* АНИМАЦИЯ СВЕЧЕНИЯ ДЛЯ РЕКОМЕНДУЕМОЙ */
+@keyframes recommendedGlow {
+  0%, 100% {
+    box-shadow: 
+      0 0 0 2px rgba(184, 58, 45, 0.4),
+      0 15px 40px rgba(184, 58, 45, 0.4),
+      inset 0 0 30px rgba(184, 58, 45, 0.15);
+  }
+  50% {
+    box-shadow: 
+      0 0 0 2px rgba(184, 58, 45, 0.6),
+      0 15px 45px rgba(184, 58, 45, 0.5),
+      inset 0 0 40px rgba(184, 58, 45, 0.2);
+  }
+}
+
+.price-card.recommended {
+  animation: recommendedGlow 3s infinite ease-in-out;
+}
+
+.price-card.recommended:hover {
+  transform: translateY(-8px);
+  animation: none;
+  box-shadow: 
+    0 0 0 3px rgba(184, 58, 45, 0.6),
+    0 20px 50px rgba(184, 58, 45, 0.6),
+    inset 0 0 50px rgba(184, 58, 45, 0.25);
+}
+
+/* МЕГА-БЕЙДЖ ДЛЯ РЕКОМЕНДУЕМОЙ */
+.recommended-badge {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, 
+    var(--accent) 0%,
+    #9a2e23 100%);
+  color: white;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 800;
+  font-size: 0.9rem;
+  padding: 10px 35px;
+  border-radius: 50px;
+  letter-spacing: 2px;
+  box-shadow: 
+    0 8px 25px rgba(184, 58, 45, 0.7),
+    0 4px 15px rgba(0, 0, 0, 0.5);
+  text-transform: uppercase;
+  z-index: 11;
+  white-space: nowrap;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* ТЕКСТ В РЕКОМЕНДУЕМОЙ - ЯРЧЕ */
+.price-card.recommended h3 {
+  font-size: 1.7rem;
+  color: #fff;
+  text-shadow: 0 0 15px var(--glow);
+}
+
+.price-card.recommended .price {
+  font-size: 2.2rem;
+  color: var(--accent);
+  text-shadow: 0 0 20px var(--glow);
+}
+
+.price-card.recommended .price-features li {
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* ОСОБАЯ КНОПКА В РЕКОМЕНДУЕМОЙ */
+.price-card.recommended .centered-btn .btn {
+  border: 1px solid var(--accent);
+  background: rgba(184, 58, 45, 0.25) !important;
+  color: #fff !important;
+  font-weight: 700;
+  padding: 16px 40px !important;
+  box-shadow: 
+    0 4px 20px var(--glow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.price-card.recommended .centered-btn .btn:hover {
+  background: rgba(184, 58, 45, 0.35) !important;
+  transform: translateY(-4px);
+  box-shadow: 
+    0 8px 30px var(--glow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* === КНОПКИ В КАРТОЧКАХ КУРСОВ - ТАКЖЕ ПРОЗРАЧНЫЕ === */
+.course-card .centered-btn .btn {
+  background: rgba(255, 255, 255, 0.08) !important;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(184, 58, 45, 0.3);
+  color: var(--text) !important;
+}
+
+.course-card .centered-btn .btn:hover {
+  background: rgba(184, 58, 45, 0.1) !important;
+  border-color: var(--accent);
+}
+
+/* === АДАПТИВ === */
+@media (max-width: 768px) {
+  .price-card,
+  .price-card.recommended {
+    min-height: auto;
+    padding: 2rem;
+  }
+  
+  .recommended-badge {
+    font-size: 0.8rem;
+    padding: 8px 25px;
+    top: -15px;
+  }
+  
+  .price-card.recommended {
+    animation: none;
+    box-shadow: 
+      0 0 0 2px rgba(184, 58, 45, 0.4),
+      0 10px 30px rgba(184, 58, 45, 0.4);
+  }
+}
+
+/* ДЛЯ ПЛАНШЕТОВ */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .price-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .price-card.recommended {
+    grid-column: span 2;
+    max-width: 400px;
+    justify-self: center;
+  }
+}
+
+/* === ГЛОБАЛЬНЫЕ УЛУЧШЕНИЯ === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Montserrat', sans-serif;
+  line-height: 1.7;
+  overflow-x: hidden;
+  position: relative;
+  letter-spacing: 0.02em;
+}
+
+/* === УЛУЧШЕННЫЙ ФОН === */
+.code-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(184, 58, 45, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(78, 104, 81, 0.03) 0%, transparent 50%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Ctext x='15' y='25' fill='%233a3a3d' font-size='12' font-family='Courier New'%3E%3C%21--%20%E3%80%90%20%E3%80%91%20--%3E%3C/text%3E%3C/svg%3E");
+  background-size: 250px;
+  opacity: 0.1;
+  z-index: -3;
+  pointer-events: none;
+  animation: scrollCode 180s linear infinite;
+}
+
+@keyframes scrollCode {
+  0% { background-position: 0 0, 0 0, 0 0; }
+  100% { background-position: 0 0, 0 0, 0 2000px; }
+}
+
+/* === УЛУЧШЕННЫЙ НАВБАР === */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(30, 30, 30, 0.95);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  padding: 1.5rem 0;
+  z-index: 1000;
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.navbar.scrolled {
+  padding: 1rem 0;
+  background: rgba(30, 30, 30, 0.98);
+  box-shadow: 0 6px 35px rgba(0, 0, 0, 0.4);
+}
+
+.nav-logo {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--accent);
+  position: relative;
+  display: inline-block;
+}
+
+.nav-logo::before {
+  content: '「';
+  position: absolute;
+  top: -5px;
+  left: -20px;
+  color: var(--accent2);
+  font-size: 1.4rem;
+  font-family: 'MS Gothic', monospace;
+}
+
+.nav-logo::after {
+  content: '」';
+  position: absolute;
+  top: -5px;
+  right: -20px;
+  color: var(--accent2);
+  font-size: 1.4rem;
+  font-family: 'MS Gothic', monospace;
+}
+
+.nav-phone {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--accent2);
+  margin-top: 5px;
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: 1px;
+}
+
+.nav-btn {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 1.05rem;
+  color: var(--text);
+  text-decoration: none;
+  padding: 10px 22px;
+  border-radius: 50px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  border: 1px solid transparent;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(5px);
+}
+
+.nav-btn:hover {
+  background: rgba(184, 58, 45, 0.15);
+  border-color: rgba(184, 58, 45, 0.3);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(184, 58, 45, 0.2);
+}
+
+.nav-btn.primary {
+  background: rgba(184, 58, 45, 0.25);
+  border-color: rgba(184, 58, 45, 0.5);
+  color: white;
+  font-weight: 600;
+}
+
+.nav-btn.primary:hover {
+  background: rgba(184, 58, 45, 0.35);
+  box-shadow: 0 5px 20px rgba(184, 58, 45, 0.3);
+}
+
+/* === ГЕРОЙ СЕКЦИЯ - УЛУЧШЕННАЯ === */
+.hero {
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  padding-top: 100px;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 30% 50%, rgba(184, 58, 45, 0.1) 0%, transparent 70%),
+    radial-gradient(circle at 70% 30%, rgba(78, 104, 81, 0.08) 0%, transparent 70%);
+  filter: blur(60px);
+  z-index: -1;
+}
+
+.hero h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 4.2rem;
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 1.5rem;
+  color: var(--text);
+  position: relative;
+  letter-spacing: -0.5px;
+}
+
+.hero h1 span {
+  color: var(--accent);
+  position: relative;
+  display: inline-block;
+}
+
+.hero h1 span::after {
+  content: '';
+  position: absolute;
+  bottom: 5px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  border-radius: 2px;
+}
+
+.hero h1::before {
+  content: '進化';
+  position: absolute;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.3rem;
+  color: var(--accent2);
+  opacity: 0.7;
+  font-family: 'MS Gothic', monospace;
+  letter-spacing: 5px;
+}
+
+.subtitle {
+  font-size: 1.3rem;
+  color: var(--text-muted);
+  max-width: 700px;
+  margin: 0 auto 3rem;
+  line-height: 1.8;
+  position: relative;
+  padding: 0 1rem;
+}
+
+.subtitle::before,
+.subtitle::after {
+  content: '—';
+  color: var(--accent2);
+  margin: 0 10px;
+  opacity: 0.5;
+}
+
+/* === УЛУЧШЕННЫЕ КНОПКИ === */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px 35px;
+  border-radius: 50px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 1.05rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(184, 58, 45, 0.4);
+  
+  /* GLASS EFFECT */
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: var(--text);
+  
+  /* ТЕКСТОВАЯ ТЕНЬ */
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* ПЛАВНАЯ АНИМАЦИЯ ПРИ НАВЕДЕНИИ */
+.btn:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent);
+  box-shadow: 
+    0 8px 25px rgba(184, 58, 45, 0.25),
+    0 0 0 1px rgba(184, 58, 45, 0.1);
+  background: rgba(184, 58, 45, 0.15);
+  color: #fff;
+}
+
+/* АКТИВНОЕ СОСТОЯНИЕ */
+.btn:active {
+  transform: translateY(-1px);
+  transition: transform 0.1s;
+}
+
+/* PRIMARY КНОПКИ */
+.btn.primary {
+  background: rgba(184, 58, 45, 0.25);
+  border-color: var(--accent);
+  color: #fff;
+  font-weight: 700;
+}
+
+.btn.primary:hover {
+  background: rgba(184, 58, 45, 0.35);
+  box-shadow: 
+    0 10px 30px rgba(184, 58, 45, 0.4),
+    0 0 0 1px rgba(184, 58, 45, 0.2);
+}
+
+/* OUTLINE КНОПКИ */
+.btn.outline {
+  background: transparent;
+  border-color: var(--border);
+  color: var(--text);
+}
+
+.btn.outline:hover {
+  background: rgba(184, 58, 45, 0.1);
+  border-color: var(--accent);
+}
+
+/* РАЗМЕРЫ КНОПОК */
+.btn.small {
+  padding: 12px 28px;
+  font-size: 0.95rem;
+}
+
+.btn.big {
+  padding: 18px 45px;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+/* ИКОНКИ В КНОПКАХ */
+.btn i,
+.btn svg {
+  transition: transform 0.3s ease;
+}
+
+.btn:hover i,
+.btn:hover svg {
+  transform: translateX(3px);
+}
+
+/* === СЕКЦИИ - УЛУЧШЕННЫЕ === */
+.section {
+  padding: 100px 0;
+  position: relative;
+}
+
+.section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+}
+
+.section-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 1.5rem;
+  text-align: center;
+  position: relative;
+  padding-bottom: 1rem;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  border-radius: 2px;
+}
+
+.section-lead {
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  max-width: 800px;
+  margin: 0 auto 3.5rem;
+  line-height: 1.8;
+  position: relative;
+  padding: 0 1rem;
+}
+
+/* === КАРТОЧКИ КУРСОВ - УЛУЧШЕННЫЕ === */
+.courses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
+  margin-top: 2.5rem;
+}
+
+.course-card {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 20px;
+  padding: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  min-height: 480px;
+}
+
+.course-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(184, 58, 45, 0.03) 0%,
+    rgba(78, 104, 81, 0.02) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.course-card:hover::before {
+  opacity: 1;
+}
+
+.course-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(184, 58, 45, 0.4);
+  box-shadow: 
+    0 15px 35px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(184, 58, 45, 0.1);
+}
+
+.course-card.featured {
+  border-top: 4px solid var(--accent);
+}
+
+.course-tag {
+  display: inline-block;
+  background: rgba(184, 58, 45, 0.15);
+  color: var(--accent);
+  font-size: 0.85rem;
+  padding: 8px 18px;
+  border-radius: 50px;
+  margin-bottom: 20px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  border: 1px solid rgba(184, 58, 45, 0.3);
+}
+
+.course-card h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: #fff;
+  line-height: 1.3;
+  min-height: 3.5rem;
+}
+
+.course-features {
+  list-style: none;
+  margin: 25px 0;
+  flex: 1;
+}
+
+.course-features li {
+  margin-bottom: 12px;
+  color: var(--text-muted);
+  padding-left: 28px;
+  position: relative;
+  line-height: 1.5;
+}
+
+.course-features li::before {
+  content: '▶';
+  position: absolute;
+  left: 0;
+  color: var(--accent2);
+  font-size: 0.8rem;
+  top: 2px;
+}
+
+.course-card .centered-btn {
+  margin-top: auto;
+  padding-top: 25px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  text-align: center;
+}
+
+.course-card .centered-btn .btn {
+  width: 100%;
+  max-width: 100%;
+  padding: 15px 30px !important;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* === ЦЕНОВЫЕ КАРТОЧКИ - УЛУЧШЕННЫЕ === */
+.price-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
+  margin-top: 2.5rem;
+}
+
+.price-card {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 20px;
+  padding: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  min-height: 450px;
+}
+
+.price-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(184, 58, 45, 0.3);
+  box-shadow: 
+    0 12px 30px rgba(0, 0, 0, 0.25),
+    0 0 0 1px rgba(184, 58, 45, 0.1);
+}
+
+/* РЕКОМЕНДУЕМАЯ КАРТОЧКА - СУПЕР ВЫДЕЛЕННАЯ */
+.price-card.recommended {
+  border: 2px solid var(--accent);
+  box-shadow: 
+    0 20px 50px rgba(184, 58, 45, 0.25),
+    inset 0 0 0 1px rgba(184, 58, 45, 0.1),
+    0 0 0 3px rgba(184, 58, 45, 0.05);
+  background: linear-gradient(
+    145deg,
+    rgba(184, 58, 45, 0.1) 0%,
+    rgba(45, 45, 48, 0.95) 50%,
+    rgba(78, 104, 81, 0.05) 100%
+  );
+  position: relative;
+  z-index: 2;
+  min-height: 470px;
+  transform: translateY(-10px);
+}
+
+.price-card.recommended:hover {
+  transform: translateY(-15px);
+  box-shadow: 
+    0 25px 60px rgba(184, 58, 45, 0.35),
+    inset 0 0 0 1px rgba(184, 58, 45, 0.2),
+    0 0 0 3px rgba(184, 58, 45, 0.1);
+}
+
+/* БЕЙДЖ РЕКОМЕНДУЕТСЯ */
+.recommended-badge {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, var(--accent), #9a2e23);
+  color: white;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 800;
+  font-size: 0.85rem;
+  padding: 10px 30px;
+  border-radius: 50px;
+  letter-spacing: 1.5px;
+  box-shadow: 
+    0 8px 25px rgba(184, 58, 45, 0.5),
+    0 4px 15px rgba(0, 0, 0, 0.3);
+  text-transform: uppercase;
+  z-index: 3;
+  white-space: nowrap;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+}
+
+.price-card h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.6rem;
+  margin-bottom: 15px;
+  color: #fff;
+  text-align: center;
+}
+
+.price-card.recommended h3 {
+  font-size: 1.8rem;
+  color: #fff;
+  text-shadow: 0 2px 10px rgba(184, 58, 45, 0.3);
+}
+
+.price {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin: 20px 0;
+  text-align: center;
+  text-shadow: 0 2px 15px rgba(184, 58, 45, 0.2);
+}
+
+.price-card.recommended .price {
+  font-size: 2.2rem;
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+}
+
+.price-features {
+  list-style: none;
+  margin: 25px 0;
+  flex: 1;
+  padding: 0 10px;
+}
+
+.price-features li {
+  margin-bottom: 12px;
+  color: var(--text-muted);
+  padding-left: 26px;
+  position: relative;
+  line-height: 1.5;
+}
+
+.price-features li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--accent2);
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.price-card.recommended .price-features li {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.price-card.recommended .price-features li::before {
+  color: var(--accent);
+}
+
+.price-card .centered-btn {
+  margin-top: auto;
+  padding-top: 25px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  text-align: center;
+}
+
+.price-card .centered-btn .btn {
+  width: 100%;
+  max-width: 100%;
+  padding: 16px 30px !important;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.price-card.recommended .centered-btn .btn {
+  background: rgba(184, 58, 45, 0.25) !important;
+  border-color: var(--accent);
+  color: #fff !important;
+  font-weight: 700;
+}
+
+.price-card.recommended .centered-btn .btn:hover {
+  background: rgba(184, 58, 45, 0.35) !important;
+}
+
+/* === ОТЗЫВЫ - УЛУЧШЕННЫЕ === */
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
+  margin-top: 2.5rem;
+}
+
+.review-card {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 20px;
+  padding: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.3s ease;
+  position: relative;
+  backdrop-filter: blur(10px);
+}
+
+.review-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(184, 58, 45, 0.3);
+  box-shadow: 
+    0 12px 30px rgba(0, 0, 0, 0.25),
+    0 0 0 1px rgba(184, 58, 45, 0.1);
+}
+
+.review-card::before {
+  content: '"';
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 4rem;
+  color: var(--accent);
+  opacity: 0.15;
+  line-height: 1;
+}
+
+.review-card p {
+  font-style: italic;
+  margin-bottom: 20px;
+  color: var(--text);
+  line-height: 1.7;
+  position: relative;
+  z-index: 1;
+}
+
+.review-author {
+  font-weight: 600;
+  color: var(--accent);
+  font-size: 1.1rem;
+  display: block;
+  margin-top: 15px;
+  text-align: right;
+}
+
+/* === КОНТАКТЫ - УЛУЧШЕННЫЕ === */
+.contact-methods {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 3.5rem;
+}
+
+.contact-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 35px;
+  border-radius: 50px;
+  font-weight: 600;
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid transparent;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  color: var(--text);
+}
+
+.contact-btn:hover {
+  transform: translateY(-3px);
+}
+
+.contact-btn.telegram {
+  background: rgba(38, 167, 228, 0.15);
+  border-color: rgba(38, 167, 228, 0.4);
+  color: #26a7e4;
+}
+
+.contact-btn.telegram:hover {
+  background: rgba(38, 167, 228, 0.25);
+  box-shadow: 0 8px 25px rgba(38, 167, 228, 0.2);
+}
+
+.contact-btn.email {
+  background: rgba(184, 58, 45, 0.1);
+  border-color: rgba(184, 58, 45, 0.3);
+  color: var(--accent);
+}
+
+.contact-btn.email:hover {
+  background: rgba(184, 58, 45, 0.2);
+  box-shadow: 0 8px 25px rgba(184, 58, 45, 0.2);
+}
+
+.contact-form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.contact-form input,
+.contact-form select,
+.contact-form textarea {
+  width: 100%;
+  padding: 18px 25px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  font-family: inherit;
+  font-size: 1.1rem;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.contact-form input:focus,
+.contact-form select:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(184, 58, 45, 0.1);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* === ФУТЕР - УЛУЧШЕННЫЙ === */
+footer {
+  padding: 60px 0 40px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(30, 30, 30, 0.8);
+  backdrop-filter: blur(10px);
+  position: relative;
+}
+
+footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  opacity: 0.3;
+}
+
+.footer-deco {
+  color: var(--accent);
+  font-size: 1.1rem;
+  letter-spacing: 3px;
+  margin-top: 20px;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+/* === АДАПТИВНОСТЬ === */
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2.8rem;
+  }
+  
+  .section-title {
+    font-size: 2.2rem;
+  }
+  
+  .courses-grid,
+  .price-grid,
+  .reviews-grid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+  
+  .price-card.recommended {
+    transform: none;
+    min-height: auto;
+  }
+  
+  .price-card.recommended:hover {
+    transform: translateY(-5px);
+  }
+  
+  .nav-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .contact-methods {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .contact-btn {
+    width: 100%;
+    max-width: 300px;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 1024px) and (min-width: 769px) {
+  .courses-grid,
+  .price-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .price-card.recommended {
+    grid-column: span 2;
+    max-width: 400px;
+    justify-self: center;
+  }
+}
+
+/* === СКРОЛЛБАР === */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(var(--accent), var(--accent2));
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(var(--accent2), var(--accent));
+}
+
+/* === АНИМАЦИЯ ПОЯВЛЕНИЯ === */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Выделение карточки "Рекомендуется" */
+.price-card.recommended {
+  border: 3px solid var(--accent) !important;
+  box-shadow: 
+    0 0 30px var(--glow),
+    0 15px 40px rgba(0, 0, 0, 0.4);
+  position: relative;
+  z-index: 2;
+  transform: translateY(-10px);
+  background: linear-gradient(
+    145deg,
+    rgba(184, 58, 45, 0.1) 0%,
+    rgba(45, 45, 48, 0.95) 50%,
+    rgba(78, 104, 81, 0.05) 100%
+  );
+}
+
+/* Красная плашка "Рекомендуется" */
+.recommended-badge {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--gradient-primary);
+  color: white;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 800;
+  font-size: 0.9rem;
+  padding: 10px 35px;
+  border-radius: 50px;
+  letter-spacing: 1.5px;
+  box-shadow: 
+    0 8px 25px rgba(184, 58, 45, 0.7),
+    0 4px 15px rgba(0, 0, 0, 0.5);
+  text-transform: uppercase;
+  z-index: 11;
+  white-space: nowrap;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Красная кнопка с glass эффектом для рекомендуемой карточки */
+.price-card.recommended .centered-btn .btn {
+  background: rgba(184, 58, 45, 0.25) !important;
+  border: 1px solid var(--accent) !important;
+  color: #fff !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-weight: 700;
+  padding: 16px 36px !important;
+  box-shadow: 
+    0 4px 20px var(--glow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.price-card.recommended .centered-btn .btn:hover {
+  background: rgba(184, 58, 45, 0.35) !important;
+  transform: translateY(-3px);
+  box-shadow: 
+    0 8px 30px var(--glow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* === ИСПРАВЛЕНИЕ КАРТОЧЕК КУРСОВ - ВСЕ НА ОДНОЙ ВЫСОТЕ === */
+.course-card {
+  min-height: 520px !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.course-card h3 {
+  min-height: 70px !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.course-features {
+  flex: 1 !important;
+  margin-bottom: 0 !important;
+}
+
+.course-card .centered-btn {
+  margin-top: auto !important;
+  padding-top: 20px !important;
+}
+
+/* === ВЫДЕЛЕНИЕ КАРТОЧКИ "РЕКОМЕНДУЕТСЯ" В СТОИМОСТИ === */
+/* Красная обводка и выделение */
+.price-card.recommended {
+  border: 3px solid var(--accent) !important;
+  box-shadow: 
+    0 0 30px var(--glow),
+    0 15px 40px rgba(0, 0, 0, 0.4) !important;
+  position: relative !important;
+  z-index: 2 !important;
+  transform: translateY(-10px) !important;
+  background: linear-gradient(
+    145deg,
+    rgba(184, 58, 45, 0.1) 0%,
+    rgba(45, 45, 48, 0.95) 50%,
+    rgba(78, 104, 81, 0.05) 100%
+  ) !important;
+}
+
+/* Красная плашка "Рекомендуется" */
+.recommended-badge {
+  position: absolute !important;
+  top: -18px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  background: var(--gradient-primary) !important;
+  color: white !important;
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-weight: 800 !important;
+  font-size: 0.9rem !important;
+  padding: 10px 35px !important;
+  border-radius: 50px !important;
+  letter-spacing: 1.5px !important;
+  box-shadow: 
+    0 8px 25px rgba(184, 58, 45, 0.7),
+    0 4px 15px rgba(0, 0, 0, 0.5) !important;
+  text-transform: uppercase !important;
+  z-index: 11 !important;
+  white-space: nowrap !important;
+  border: 2px solid rgba(255, 255, 255, 0.3) !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Красная кнопка с glass эффектом */
+.price-card.recommended .centered-btn .btn {
+  background: rgba(184, 58, 45, 0.25) !important;
+  border: 1px solid var(--accent) !important;
+  color: #fff !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  font-weight: 700 !important;
+  padding: 16px 36px !important;
+  box-shadow: 
+    0 4px 20px var(--glow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+}
+
+/* === СТАБИЛИЗАЦИЯ КНОПОК - УБИРАЕМ СВАЙПАНИЕ === */
+/* Убираем свайпающуюся анимацию у ВСЕХ кнопок */
+.btn::before,
+.price-card .centered-btn .btn::before,
+.course-card .centered-btn .btn::before {
+  display: none !important;
+}
+
+/* Общие стили для всех кнопок "Записаться" */
+.price-card .centered-btn .btn,
+.course-card .centered-btn .btn {
+  transition: all 0.3s ease !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+/* ОДИНАКОВАЯ анимация при наведении как в курсах */
+.price-card .centered-btn .btn:hover,
+.course-card .centered-btn .btn:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 8px 25px var(--glow) !important;
+  background: var(--gradient-secondary) !important;
+}
+
+/* Особый ховер для рекомендуемой кнопки */
+.price-card.recommended .centered-btn .btn:hover {
+  background: rgba(184, 58, 45, 0.35) !important;
+  box-shadow: 
+    0 8px 30px var(--glow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+}
+
+/* === АДАПТИВНОСТЬ === */
+@media (max-width: 1024px) {
+  .price-card.recommended {
+    grid-column: span 2 !important;
+    max-width: 400px !important;
+    margin: 0 auto !important;
+    transform: translateY(-5px) !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .price-card.recommended {
+    grid-column: 1 !important;
+    transform: none !important;
+  }
+  
+  .course-card {
+    min-height: auto !important;
+  }
+}
+
+/* === УБИРАЕМ ГРАДИЕНТ ПРИ НАВЕДЕНИИ НА ВСЕ КНОПКИ === */
+/* Основной стиль для всех кнопок */
+.btn,
+.price-card .centered-btn .btn,
+.course-card .centered-btn .btn {
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(184, 58, 45, 0.3) !important;
+  color: var(--text) !important;
+  position: relative !important;
+  overflow: hidden !important;
+  transition: all 0.3s ease !important;
+}
+
+/* Убираем градиенты при наведении */
+.btn:hover,
+.price-card .centered-btn .btn:hover,
+.course-card .centered-btn .btn:hover {
+  background: rgba(184, 58, 45, 0.15) !important;
+  border-color: var(--accent) !important;
+  color: #fff !important;
+  transform: translateY(-3px) !important;
+  box-shadow: 0 8px 25px var(--glow) !important;
+}
+
+/* Убираем ВСЕ градиентные фоны */
+.btn.primary,
+.price-card .centered-btn .btn,
+.course-card .centered-btn .btn {
+  background: rgba(255, 255, 255, 0.1) !important;
+  background-image: none !important;
+}
+
+.btn.primary:hover,
+.price-card .centered-btn .btn:hover,
+.course-card .centered-btn .btn:hover {
+  background: rgba(184, 58, 45, 0.2) !important;
+  background-image: none !important;
+}
+
+/* === ЭФФЕКТ ЖИДКОГО СТЕКЛА ДЛЯ КНОПОК === */
+.btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.05) 50%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
+  border-radius: inherit;
+  z-index: -1;
+}
+
+/* === ИСПРАВЛЯЕМ РАСПОЛОЖЕНИЕ КАРТОЧКИ "СОЗДАНИЕ САЙТОВ" === */
+.courses-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 2.5rem !important;
+}
+
+/* Заставляем все карточки быть на одной высоте */
+.course-card {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+  min-height: 520px !important;
+}
+
+/* Фиксируем контент карточек */
+.course-card h3 {
+  min-height: 80px !important;
+  display: flex !important;
+  align-items: flex-start !important;
+  margin-bottom: 1rem !important;
+}
+
+.course-features {
+  flex: 1 !important;
+  margin: 1rem 0 !important;
+}
+
+/* Кнопка всегда внизу */
+.course-card .centered-btn {
+  margin-top: auto !important;
+  padding-top: 1.5rem !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+/* === СТАТИЧНЫЕ КНОПКИ В СТОИМОСТИ - УБИРАЕМ СВАЙПАНИЕ === */
+/* Убираем ВСЕ анимации свайпания */
+.price-card .centered-btn .btn::before,
+.course-card .centered-btn .btn::before,
+.btn::before {
+  display: none !important;
+}
+
+/* Делаем кнопки статичными с одинаковой анимацией */
+.price-card .centered-btn .btn,
+.course-card .centered-btn .btn {
+  animation: none !important;
+  transform: none !important;
+}
+
+/* Одинаковая простая анимация как у курсов */
+.price-card .centered-btn .btn:hover,
+.course-card .centered-btn .btn:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 8px 25px var(--glow) !important;
+}
+
+/* === ОСОБЫЙ СТИЛЬ ДЛЯ КНОПКИ В РЕКОМЕНДУЕМОЙ КАРТОЧКЕ === */
+.price-card.recommended .centered-btn .btn {
+  background: rgba(184, 58, 45, 0.25) !important;
+  border: 1px solid var(--accent) !important;
+  color: #fff !important;
+  font-weight: 700 !important;
+}
+
+.price-card.recommended .centered-btn .btn:hover {
+  background: rgba(184, 58, 45, 0.35) !important;
+  box-shadow: 0 8px 30px var(--glow) !important;
+}
+
+/* === ФИКС ДЛЯ ПЕРВОЙ КНОПКИ В HERO (чтоб не сломалась) === */
+.hero .btn.primary {
+  background: rgba(184, 58, 45, 0.25) !important;
+  border: 1px solid var(--accent) !important;
+  color: #fff !important;
+}
+
+.hero .btn.primary:hover {
+  background: rgba(184, 58, 45, 0.35) !important;
+}
+
+/* === АДАПТИВНОСТЬ === */
+@media (max-width: 1024px) {
+  .courses-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  
+  .price-card.recommended {
+    grid-column: span 2 !important;
+    max-width: 400px !important;
+    margin: 0 auto !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .courses-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .price-card.recommended {
+    grid-column: 1 !important;
+  }
+  
+  .course-card {
+    min-height: auto !important;
+  }
+}
+
+/* === КНОПКИ ПРОЗРАЧНЫЕ С ЭФФЕКТОМ ЖИДКОГО СТЕКЛА === */
+.btn, 
+.price-card .centered-btn .btn,
+.course-card .centered-btn .btn,
+.nav-btn.primary,
+.contact-btn {
+  background: rgba(255, 255, 255, 0.07) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: var(--text) !important;
+  position: relative !important;
+  overflow: hidden !important;
+  transition: all 0.3s ease !important;
+}
+
+/* Эффект жидкого стекла - внутреннее свечение */
+.btn::before,
+.price-card .centered-btn .btn::before,
+.course-card .centered-btn .btn::before {
+  content: '';
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(255, 255, 255, 0.02) 50%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  border-radius: inherit;
+  z-index: -1;
+}
+
+/* Эффект градиентной обводки */
+.btn::after,
+.price-card .centered-btn .btn::after,
+.course-card .centered-btn .btn::after {
+  content: '';
+  position: absolute !important;
+  top: -1px;
+  left: -1px;
+  right: -1px;
+  bottom: -1px;
+  background: linear-gradient(
+    135deg,
+    rgba(184, 58, 45, 0.3),
+    rgba(78, 104, 81, 0.2),
+    rgba(184, 58, 45, 0.3)
+  );
+  border-radius: inherit;
+  z-index: -2;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.btn:hover::after,
+.price-card .centered-btn .btn:hover::after,
+.course-card .centered-btn .btn:hover::after {
+  opacity: 1;
+}
+
+/* Ховер эффект */
+.btn:hover,
+.price-card .centered-btn .btn:hover,
+.course-card .centered-btn .btn:hover,
+.nav-btn.primary:hover {
+  background: rgba(184, 58, 45, 0.15) !important;
+  border-color: rgba(184, 58, 45, 0.4) !important;
+  color: #fff !important;
+  transform: translateY(-3px) !important;
+  box-shadow: 
+    0 10px 30px rgba(184, 58, 45, 0.2),
+    0 0 20px rgba(184, 58, 45, 0.1) !important;
+}
+
+/* Особый стиль для primary кнопок */
+.btn.primary,
+.price-card.recommended .centered-btn .btn {
+  background: rgba(184, 58, 45, 0.2) !important;
+  border-color: rgba(184, 58, 45, 0.5) !important;
+  color: #fff !important;
+}
+
+.btn.primary:hover,
+.price-card.recommended .centered-btn .btn:hover {
+  background: rgba(184, 58, 45, 0.3) !important;
+  border-color: var(--accent) !important;
+  box-shadow: 
+    0 10px 35px rgba(184, 58, 45, 0.3),
+    0 0 25px rgba(184, 58, 45, 0.2) !important;
+}
+
+/* === КАРТОЧКИ КУРСОВ - 2 РЯДА ПО 3 КАРТОЧКИ === */
+.courses-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  grid-template-rows: repeat(2, auto) !important;
+  gap: 2.5rem !important;
+  margin-top: 2.5rem !important;
+}
+
+/* Первый ряд: карточки 1, 2, 3 */
+.course-card:nth-child(1),
+.course-card:nth-child(2),
+.course-card:nth-child(3) {
+  grid-row: 1 !important;
+}
+
+/* Второй ряд: карточки 4, 5, 6 */
+.course-card:nth-child(4),
+.course-card:nth-child(5),
+.course-card:nth-child(6) {
+  grid-row: 2 !important;
+}
+
+/* Колонки */
+.course-card:nth-child(1),
+.course-card:nth-child(4) {
+  grid-column: 1 !important;
+}
+
+.course-card:nth-child(2),
+.course-card:nth-child(5) {
+  grid-column: 2 !important;
+}
+
+.course-card:nth-child(3),
+.course-card:nth-child(6) {
+  grid-column: 3 !important;
+}
+
+/* Фиксируем высоту всех карточек */
+.course-card {
+  height: 520px !important;
+  min-height: 520px !important;
+  max-height: 520px !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.course-card h3 {
+  min-height: 85px !important;
+  display: flex !important;
+  align-items: center !important;
+  margin-bottom: 1rem !important;
+}
+
+.course-features {
+  flex: 1 !important;
+  margin: 1rem 0 !important;
+  overflow: hidden !important;
+}
+
+.course-card .centered-btn {
+  margin-top: auto !important;
+  padding-top: 1.5rem !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+/* === СТОИМОСТЬ - КНОПКИ ПОСЕРЕДИНЕ === */
+.price-card {
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 480px !important;
+  position: relative !important;
+}
+
+.price-card .centered-btn {
+  margin-top: auto !important;
+  padding-top: 1.5rem !important;
+  text-align: center !important;
+  width: 100% !important;
+}
+
+/* Карточка "рекомендуется" выше других */
+.price-card.recommended {
+  transform: translateY(-15px) !important;
+  border: 2px solid var(--accent) !important;
+  box-shadow: 
+    0 20px 50px rgba(184, 58, 45, 0.3),
+    inset 0 0 0 1px rgba(184, 58, 45, 0.1) !important;
+}
+
+/* Бейдж "рекомендуется" */
+.recommended-badge {
+  position: absolute !important;
+  top: -15px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  background: var(--gradient-primary) !important;
+  color: white !important;
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-weight: 800 !important;
+  font-size: 0.85rem !important;
+  padding: 8px 30px !important;
+  border-radius: 50px !important;
+  letter-spacing: 1px !important;
+  box-shadow: 
+    0 8px 25px rgba(184, 58, 45, 0.5),
+    0 4px 15px rgba(0, 0, 0, 0.3) !important;
+  text-transform: uppercase !important;
+  z-index: 11 !important;
+  white-space: nowrap !important;
+  border: 2px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+/* === АДАПТИВНОСТЬ === */
+@media (max-width: 1024px) {
+  .courses-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    grid-template-rows: repeat(3, auto) !important;
+  }
+
+  .course-card:nth-child(1),
+  .course-card:nth-child(2) {
+    grid-row: 1 !important;
+  }
+  
+  .course-card:nth-child(3),
+  .course-card:nth-child(4) {
+    grid-row: 2 !important;
+  }
+  
+  .course-card:nth-child(5),
+  .course-card:nth-child(6) {
+    grid-row: 3 !important;
+  }
+   
+  .course-card:nth-child(odd) {
+    grid-column: 1 !important;
+  }
+  
+  .course-card:nth-child(even) {
+    grid-column: 2 !important;
+  }
+  
+  .price-card.recommended {
+    grid-column: span 2 !important;
+    max-width: 400px !important;
+    margin: 0 auto !important;
+    transform: translateY(-10px) !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .courses-grid {
+    grid-template-columns: 1fr !important;
+    grid-template-rows: repeat(6, auto) !important;
+  }
+  
+  .course-card {
+    grid-column: 1 !important;
+    height: auto !important;
+    min-height: 480px !important;
+    max-height: none !important;
+  }
+  
+  .course-card:nth-child(1) { grid-row: 1 !important; }
+  .course-card:nth-child(2) { grid-row: 2 !important; }
+  .course-card:nth-child(3) { grid-row: 3 !important; }
+  .course-card:nth-child(4) { grid-row: 4 !important; }
+  .course-card:nth-child(5) { grid-row: 5 !important; }
+  .course-card:nth-child(6) { grid-row: 6 !important; }
+  
+  .price-card.recommended {
+    grid-column: 1 !important;
+    transform: none !important;
+  }
+}
+
+.price-card .centered-btn {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 100% !important;
+  margin-top: auto !important;
+  padding-top: 1.5rem !important;
+}
+
+.price-card .centered-btn .btn {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  display: inline-block !important;
+}
+
+.course-card .centered-btn .btn {
+  width: 240px !important;
+  padding: 14px 32px !important;
+  border-radius: 50px !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-weight: 600 !important;
+  font-size: 1rem !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  background: rgba(255, 255, 255, 0.07) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: var(--text) !important;
+  position: relative !important;
+  overflow: hidden !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
+  margin: 0 !important;
+  display: inline-block !important;
+}
+
+.course-card .centered-btn .btn::before {
+  content: '';
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(255, 255, 255, 0.02) 50%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  border-radius: inherit;
+  z-index: -1;
+}
+
+.course-card .centered-btn .btn::after {
+  content: '';
+  position: absolute !important;
+  top: -1px;
+  left: -1px;
+  right: -1px;
+  bottom: -1px;
+  background: linear-gradient(
+    135deg,
+    rgba(184, 58, 45, 0.3),
+    rgba(78, 104, 81, 0.2),
+    rgba(184, 58, 45, 0.3)
+  );
+  border-radius: inherit;
+  z-index: -2;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.course-card .centered-btn .btn:hover::after {
+  opacity: 1;
+}
+
+.course-card .centered-btn .btn:hover {
+  background: rgba(184, 58, 45, 0.15) !important;
+  border-color: rgba(184, 58, 45, 0.4) !important;
+  color: #fff !important;
+  transform: translateY(-3px) !important;
+  box-shadow: 
+    0 10px 30px rgba(184, 58, 45, 0.2),
+    0 0 20px rgba(184, 58, 45, 0.1) !important;
+}
+
+.contact-btn.telegram {
+  background: rgba(0, 136, 204, 0.15) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(0, 136, 204, 0.4) !important;
+  color: #08c !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.contact-btn.telegram::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 136, 204, 0.1) 0%,
+    rgba(0, 136, 204, 0.05) 50%,
+    rgba(0, 136, 204, 0.1) 100%
+  );
+  border-radius: inherit;
+  z-index: -1;
+}
+
+.contact-btn.telegram::after {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  right: -1px;
+  bottom: -1px;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 136, 204, 0.4),
+    rgba(0, 136, 204, 0.2),
+    rgba(0, 136, 204, 0.4)
+  );
+  border-radius: inherit;
+  z-index: -2;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.contact-btn.telegram:hover::after {
+  opacity: 1;
+}
+
+.contact-btn.telegram:hover {
+  background: rgba(0, 136, 204, 0.25) !important;
+  border-color: #08c !important;
+  color: #fff !important;
+  transform: translateY(-3px) !important;
+  box-shadow: 
+    0 10px 30px rgba(0, 136, 204, 0.3),
+    0 0 20px rgba(0, 136, 204, 0.2) !important;
+}
+
+.contact-btn.email {
+  background: rgba(184, 58, 45, 0.15) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(184, 58, 45, 0.4) !important;
+  color: var(--accent) !important;
+}
+
+.contact-btn.email::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(184, 58, 45, 0.1) 0%,
+    rgba(184, 58, 45, 0.05) 50%,
+    rgba(184, 58, 45, 0.1) 100%
+  );
+  border-radius: inherit;
+  z-index: -1;
+}
+
+.contact-btn.email::after {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  right: -1px;
+  bottom: -1px;
+  background: linear-gradient(
+    135deg,
+    rgba(184, 58, 45, 0.4),
+    rgba(78, 104, 81, 0.2),
+    rgba(184, 58, 45, 0.4)
+  );
+  border-radius: inherit;
+  z-index: -2;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.contact-btn.email:hover::after {
+  opacity: 1;
+}
+
+.contact-btn.email:hover {
+  background: rgba(184, 58, 45, 0.25) !important;
+  border-color: var(--accent) !important;
+  color: #fff !important;
+  transform: translateY(-3px) !important;
+  box-shadow: 
+    0 10px 30px rgba(184, 58, 45, 0.3),
+    0 0 20px rgba(184, 58, 45, 0.2) !important;
+}
+
+.course-card .centered-btn {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 100% !important;
+  margin-top: auto !important;
+  padding-top: 1.5rem !important;
+}
+
+.course-card .centered-btn .btn.small {
+  padding: 12px 28px !important;
+  font-size: 0.95rem !important;
+}
+
+.price-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 480px;
+}
+.price-card .centered-btn {
+  margin-top: auto;
+  padding-top: 1.5rem;
+  text-align: center;
+  width: 100%;
+}
+.price-card .centered-btn .btn {
+  margin: 0 auto !important;
+  display: inline-block !important;
+  position: static !important;
+}
+
+.course-card {
+  background: rgba(255, 255, 255, 0.04) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  border-radius: 20px !important;
+  overflow: hidden;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.course-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(
+    145deg,
+    rgba(184, 58, 45, 0.08) 0%,
+    rgba(78, 104, 81, 0.03) 30%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+.course-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.course-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: rgba(184, 58, 45, 0.4) !important;
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.35),
+    0 0 30px var(--glow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.course-tag {
+  background: rgba(217, 74, 60, 0.2) !important;
+  border: 1px solid rgba(217, 74, 60, 0.4) !important;
+  font-family: 'IBM Plex Mono', monospace !important;
+  letter-spacing: 0.5px;
+}
+
