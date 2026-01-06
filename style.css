@@ -5337,51 +5337,38 @@ footer::before {
   text-decoration: none;
   font-family: 'Montserrat', sans-serif;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
-  background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C) !important;
-  background-size: 300% 300% !important;
-  animation: instagramGradient 8s ease infinite;
-
-  border: 1px solid rgba(255, 255, 255, 0.3) !important;
-  color: white !important;
-  box-shadow: 
-    0 4px 20px rgba(192, 72, 236, 0.3),
-    0 0 0 1px rgba(255, 255, 255, 0.1);
-
+  border: 1px solid transparent;
+  background: rgba(225, 48, 108, 0.15) !important;
+  border-color: rgba(225, 48, 108, 0.4) !important;
+  color: #FF4081 !important;
+  box-shadow: 0 4px 20px rgba(225, 48, 108, 0.3);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   position: relative;
   overflow: hidden;
 }
 
-@keyframes instagramGradient {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
 .contact-btn.instagram::before {
-  content: 'IG';
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 700;
-  font-size: 1.1em;
-  letter-spacing: 0.5px;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  content: '📷';
+  font-size: 1.2em;
+  filter: drop-shadow(0 0 5px rgba(255, 64, 129, 0.7));
 }
 
 .contact-btn.instagram:hover {
   transform: translateY(-3px);
-  background: linear-gradient(45deg, #405DE6, #833AB4, #E1306C) !important;
-  background-size: 300% 300% !important;
-  box-shadow: 
-    0 8px 30px rgba(192, 72, 236, 0.5),
-    0 0 0 1px rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.5) !important;
+  background: rgba(225, 48, 108, 0.25) !important;
+  border-color: rgba(225, 48, 108, 0.7) !important;
+  color: #FF80AB !important;
+  box-shadow: 0 8px 30px rgba(225, 48, 108, 0.5), 0 0 15px rgba(255, 64, 129, 0.4);
 }
 
 .contact-btn.instagram:active {
   transform: translateY(-1px);
   transition: transform 0.1s;
+}
+
+.contact-btn.instagram {
+  text-shadow: 0 0 10px rgba(255, 64, 129, 0.5);
 }
 
 .contact-btn.instagram::after {
@@ -5391,12 +5378,8 @@ footer::before {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.15) 0%,
-    rgba(255, 255, 255, 0.05) 50%,
-    rgba(255, 255, 255, 0.15) 100%
-  );
+  background: linear-gradient(135deg, rgba(255, 64, 129, 0.1) 0%, rgba(195, 30, 126, 0.05) 50%, rgba(255, 64, 129, 0.1) 100%);
   border-radius: inherit;
   z-index: -1;
+  opacity: 0.7;
 }
