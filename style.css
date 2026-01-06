@@ -4729,14 +4729,12 @@ footer::before {
   transform: none !important;
 }
 
-/* Одинаковая простая анимация как у курсов */
 .price-card .centered-btn .btn:hover,
 .course-card .centered-btn .btn:hover {
   transform: translateY(-3px) !important;
   box-shadow: 0 8px 25px var(--glow) !important;
 }
 
-/* === ОСОБЫЙ СТИЛЬ ДЛЯ КНОПКИ В РЕКОМЕНДУЕМОЙ КАРТОЧКЕ === */
 .price-card.recommended .centered-btn .btn {
   background: rgba(184, 58, 45, 0.25) !important;
   border: 1px solid var(--accent) !important;
@@ -4749,7 +4747,6 @@ footer::before {
   box-shadow: 0 8px 30px var(--glow) !important;
 }
 
-/* === ФИКС ДЛЯ ПЕРВОЙ КНОПКИ В HERO (чтоб не сломалась) === */
 .hero .btn.primary {
   background: rgba(184, 58, 45, 0.25) !important;
   border: 1px solid var(--accent) !important;
@@ -4760,7 +4757,6 @@ footer::before {
   background: rgba(184, 58, 45, 0.35) !important;
 }
 
-/* === АДАПТИВНОСТЬ === */
 @media (max-width: 1024px) {
   .courses-grid {
     grid-template-columns: repeat(2, 1fr) !important;
@@ -4787,7 +4783,6 @@ footer::before {
   }
 }
 
-/* === КНОПКИ ПРОЗРАЧНЫЕ С ЭФФЕКТОМ ЖИДКОГО СТЕКЛА === */
 .btn, 
 .price-card .centered-btn .btn,
 .course-card .centered-btn .btn,
@@ -4803,7 +4798,6 @@ footer::before {
   transition: all 0.3s ease !important;
 }
 
-/* Эффект жидкого стекла - внутреннее свечение */
 .btn::before,
 .price-card .centered-btn .btn::before,
 .course-card .centered-btn .btn::before {
@@ -4823,7 +4817,6 @@ footer::before {
   z-index: -1;
 }
 
-/* Эффект градиентной обводки */
 .btn::after,
 .price-card .centered-btn .btn::after,
 .course-card .centered-btn .btn::after {
@@ -4851,7 +4844,6 @@ footer::before {
   opacity: 1;
 }
 
-/* Ховер эффект */
 .btn:hover,
 .price-card .centered-btn .btn:hover,
 .course-card .centered-btn .btn:hover,
@@ -4865,7 +4857,6 @@ footer::before {
     0 0 20px rgba(184, 58, 45, 0.1) !important;
 }
 
-/* Особый стиль для primary кнопок */
 .btn.primary,
 .price-card.recommended .centered-btn .btn {
   background: rgba(184, 58, 45, 0.2) !important;
@@ -4882,7 +4873,6 @@ footer::before {
     0 0 25px rgba(184, 58, 45, 0.2) !important;
 }
 
-/* === КАРТОЧКИ КУРСОВ - 2 РЯДА ПО 3 КАРТОЧКИ === */
 .courses-grid {
   display: grid !important;
   grid-template-columns: repeat(3, 1fr) !important;
@@ -4891,21 +4881,18 @@ footer::before {
   margin-top: 2.5rem !important;
 }
 
-/* Первый ряд: карточки 1, 2, 3 */
 .course-card:nth-child(1),
 .course-card:nth-child(2),
 .course-card:nth-child(3) {
   grid-row: 1 !important;
 }
 
-/* Второй ряд: карточки 4, 5, 6 */
 .course-card:nth-child(4),
 .course-card:nth-child(5),
 .course-card:nth-child(6) {
   grid-row: 2 !important;
 }
 
-/* Колонки */
 .course-card:nth-child(1),
 .course-card:nth-child(4) {
   grid-column: 1 !important;
@@ -4921,7 +4908,6 @@ footer::before {
   grid-column: 3 !important;
 }
 
-/* Фиксируем высоту всех карточек */
 .course-card {
   height: 520px !important;
   min-height: 520px !important;
@@ -4949,7 +4935,6 @@ footer::before {
   border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
 }
 
-/* === СТОИМОСТЬ - КНОПКИ ПОСЕРЕДИНЕ === */
 .price-card {
   display: flex !important;
   flex-direction: column !important;
@@ -4964,7 +4949,6 @@ footer::before {
   width: 100% !important;
 }
 
-/* Карточка "рекомендуется" выше других */
 .price-card.recommended {
   transform: translateY(-15px) !important;
   border: 2px solid var(--accent) !important;
@@ -4973,7 +4957,6 @@ footer::before {
     inset 0 0 0 1px rgba(184, 58, 45, 0.1) !important;
 }
 
-/* Бейдж "рекомендуется" */
 .recommended-badge {
   position: absolute !important;
   top: -15px !important;
@@ -4996,7 +4979,6 @@ footer::before {
   border: 2px solid rgba(255, 255, 255, 0.2) !important;
 }
 
-/* === АДАПТИВНОСТЬ === */
 @media (max-width: 1024px) {
   .courses-grid {
     grid-template-columns: repeat(2, 1fr) !important;
@@ -5345,3 +5327,76 @@ footer::before {
   letter-spacing: 0.5px;
 }
 
+.contact-btn.instagram {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 35px;
+  border-radius: 50px;
+  font-weight: 600;
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C) !important;
+  background-size: 300% 300% !important;
+  animation: instagramGradient 8s ease infinite;
+
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  color: white !important;
+  box-shadow: 
+    0 4px 20px rgba(192, 72, 236, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+@keyframes instagramGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.contact-btn.instagram::before {
+  content: 'IG';
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 1.1em;
+  letter-spacing: 0.5px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.contact-btn.instagram:hover {
+  transform: translateY(-3px);
+  background: linear-gradient(45deg, #405DE6, #833AB4, #E1306C) !important;
+  background-size: 300% 300% !important;
+  box-shadow: 
+    0 8px 30px rgba(192, 72, 236, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.contact-btn.instagram:active {
+  transform: translateY(-1px);
+  transition: transform 0.1s;
+}
+
+.contact-btn.instagram::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.15) 0%,
+    rgba(255, 255, 255, 0.05) 50%,
+    rgba(255, 255, 255, 0.15) 100%
+  );
+  border-radius: inherit;
+  z-index: -1;
+}
