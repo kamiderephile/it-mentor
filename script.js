@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // Бургер меню
   const burger = document.getElementById('burgerMenu');
   const navLinks = document.getElementById('navLinks');
   const navbar = document.querySelector('.navbar');
@@ -9,7 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
     navLinks.classList.toggle('show');
   });
 
-  // Плавный скролл к якорям
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
       e.preventDefault();
@@ -19,7 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
           top: target.offsetTop - 80,
           behavior: 'smooth'
         });
-        // Закрыть меню при клике на мобильном
         if (window.innerWidth <= 950) {
           navbar.classList.remove('active');
           navLinks.classList.remove('show');
@@ -28,7 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Анимация появления элементов при скролле
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -42,7 +38,6 @@ document.addEventListener('DOMContentLoaded', () => {
     observer.observe(el);
   });
 
-  // Анимация иконок при наведении
   document.querySelectorAll('.why-icon, .stat').forEach(icon => {
     icon.addEventListener('mouseenter', function() {
       this.style.transform = 'scale(1.2) rotate(10deg)';
@@ -53,7 +48,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Глитч-эффект на заголовке при наведении
   const heroTitle = document.querySelector('.hero h1 span');
   if (heroTitle) {
     heroTitle.addEventListener('mouseenter', glitchEffect);
@@ -63,7 +57,6 @@ document.addEventListener('DOMContentLoaded', () => {
     this.style.animation = 'glitch 0.5s infinite';
   }
 
-  // Анимация чисел
   const statNumbers = document.querySelectorAll('.stat-num');
   statNumbers.forEach(num => {
     const target = +num.getAttribute('data-target');
@@ -95,7 +88,6 @@ document.addEventListener('DOMContentLoaded', () => {
     observerForStats.observe(num);
   });
 
-  // Форма
   const form = document.getElementById('lead-form');
   if (form) {
     form.addEventListener('submit', (e) => {
@@ -105,4 +97,35 @@ document.addEventListener('DOMContentLoaded', () => {
       form.reset();
     });
   }
+});
+const burger = document.getElementById('burgerMenu');
+const mobileNav = document.getElementById('mobileNav');
+const overlay = document.getElementById('mobileOverlay');
+const links = document.querySelectorAll('.mobile-nav .nav-btn');
+
+function toggleMenu() {
+  mobileNav.classList.toggle('active');
+  overlay.classList.toggle('active');
+}
+
+burger.addEventListener('click', toggleMenu);
+overlay.addEventListener('click', toggleMenu);
+
+links.forEach(link => {
+  link.addEventListener('click', () => {
+    mobileNav.classList.remove('active');
+    overlay.classList.remove('active');
+  });
+});
+
+// Закрыть при скролле
+let lastScroll = 0;
+window.addEventListener('scroll', () => {
+  const current = window.scrollY;
+  if (current > 30 && Math.abs(current - lastScroll) > 10) {
+    if (mobileNav.classList.contains('active')) {
+      toggleMenu();
+    }
+  }
+  lastScroll = current;
 });
