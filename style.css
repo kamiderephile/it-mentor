@@ -1349,6 +1349,11 @@ footer {
   box-sizing: border-box;
 }
 
+.mobile-menu-overlay,
+.mobile-nav {
+  display: none;
+}
+
 body {
   background-color: var(--bg);
   color: var(--text);
@@ -4488,7 +4493,6 @@ footer::before {
     inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
-/* === ИСПРАВЛЕНИЕ КАРТОЧЕК КУРСОВ - ВСЕ НА ОДНОЙ ВЫСОТЕ === */
 .course-card {
   min-height: 520px !important;
   display: flex !important;
@@ -4511,8 +4515,6 @@ footer::before {
   padding-top: 20px !important;
 }
 
-/* === ВЫДЕЛЕНИЕ КАРТОЧКИ "РЕКОМЕНДУЕТСЯ" В СТОИМОСТИ === */
-/* Красная обводка и выделение */
 .price-card.recommended {
   border: 3px solid var(--accent) !important;
   box-shadow: 
@@ -4529,7 +4531,6 @@ footer::before {
   ) !important;
 }
 
-/* Красная плашка "Рекомендуется" */
 .recommended-badge {
   position: absolute !important;
   top: -18px !important;
@@ -4553,7 +4554,6 @@ footer::before {
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5) !important;
 }
 
-/* Красная кнопка с glass эффектом */
 .price-card.recommended .centered-btn .btn {
   background: rgba(184, 58, 45, 0.25) !important;
   border: 1px solid var(--accent) !important;
@@ -4567,15 +4567,12 @@ footer::before {
     inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
 }
 
-/* === СТАБИЛИЗАЦИЯ КНОПОК - УБИРАЕМ СВАЙПАНИЕ === */
-/* Убираем свайпающуюся анимацию у ВСЕХ кнопок */
 .btn::before,
 .price-card .centered-btn .btn::before,
 .course-card .centered-btn .btn::before {
   display: none !important;
 }
 
-/* Общие стили для всех кнопок "Записаться" */
 .price-card .centered-btn .btn,
 .course-card .centered-btn .btn {
   transition: all 0.3s ease !important;
@@ -4583,7 +4580,6 @@ footer::before {
   overflow: hidden !important;
 }
 
-/* ОДИНАКОВАЯ анимация при наведении как в курсах */
 .price-card .centered-btn .btn:hover,
 .course-card .centered-btn .btn:hover {
   transform: translateY(-3px) !important;
@@ -4591,7 +4587,6 @@ footer::before {
   background: var(--gradient-secondary) !important;
 }
 
-/* Особый ховер для рекомендуемой кнопки */
 .price-card.recommended .centered-btn .btn:hover {
   background: rgba(184, 58, 45, 0.35) !important;
   box-shadow: 
@@ -4599,7 +4594,6 @@ footer::before {
     inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
 }
 
-/* === АДАПТИВНОСТЬ === */
 @media (max-width: 1024px) {
   .price-card.recommended {
     grid-column: span 2 !important;
@@ -4620,8 +4614,6 @@ footer::before {
   }
 }
 
-/* === УБИРАЕМ ГРАДИЕНТ ПРИ НАВЕДЕНИИ НА ВСЕ КНОПКИ === */
-/* Основной стиль для всех кнопок */
 .btn,
 .price-card .centered-btn .btn,
 .course-card .centered-btn .btn {
@@ -4635,7 +4627,6 @@ footer::before {
   transition: all 0.3s ease !important;
 }
 
-/* Убираем градиенты при наведении */
 .btn:hover,
 .price-card .centered-btn .btn:hover,
 .course-card .centered-btn .btn:hover {
@@ -4646,7 +4637,6 @@ footer::before {
   box-shadow: 0 8px 25px var(--glow) !important;
 }
 
-/* Убираем ВСЕ градиентные фоны */
 .btn.primary,
 .price-card .centered-btn .btn,
 .course-card .centered-btn .btn {
@@ -4661,7 +4651,6 @@ footer::before {
   background-image: none !important;
 }
 
-/* === ЭФФЕКТ ЖИДКОГО СТЕКЛА ДЛЯ КНОПОК === */
 .btn::after {
   content: '';
   position: absolute;
@@ -4679,14 +4668,12 @@ footer::before {
   z-index: -1;
 }
 
-/* === ИСПРАВЛЯЕМ РАСПОЛОЖЕНИЕ КАРТОЧКИ "СОЗДАНИЕ САЙТОВ" === */
 .courses-grid {
   display: grid !important;
   grid-template-columns: repeat(3, 1fr) !important;
   gap: 2.5rem !important;
 }
 
-/* Заставляем все карточки быть на одной высоте */
 .course-card {
   display: flex !important;
   flex-direction: column !important;
@@ -4694,7 +4681,6 @@ footer::before {
   min-height: 520px !important;
 }
 
-/* Фиксируем контент карточек */
 .course-card h3 {
   min-height: 80px !important;
   display: flex !important;
@@ -4707,22 +4693,18 @@ footer::before {
   margin: 1rem 0 !important;
 }
 
-/* Кнопка всегда внизу */
 .course-card .centered-btn {
   margin-top: auto !important;
   padding-top: 1.5rem !important;
   border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
 }
 
-/* === СТАТИЧНЫЕ КНОПКИ В СТОИМОСТИ - УБИРАЕМ СВАЙПАНИЕ === */
-/* Убираем ВСЕ анимации свайпания */
 .price-card .centered-btn .btn::before,
 .course-card .centered-btn .btn::before,
 .btn::before {
   display: none !important;
 }
 
-/* Делаем кнопки статичными с одинаковой анимацией */
 .price-card .centered-btn .btn,
 .course-card .centered-btn .btn {
   animation: none !important;
@@ -5433,3 +5415,202 @@ footer::before {
   box-shadow: 0 0 8px var(--accent), 0 0 12px var(--accent);
   border-radius: 2px;
 }
+
+@media (max-width: 768px) {
+  body {
+    padding-top: 80px;
+  }
+  .section {
+    padding: 60px 0;
+  }
+  .section-title {
+    font-size: 2.2rem;
+  }
+  .section-lead {
+    font-size: 1.1rem;
+    padding: 0 1rem;
+  }
+
+  .navbar {
+    height: 80px;
+    padding: 0;
+  }
+  .navbar .container {
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+  .nav-logo {
+    margin-right: auto;
+    font-size: 1.6rem;
+  }
+  .nav-phone {
+    font-size: 0.85rem;
+    margin-top: 3px;
+  }
+  .desktop-only {
+    display: none !important;
+  }
+  .burger-menu {
+    display: flex;
+    margin-left: auto;
+  }
+
+  .mobile-menu-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s, visibility 0.4s;
+    z-index: 1999;
+  }
+  .mobile-menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+  .mobile-nav {
+    position: fixed;
+    display: block;
+    top: 0; right: -100%;
+    width: 80%;
+    max-width: 320px;
+    height: 100vh;
+    background: var(--bg);
+    border-left: 1px solid var(--border);
+    padding: 90px 1.5rem 1.5rem;
+    z-index: 2000;
+    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .mobile-nav.active {
+    right: 0;
+  }
+  .mobile-nav .nav-btn {
+    display: block;
+    padding: 14px 20px;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    text-align: left;
+    background: rgba(255,255,255,0.03);
+    border-radius: 10px;
+  }
+
+  .hero {
+    min-height: calc(100dvh - 80px);
+    padding: 0 1rem;
+  }
+  .hero h1 {
+    font-size: 2.6rem;
+    line-height: 1.2;
+  }
+  .hero h1 span {
+    display: block;
+  }
+  .subtitle {
+    font-size: 1.1rem;
+    padding: 0 0.5rem;
+  }
+  .hero-cta {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .btn.big, .btn.primary, .btn.outline {
+    width: 100%;
+    max-width: 320px;
+    padding: 16px;
+    font-size: 1.1rem;
+  }
+
+  .about-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    text-align: center;
+  }
+  .photo-img {
+    width: 220px;
+    height: 220px;
+    margin: 0 auto;
+  }
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .why-grid,
+  .reviews-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .courses-grid {
+    grid-template-columns: 1fr;
+  }
+  .course-card {
+    min-height: auto;
+    padding: 1.8rem;
+  }
+  .course-card h3 {
+    min-height: auto;
+    font-size: 1.4rem;
+  }
+
+  .price-grid {
+    grid-template-columns: 1fr;
+  }
+  .price-card {
+    min-height: auto;
+    padding: 2rem;
+  }
+  .price-card.recommended {
+    transform: none !important;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .price-card .centered-btn,
+  .course-card .centered-btn {
+    text-align: center !important;
+    display: block !important;
+    margin-top: 1.5rem !important;
+    position: static !important;
+    transform: none !important;
+    width: 100% !important;
+  }
+  .price-card .centered-btn .btn,
+  .course-card .centered-btn .btn {
+    width: 100% !important;
+    max-width: 280px !important;
+    margin: 0 auto !important;
+    padding: 14px !important;
+    font-size: 1rem !important;
+    position: static !important;
+  }
+
+  .contact-methods {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .contact-btn {
+    width: 100%;
+    max-width: 300px;
+    justify-content: center;
+  }
+  .contact-form {
+    margin-top: 2rem;
+  }
+
+  footer {
+    padding: 2rem 0;
+  }
+
+  [id] {
+    scroll-margin-top: 90px;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero h1 { font-size: 2.2rem; }
+  .btn { padding: 12px; font-size: 1rem; }
+  .nav-logo { font-size: 1.4rem; }
+  .section-title { font-size: 2rem; }
+}
+
