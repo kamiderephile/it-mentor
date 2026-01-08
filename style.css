@@ -5383,3 +5383,53 @@ footer::before {
   z-index: -1;
   opacity: 0.7;
 }
+
+.code-deco {
+  position: absolute;
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 500;
+  z-index: -1;
+  opacity: 0.08;
+  pointer-events: none;
+  color: var(--accent2);
+  text-shadow: 0 0 6px rgba(184, 58, 45, 0.2);
+}
+
+.deco-1 { top: 15%; left: 5%; font-size: 1.2rem; }
+.deco-2 { top: 40%; right: 10%; font-size: 1.4rem; opacity: 0.06; }
+.deco-3 { bottom: 25%; left: 8%; font-size: 1.6rem; opacity: 0.07; }
+.deco-4 { top: 70%; right: 15%; font-size: 1.1rem; }
+.deco-5 { bottom: 10%; right: 5%; font-size: 1.3rem; opacity: 0.05; }
+
+.contact-form {
+  text-align: center;
+  margin-top: 2rem;
+}
+.contact-form p {
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+#pricing .section-title {
+  opacity: 0.82;
+}
+
+.hero h1 span {
+  color: var(--accent);
+  position: relative;
+  display: inline-block;
+  text-shadow: 0 0 10px var(--accent), 0 0 20px var(--accent);
+}
+
+.hero h1 span::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent), 0 0 12px var(--accent);
+  border-radius: 2px;
+}
