@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
+<div id="progress-bar" class="progress-bar"></div>
   <div class="code-bg"></div>
 
   <header class="navbar">
@@ -43,23 +43,27 @@
   </nav>
 </header>
 
-  <section id="hero" class="hero">
-    <div class="container">
-      <div class="hero-content">
-        <div class="code-deco deco-1">def</div>
-        <div class="code-deco deco-2">for</div>
-        <div class="code-deco deco-3">&lt;/&gt;</div>
-        <div class="code-deco deco-4">return</div>
-        <div class="code-deco deco-5">class</div>
-        <h1>Программируй будущее<br><span>с тем, кто понимает</span></h1>
-        <p class="subtitle">IT-репетитор в Приднестровье. Индивидуальные занятия для детей, подростков и взрослых.</p>
-        <div class="hero-cta">
-          <a href="#contact" class="btn primary big">Записаться на пробное занятие</a>
-          <a href="#why" class="btn outline">Почему именно я?</a>
-        </div>
-      </div>
+<section class="hero">
+  <div class="hero-bg-particles"></div>
+  <div class="hero-glow"></div>
+  
+  <div class="hero-content">
+    <h1>
+      <span class="glitch-text">Программирование</span>
+      <br>
+      <span class="future-kanji">未来</span> начинается здесь
+    </h1>
+    <p class="subtitle">
+      От «я ничего не понимаю» → «я сам написал игру, бот, сайт»<br>
+      за 1–2 месяца. Без зубрёжки. Только практика и навыки
+    </p>
+    
+    <div class="hero-cta">
+      <a href="#pricing" class="btn primary big">Пробное занятие - всего 50₽</a>
+      <a href="#contact" class="btn outline big">Записаться</a>
     </div>
-  </section>
+  </div>
+</section>
 
   <section id="about" class="section" data-animate>
     <div class="container">
@@ -273,6 +277,63 @@
   </div>
 </section>
 
+<div class="gallery-track" id="galleryTrack">
+  <div class="gallery-item">
+    <div class="gallery-media">
+      <img src="photo1.jpg" alt="Фото" class="photo-img">
+    </div>
+    <div class="gallery-info">
+      <h4>Процесс занятия</h4>
+      <p>Первое занятие на курсе</p>
+      <small>Возраст: 14 лет • Курс: Python для начинающих</small>
+    </div>
+  </div>
+
+  <div class="gallery-item">
+    <div class="gallery-media">
+      <img src="photo2.jpg" alt="Фото" class="photo-img">
+    </div>
+    <div class="gallery-info">
+      <h4>В работе...</h4>
+      <p>Процесс заключительного занятия</p>
+      <small>Возраст: 11 лет • Scratch</small>
+    </div>
+  </div>
+
+  <div class="gallery-item">
+    <div class="gallery-media">
+      <img src="photo3.jpg" alt="Фото" class="photo-img">
+    </div>
+    <div class="gallery-info">
+      <h4>Создание своей игры</h4>
+      <p>Прыжки, враги, собранные монетки, 3 уровня</p>
+      <small>Возраст: 12 лет • Курс: Визуальное программирование</small>
+    </div>
+  </div>
+
+  <div class="gallery-item">
+    <div class="gallery-media">
+      <img src="photo4.jpg" alt="Фото" class="photo-img">
+    </div>
+    <div class="gallery-info">
+      <h4>Гонки</h4>
+      <p>Ретро-оформление легендарной игры</p>
+      <small>Возраст: 8 лет • Курс: Визуальное программирование</small>
+    </div>
+  </div>
+
+  <div class="gallery-item">
+    <div class="gallery-media">
+    <img src="photo5.jpg" alt="Фото" class="photo-img">
+    </div>
+    <div class="gallery-info">
+      <h4>Личный сайт-проект</h4>
+      <p>Адаптивный, с анимациями, секциями и под школьную презентацию</p>
+      <small>Возраст: 15 лет • Курс: Веб-разработка (HTML+CSS+JS)</small>
+    </div>
+  </div>
+</div>
+
   <section id="reviews" class="section" data-animate>
     <div class="container">
       <h2 class="section-title">Отзывы</h2>
@@ -337,5 +398,10 @@
   </footer>
 
   <script src="script.js"></script>
+<button id="scrollToTop" class="scroll-to-top" aria-label="Наверх">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 5L12 19M12 5L6 11M12 5L18 11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+  </svg>
+</button>
 </body>
 </html>
