@@ -8,6 +8,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+  
+  <!-- Dependencies for Components -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script type="module">
+    import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from 'https://cdn.skypack.dev/motion@10.16.2';
+    window.motion = { motion, useMotionValue, useSpring, useTransform, AnimatePresence };
+  </script>
+
   <style>
     :root {
       --bg-dark: #050505;
@@ -29,6 +37,8 @@
       color: var(--text-main);
       line-height: 1.6;
       overflow-x: hidden;
+      /* Hide default cursor when TargetCursor is active */
+      cursor: none; 
     }
 
     ::-webkit-scrollbar { width: 6px; }
@@ -52,18 +62,7 @@
     .logo__accent { color: var(--gold); }
     .logo__subtitle { font-size: 0.7rem; color: var(--gold); opacity: 0.8; display: block; margin-top: -2px; letter-spacing: 1px; text-transform: uppercase; }
 
-    .nav { display: flex; gap: 32px; align-items: center; }
-    .nav__link {
-      text-decoration: none; color: var(--text-muted); font-weight: 500; font-size: 0.9rem;
-      transition: all 0.3s; font-family: var(--font-code); position: relative;
-    }
-    .nav__link:hover { color: var(--gold); text-shadow: 0 0 8px var(--gold-glow); }
-    .nav__link--primary {
-      background: transparent; color: var(--gold); border: 1px solid var(--gold);
-      padding: 8px 24px; border-radius: 2px; box-shadow: 0 0 10px rgba(255, 215, 0, 0.1);
-    }
-    .nav__link--primary:hover { background: var(--gold); color: #000; box-shadow: 0 0 20px var(--gold-glow); }
-
+    /* Mobile toggle only, Nav is replaced by Dock */
     .mobile-toggle { display: none; flex-direction: column; gap: 6px; background: none; border: none; cursor: pointer; z-index: 1001; }
     .mobile-toggle span { width: 28px; height: 2px; background: var(--gold); transition: 0.3s; box-shadow: 0 0 5px var(--gold); }
 
@@ -73,22 +72,10 @@
       overflow: hidden; padding-top: 80px;
     }
 
-    .hero__code-bg {
+    /* DotField Container */
+    .hero__dotfield-container {
       position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-      z-index: 1; pointer-events: none; overflow: hidden;
-    }
-    .code-symbol {
-      position: absolute;
-      font-family: var(--font-code);
-      font-weight: 700;
-      color: var(--gold);
-      opacity: 0.03;
-      user-select: none;
-      animation: floatSymbol 10s infinite ease-in-out alternate;
-    }
-    @keyframes floatSymbol {
-      0% { transform: translateY(0) rotate(0deg); }
-      100% { transform: translateY(-20px) rotate(5deg); }
+      z-index: 1; pointer-events: none;
     }
 
     .hero__container { position: relative; z-index: 2; text-align: center; width: 100%; }
@@ -434,7 +421,7 @@
     .contact__phone span { color: var(--gold); }
     .contact__form-note p { color: #888; margin-bottom: 20px; font-size: 0.85rem; }
 
-    .footer { background: #020202; border-top: 1px solid rgba(255, 215, 0, 0.1); padding-top: 60px; position: relative; }
+    .footer { background: #020202; border-top: 1px solid rgba(255, 215, 0, 0.1); padding-top: 60px; position: relative; padding-bottom: 100px; /* Space for Dock */ }
     .footer__grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 40px; padding-bottom: 40px; }
     .footer__brand .logo { margin-bottom: 20px; }
     .footer__description { font-size: 0.8rem; color: #666; line-height: 1.6; max-width: 280px; }
@@ -444,7 +431,7 @@
     .footer__bottom { padding: 24px 0; text-align: center; font-size: 0.75rem; color: #444; display: flex; justify-content: space-between; flex-wrap: wrap; border-top: 1px solid rgba(255, 255, 255, 0.05); }
 
     .scroll-top {
-      position: fixed; bottom: 30px; right: 30px; width: 45px; height: 45px;
+      position: fixed; bottom: 100px; right: 30px; width: 45px; height: 45px;
       background: var(--gold); color: #000; border: none; font-size: 20px;
       cursor: pointer; opacity: 0; visibility: hidden; transition: all 0.3s;
       z-index: 99; border-radius: 50%; display: flex; align-items: center; justify-content: center;
@@ -459,6 +446,113 @@
     @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes typeIn { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
 
+    /* --- COMPONENT STYLES --- */
+
+    /* TargetCursor CSS */
+    .target-cursor-wrapper {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      pointer-events: none;
+      z-index: 9999;
+      mix-blend-mode: difference;
+      transform: translate(-50%, -50%);
+    }
+    .target-cursor-dot {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 4px;
+      height: 4px;
+      background: var(--gold); /* Changed to Gold */
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      will-change: transform;
+    }
+    .target-cursor-corner {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 12px;
+      height: 12px;
+      border: 3px solid var(--gold); /* Changed to Gold */
+      will-change: transform;
+    }
+    .corner-tl { transform: translate(-150%, -150%); border-right: none; border-bottom: none; }
+    .corner-tr { transform: translate(50%, -150%); border-left: none; border-bottom: none; }
+    .corner-br { transform: translate(50%, 50%); border-left: none; border-top: none; }
+    .corner-bl { transform: translate(-150%, 50%); border-right: none; border-top: none; }
+
+    /* Dock CSS */
+    .dock-outer {
+      margin: 0 0.5rem;
+      display: flex;
+      max-width: 100%;
+      align-items: center;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+    }
+    .dock-panel {
+      position: relative;
+      bottom: 0;
+      left: 0;
+      transform: none;
+      display: flex;
+      align-items: flex-end;
+      width: fit-content;
+      gap: 1rem;
+      border-radius: 1rem;
+      background-color: rgba(18, 15, 23, 0.8);
+      border: 1px solid rgba(255, 215, 0, 0.2);
+      padding: 0 0.5rem 0.5rem;
+      backdrop-filter: blur(10px);
+    }
+    .dock-item {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      background-color: rgba(18, 15, 23, 0.9);
+      border: 1px solid rgba(255, 215, 0, 0.1);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      outline: none;
+    }
+    .dock-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+    }
+    .dock-label {
+      position: absolute;
+      top: -1.5rem;
+      left: 50%;
+      width: fit-content;
+      white-space: pre;
+      border-radius: 0.375rem;
+      border: 1px solid rgba(255, 215, 0, 0.2);
+      background-color: #120F17;
+      padding: 0.125rem 0.5rem;
+      font-size: 0.75rem;
+      color: var(--gold);
+      transform: translateX(-50%);
+      font-family: var(--font-code);
+    }
+
+    /* DotField CSS */
+    .dot-field-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
     @media (max-width: 1024px) {
       .hero__title { font-size: 3.5rem; }
       .about__grid { grid-template-columns: 1fr; text-align: center; gap: 40px; }
@@ -466,7 +560,6 @@
       .about__features { max-width: 600px; margin: 0 auto; }
     }
     @media (max-width: 768px) {
-      .nav { display: none; }
       .mobile-toggle { display: flex; }
       .hero__title { font-size: 2.5rem; }
       .hero__stats { gap: 20px; }
@@ -478,6 +571,9 @@
       .footer__bottom { flex-direction: column; gap: 12px; }
       .gallery-slide img { height: 250px; }
       .contact__content { padding: 32px 20px; }
+      /* Hide Dock on mobile if preferred, or adjust */
+      .dock-outer { display: none; } 
+      .nav { display: none; } /* Ensure standard nav is hidden */
     }
     @media (max-width: 480px) {
       .hero__buttons { flex-direction: column; align-items: stretch; }
@@ -490,36 +586,20 @@
 
 <header class="header">
   <div class="container header__container">
-    <a href="#" class="logo">
+    <a href="#" class="logo cursor-target">
       <span class="logo__bracket">{</span>
       <div class="logo__text">alexey<span class="logo__accent">.benz</span><span class="logo__subtitle">// it-mentor</span></div>
       <span class="logo__bracket">}</span>
     </a>
-    <nav class="nav">
-      <a href="#about" class="nav__link">обо мне</a>
-      <a href="#courses" class="nav__link">курсы</a>
-      <a href="#pricing" class="nav__link">цены</a>
-      <a href="#gallery" class="nav__link">галерея</a>
-      <a href="#reviews" class="nav__link">отзывы</a>
-      <a href="#contact" class="nav__link nav__link--primary">$ запись</a>
-    </nav>
+    <!-- Navigation removed from Header, replaced by Dock at bottom -->
     <button class="mobile-toggle"><span></span><span></span><span></span></button>
   </div>
 </header>
 
 <main>
   <section class="hero">
-    <div class="hero__code-bg">
-      <span class="code-symbol" style="top: 10%; left: 10%; font-size: 80px;">&lt;/&gt;</span>
-      <span class="code-symbol" style="top: 20%; right: 15%; font-size: 60px; animation-delay: 1s;">{ }</span>
-      <span class="code-symbol" style="top: 60%; left: 20%; font-size: 100px; animation-delay: 2s;">[ ]</span>
-      <span class="code-symbol" style="top: 70%; right: 10%; font-size: 70px; animation-delay: 3s;">( )</span>
-      <span class="code-symbol" style="top: 40%; left: 5%; font-size: 50px; animation-delay: 4s;">;</span>
-      <span class="code-symbol" style="top: 15%; left: 40%; font-size: 40px; animation-delay: 1.5s;">.</span>
-      <span class="code-symbol" style="top: 80%; left: 60%; font-size: 90px; animation-delay: 2.5s;">#</span>
-      <span class="code-symbol" style="top: 30%; right: 30%; font-size: 50px; animation-delay: 3.5s;">$</span>
-      <span class="code-symbol" style="top: 50%; left: 50%; font-size: 120px; opacity: 0.02;">&lt;&gt;</span>
-    </div>
+    <!-- DotField Component Integration -->
+    <div class="hero__dotfield-container" id="dotfield-root"></div>
 
     <div class="container hero__container">
       <div class="hero__badge"><span class="prompt">λ</span> system_ready :: 5+ лет опыта</div>
@@ -543,7 +623,7 @@
       </div>
 
       <div class="hero__buttons">
-        <a href="#contact" class="btn btn--outline"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 9l5 5 5-5M12 4v10"/></svg> консультация</a>
+        <a href="#contact" class="btn btn--outline cursor-target"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 9l5 5 5-5M12 4v10"/></svg> консультация</a>
       </div>
 
       <div class="hero__stats">
@@ -565,7 +645,7 @@
             <div class="about__photo-ring"></div>
             <div class="about__photo-frame"><img src="photo.jpg" alt="Алексей"></div>
         </div>
-        <div class="about__content">
+        <div class="about__content cursor-target">
             <div class="code-editor-style">
                 <div class="code-line"><span class="line-num">01</span><span class="keyword">class</span> <span class="function">Mentor</span>:</div>
                 <div class="code-line"><span class="line-num">02</span>&nbsp;&nbsp;<span class="keyword">def</span> <span class="function">__init__</span>(<span class="keyword">self</span>):</div>
@@ -595,7 +675,7 @@
       <div class="section__header"><div class="section__label"><span class="prompt">λ</span> available_courses</div><h2 class="section-title">выберите курс</h2><p class="section-subtitle">Все программы с учётом возраста и уровня</p></div>
       <div class="courses__grid">
         
-        <div class="course-card">
+        <div class="course-card cursor-target">
             <div class="course-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2L15 8.5L22 9.5L17 14L18.5 21L12 17.5L5.5 21L7 14L2 9.5L9 8.5L12 2z"/></svg></div>
             <h3 class="course-card__title">Python с нуля</h3>
             <p class="course-card__description">Игры, Telegram-боты, веб-приложения. Идеальный старт для новичков.</p>
@@ -605,7 +685,7 @@
             </div>
         </div>
 
-        <div class="course-card course-card--featured">
+        <div class="course-card course-card--featured cursor-target">
             <div class="course-card__ribbon">HIT</div>
             <div class="course-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/></svg></div>
             <h3 class="course-card__title">Создание 2D-игр</h3>
@@ -616,7 +696,7 @@
             </div>
         </div>
 
-        <div class="course-card">
+        <div class="course-card cursor-target">
             <div class="course-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 12a9 9 0 0 1-9 9m9-9a9 9 0 0 0-9-9m9 9H3m9 9a9 9 0 0 1-9-9m9 9c1.66 0 3-4 3-9s-1.34-9-3-9"/></svg></div>
             <h3 class="course-card__title">Веб-разработка</h3>
             <p class="course-card__description">Сайты, анимации, React. Создание портфолио для будущих IT-специалистов.</p>
@@ -626,7 +706,7 @@
             </div>
         </div>
 
-        <div class="course-card">
+        <div class="course-card cursor-target">
             <div class="course-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3H6a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg></div>
             <h3 class="course-card__title">C++ / C# / Unity</h3>
             <p class="course-card__description">Системное программирование, серьезные игры, подготовка к олимпиадам.</p>
@@ -636,7 +716,7 @@
             </div>
         </div>
 
-        <div class="course-card">
+        <div class="course-card cursor-target">
             <div class="course-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 10 10c0 5-4 9-10 9-3 0-5-1-7-3"/><path d="M9 12l2 2 4-4"/></svg></div>
             <h3 class="course-card__title">AI и нейросети</h3>
             <p class="course-card__description">Знакомство с ИИ, создание чат-ботов, работа с нейросетями и промптами.</p>
@@ -646,7 +726,7 @@
             </div>
         </div>
 
-        <div class="course-card">
+        <div class="course-card cursor-target">
             <div class="course-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H5.78a1.65 1.65 0 0 0-1.51 1 1.65 1.65 0 0 0 .33 1.82l.03.03A10 10 0 0 0 12 17.66a10 10 0 0 0 6.37-2.63z"/></svg></div>
             <h3 class="course-card__title">Визуальное программирование</h3>
             <p class="course-card__description">Анимации, генеративное искусство, 2D-физика без сложного кода.</p>
@@ -681,9 +761,9 @@
     <div class="container">
       <div class="section__header"><div class="section__label"><span class="prompt">λ</span> pricing</div><h2 class="section-title">стоимость занятий</h2><p class="section-subtitle">Возможны абонементы более, чем на 10 занятий - обсуждаются индивидуально</p></div>
       <div class="pricing__grid">
-        <div class="pricing-card"><div class="pricing-card__price">50<span>₽</span></div><div class="pricing-card__label">пробное занятие</div><div class="pricing-card__note">скидка 50% на первый урок</div><ul class="pricing-card__features"><li>45–60 минут</li><li>диагностика уровня</li><li>план обучения</li></ul><a href="#contact" class="btn btn--outline" style="width:100%;justify-content:center;">записаться</a></div>
-        <div class="pricing-card pricing-card--popular"><div class="pricing-card__badge">★ РЕКОМЕНДУЕМ</div><div class="pricing-card__price">100<span>₽</span></div><div class="pricing-card__label">индивидуальное занятие</div><ul class="pricing-card__features"><li>60 минут</li><li>домашнее задание с разбором</li><li>запись занятия</li><li>гибкое расписание</li></ul><a href="#contact" class="btn btn--primary" style="width:100%;justify-content:center;">выбрать</a></div>
-        <div class="pricing-card"><div class="pricing-card__price">450<span>₽</span></div><div class="pricing-card__label">абонемент на 5 занятий</div><div class="pricing-card__note">экономия 50₽</div><ul class="pricing-card__features"><li>все преимущества</li><li>фиксированная стоимость</li><li>действует 2 месяца</li></ul><a href="#contact" class="btn btn--outline" style="width:100%;justify-content:center;">выбрать</a></div>
+        <div class="pricing-card cursor-target"><div class="pricing-card__price">50<span>₽</span></div><div class="pricing-card__label">пробное занятие</div><div class="pricing-card__note">скидка 50% на первый урок</div><ul class="pricing-card__features"><li>45–60 минут</li><li>диагностика уровня</li><li>план обучения</li></ul><a href="#contact" class="btn btn--outline" style="width:100%;justify-content:center;">записаться</a></div>
+        <div class="pricing-card pricing-card--popular cursor-target"><div class="pricing-card__badge">★ РЕКОМЕНДУЕМ</div><div class="pricing-card__price">100<span>₽</span></div><div class="pricing-card__label">индивидуальное занятие</div><ul class="pricing-card__features"><li>60 минут</li><li>домашнее задание с разбором</li><li>запись занятия</li><li>гибкое расписание</li></ul><a href="#contact" class="btn btn--primary" style="width:100%;justify-content:center;">выбрать</a></div>
+        <div class="pricing-card cursor-target"><div class="pricing-card__price">450<span>₽</span></div><div class="pricing-card__label">абонемент на 5 занятий</div><div class="pricing-card__note">экономия 50₽</div><ul class="pricing-card__features"><li>все преимущества</li><li>фиксированная стоимость</li><li>действует 2 месяца</li></ul><a href="#contact" class="btn btn--outline" style="width:100%;justify-content:center;">выбрать</a></div>
       </div>
     </div>
   </section>
@@ -711,12 +791,12 @@
     <div class="container">
       <div class="section__header"><div class="section__label"><span class="prompt">λ</span> reviews</div><h2 class="section-title">отзывы</h2><p class="section-subtitle">98% учеников продолжают обучение после пробного занятия</p></div>
       <div class="reviews__grid">
-        <div class="review-card"><div class="review-card__stars">★★★★★</div><p class="review-card__text">До занятий сын боялся даже открывать редактор кода. А сейчас сам пишет игры и показывает друзьям, я доволен</p><div class="review-card__author"><strong>Михаил</strong><span>отец Артёма, 12 лет</span></div></div>
-        <div class="review-card"><div class="review-card__stars">★★★★★</div><p class="review-card__text">Очень понятное объяснение сложных тем, дочь за месяц создала своего телеграмм-бота - невероятный прогресс</p><div class="review-card__author"><strong>Екатерина</strong><span>мама Полины, 14 лет</span></div></div>
-        <div class="review-card"><div class="review-card__stars">★★★★★</div><p class="review-card__text">Алексей - лучший репетитор! Сын ждет каждое занятие и рассказывает про все, результаты превзошли ожидания.</p><div class="review-card__author"><strong>Дмитрий</strong><span>отец Максима, 10 лет</span></div></div>
-        <div class="review-card"><div class="review-card__stars">★★★★★</div><p class="review-card__text">Сделал свой первый сайт для школьного проекта, теперь регулярно им пользуюсь, спасибо!</p><div class="review-card__author"><strong>Дарья</strong><span>ученица, 15 лет</span></div></div>
-        <div class="review-card"><div class="review-card__stars">★★★★★</div><p class="review-card__text">Занимаемся уже 4 месяца, создал свою первую игру и теперь мечтает стать разработчиком</p><div class="review-card__author"><strong>Анна</strong><span>мама Кирилла, 11 лет</span></div></div>
-        <div class="review-card"><div class="review-card__stars">★★★★★</div><p class="review-card__text">Алексей нашел подход к подростку, что само по себе непросто дается. Сын в восторге!</p><div class="review-card__author"><strong>Олег</strong><span>отец Никиты, 14 лет</span></div></div>
+        <div class="review-card cursor-target"><div class="review-card__stars">★★★★★</div><p class="review-card__text">До занятий сын боялся даже открывать редактор кода. А сейчас сам пишет игры и показывает друзьям, я доволен</p><div class="review-card__author"><strong>Михаил</strong><span>отец Артёма, 12 лет</span></div></div>
+        <div class="review-card cursor-target"><div class="review-card__stars">★★★★★</div><p class="review-card__text">Очень понятное объяснение сложных тем, дочь за месяц создала своего телеграмм-бота - невероятный прогресс</p><div class="review-card__author"><strong>Екатерина</strong><span>мама Полины, 14 лет</span></div></div>
+        <div class="review-card cursor-target"><div class="review-card__stars">★★★★★</div><p class="review-card__text">Алексей - лучший репетитор! Сын ждет каждое занятие и рассказывает про все, результаты превзошли ожидания.</p><div class="review-card__author"><strong>Дмитрий</strong><span>отец Максима, 10 лет</span></div></div>
+        <div class="review-card cursor-target"><div class="review-card__stars">★★★★★</div><p class="review-card__text">Сделал свой первый сайт для школьного проекта, теперь регулярно им пользуюсь, спасибо!</p><div class="review-card__author"><strong>Дарья</strong><span>ученица, 15 лет</span></div></div>
+        <div class="review-card cursor-target"><div class="review-card__stars">★★★★★</div><p class="review-card__text">Занимаемся уже 4 месяца, создал свою первую игру и теперь мечтает стать разработчиком</p><div class="review-card__author"><strong>Анна</strong><span>мама Кирилла, 11 лет</span></div></div>
+        <div class="review-card cursor-target"><div class="review-card__stars">★★★★★</div><p class="review-card__text">Алексей нашел подход к подростку, что само по себе непросто дается. Сын в восторге!</p><div class="review-card__author"><strong>Олег</strong><span>отец Никиты, 14 лет</span></div></div>
       </div>
     </div>
   </section>
@@ -726,7 +806,7 @@
     <div class="section-glow"></div>
     <div class="container">
       <div class="contact__wrapper">
-        <div class="contact__content">
+        <div class="contact__content cursor-target">
           <div class="section__label"><span class="prompt">λ</span> start_learning</div>
           <h2 class="section-title">готовы начать?</h2>
           <p class="contact__text">Оставьте заявку — я свяжусь с вами</p>
@@ -746,15 +826,769 @@
   <div class="container">
     <div class="footer__grid">
       <div class="footer__brand"><div class="logo"><span class="logo__bracket">{</span><div class="logo__text">alexey<span class="logo__accent">.benz</span></div><span class="logo__bracket">}</span></div><p class="footer__description">IT-репетитор • Приднестровье<br>обучение программированию с 2019</p></div>
-      <div class="footer__nav"><h4>[навигация]</h4><a href="#about">обо мне</a><a href="#courses">курсы</a><a href="#pricing">цены</a><a href="#gallery">галерея</a><a href="#reviews">отзывы</a></div>
-      <div class="footer__contacts"><h4>[контакты]</h4><a href="tel:775900742">📞 77-590-0-742</a><a href="https://t.me/flowederephile">telegram</a><a href="https://instagram.com/alexeyitmentor">instagram</a></div>
+      <div class="footer__nav"><h4>[навигация]</h4><a href="#about" class="cursor-target">обо мне</a><a href="#courses" class="cursor-target">курсы</a><a href="#pricing" class="cursor-target">цены</a><a href="#gallery" class="cursor-target">галерея</a><a href="#reviews" class="cursor-target">отзывы</a></div>
+      <div class="footer__contacts"><h4>[контакты]</h4><a href="tel:775900742" class="cursor-target">📞 77-590-0-742</a><a href="https://t.me/flowederephile" class="cursor-target">telegram</a><a href="https://instagram.com/alexeyitmentor" class="cursor-target">instagram</a></div>
     </div>
     <div class="footer__bottom"><p>© 2026 Алексей Бенц </p><p>Приднестровье</p></div>
   </div>
 </footer>
 
+<!-- Dock Component Container -->
+<div id="dock-root"></div>
+
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script type="module">
+  // --- REACT & COMPONENTS SETUP ---
+  import React from 'https://esm.sh/react@18.2.0';
+  import ReactDOM from 'https://esm.sh/react-dom@18.2.0/client';
+  import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from 'https://esm.sh/framer-motion@10.16.2';
+
+  // --- TARGET CURSOR COMPONENT ---
+  const TargetCursor = ({
+    targetSelector = '.cursor-target',
+    spinDuration = 2,
+    hideDefaultCursor = true,
+    hoverDuration = 0.2,
+    parallaxOn = true
+  }) => {
+    const cursorRef = React.useRef(null);
+    const cornersRef = React.useRef(null);
+    const spinTl = React.useRef(null);
+    const dotRef = React.useRef(null);
+
+    const isActiveRef = React.useRef(false);
+    const targetCornerPositionsRef = React.useRef(null);
+    const tickerFnRef = React.useRef(null);
+    const activeStrengthRef = React.useRef(0);
+
+    const isMobile = React.useMemo(() => {
+      if (typeof window === 'undefined') return false;
+      const hasTouchScreen = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+      const isSmallScreen = window.innerWidth <= 768;
+      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+      const mobileRegex = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i;
+      const isMobileUserAgent = mobileRegex.test(userAgent.toLowerCase());
+      return (hasTouchScreen && isSmallScreen) || isMobileUserAgent;
+    }, []);
+
+    const constants = React.useMemo(
+      () => ({
+        borderWidth: 3,
+        cornerSize: 12
+      }),
+      []
+    );
+
+    const moveCursor = React.useCallback((x, y) => {
+      if (!cursorRef.current) return;
+      gsap.to(cursorRef.current, {
+        x,
+        y,
+        duration: 0.1,
+        ease: 'power3.out'
+      });
+    }, []);
+
+    React.useEffect(() => {
+      if (isMobile || !cursorRef.current) return;
+
+      const originalCursor = document.body.style.cursor;
+      if (hideDefaultCursor) {
+        document.body.style.cursor = 'none';
+      }
+
+      const cursor = cursorRef.current;
+      cornersRef.current = cursor.querySelectorAll('.target-cursor-corner');
+
+      let activeTarget = null;
+      let currentLeaveHandler = null;
+      let resumeTimeout = null;
+
+      const cleanupTarget = target => {
+        if (currentLeaveHandler) {
+          target.removeEventListener('mouseleave', currentLeaveHandler);
+        }
+        currentLeaveHandler = null;
+      };
+
+      gsap.set(cursor, {
+        xPercent: -50,
+        yPercent: -50,
+        x: window.innerWidth / 2,
+        y: window.innerHeight / 2
+      });
+
+      const createSpinTimeline = () => {
+        if (spinTl.current) {
+          spinTl.current.kill();
+        }
+        spinTl.current = gsap
+          .timeline({ repeat: -1 })
+          .to(cursor, { rotation: '+=360', duration: spinDuration, ease: 'none' });
+      };
+
+      createSpinTimeline();
+
+      const tickerFn = () => {
+        if (!targetCornerPositionsRef.current || !cursorRef.current || !cornersRef.current) {
+          return;
+        }
+
+        const strength = activeStrengthRef.current;
+        if (strength === 0) return;
+
+        const cursorX = gsap.getProperty(cursorRef.current, 'x');
+        const cursorY = gsap.getProperty(cursorRef.current, 'y');
+
+        const corners = Array.from(cornersRef.current);
+        corners.forEach((corner, i) => {
+          const currentX = gsap.getProperty(corner, 'x');
+          const currentY = gsap.getProperty(corner, 'y');
+
+          const targetX = targetCornerPositionsRef.current[i].x - cursorX;
+          const targetY = targetCornerPositionsRef.current[i].y - cursorY;
+
+          const finalX = currentX + (targetX - currentX) * strength;
+          const finalY = currentY + (targetY - currentY) * strength;
+
+          const duration = strength >= 0.99 ? (parallaxOn ? 0.2 : 0) : 0.05;
+
+          gsap.to(corner, {
+            x: finalX,
+            y: finalY,
+            duration: duration,
+            ease: duration === 0 ? 'none' : 'power1.out',
+            overwrite: 'auto'
+          });
+        });
+      };
+
+      tickerFnRef.current = tickerFn;
+
+      const moveHandler = e => moveCursor(e.clientX, e.clientY);
+      window.addEventListener('mousemove', moveHandler);
+
+      const scrollHandler = () => {
+        if (!activeTarget || !cursorRef.current) return;
+        const mouseX = gsap.getProperty(cursorRef.current, 'x');
+        const mouseY = gsap.getProperty(cursorRef.current, 'y');
+        const elementUnderMouse = document.elementFromPoint(mouseX, mouseY);
+        const isStillOverTarget =
+          elementUnderMouse &&
+          (elementUnderMouse === activeTarget || elementUnderMouse.closest(targetSelector) === activeTarget);
+        if (!isStillOverTarget) {
+          if (currentLeaveHandler) {
+            currentLeaveHandler();
+          }
+        }
+      };
+      window.addEventListener('scroll', scrollHandler, { passive: true });
+
+      const mouseDownHandler = () => {
+        if (!dotRef.current) return;
+        gsap.to(dotRef.current, { scale: 0.7, duration: 0.3 });
+        gsap.to(cursorRef.current, { scale: 0.9, duration: 0.2 });
+      };
+
+      const mouseUpHandler = () => {
+        if (!dotRef.current) return;
+        gsap.to(dotRef.current, { scale: 1, duration: 0.3 });
+        gsap.to(cursorRef.current, { scale: 1, duration: 0.2 });
+      };
+
+      window.addEventListener('mousedown', mouseDownHandler);
+      window.addEventListener('mouseup', mouseUpHandler);
+
+      const enterHandler = e => {
+        const directTarget = e.target;
+        const allTargets = [];
+        let current = directTarget;
+        while (current && current !== document.body) {
+          if (current.matches(targetSelector)) {
+            allTargets.push(current);
+          }
+          current = current.parentElement;
+        }
+        const target = allTargets[0] || null;
+        if (!target || !cursorRef.current || !cornersRef.current) return;
+        if (activeTarget === target) return;
+        if (activeTarget) {
+          cleanupTarget(activeTarget);
+        }
+        if (resumeTimeout) {
+          clearTimeout(resumeTimeout);
+          resumeTimeout = null;
+        }
+
+        activeTarget = target;
+        const corners = Array.from(cornersRef.current);
+        corners.forEach(corner => gsap.killTweensOf(corner));
+
+        gsap.killTweensOf(cursorRef.current, 'rotation');
+        spinTl.current?.pause();
+        gsap.set(cursorRef.current, { rotation: 0 });
+
+        const rect = target.getBoundingClientRect();
+        const { borderWidth, cornerSize } = constants;
+        const cursorX = gsap.getProperty(cursorRef.current, 'x');
+        const cursorY = gsap.getProperty(cursorRef.current, 'y');
+
+        targetCornerPositionsRef.current = [
+          { x: rect.left - borderWidth, y: rect.top - borderWidth },
+          { x: rect.right + borderWidth - cornerSize, y: rect.top - borderWidth },
+          { x: rect.right + borderWidth - cornerSize, y: rect.bottom + borderWidth - cornerSize },
+          { x: rect.left - borderWidth, y: rect.bottom + borderWidth - cornerSize }
+        ];
+
+        isActiveRef.current = true;
+        gsap.ticker.add(tickerFnRef.current);
+
+        gsap.to(activeStrengthRef, {
+          current: 1,
+          duration: hoverDuration,
+          ease: 'power2.out'
+        });
+
+        corners.forEach((corner, i) => {
+          gsap.to(corner, {
+            x: targetCornerPositionsRef.current[i].x - cursorX,
+            y: targetCornerPositionsRef.current[i].y - cursorY,
+            duration: 0.2,
+            ease: 'power2.out'
+          });
+        });
+
+        const leaveHandler = () => {
+          gsap.ticker.remove(tickerFnRef.current);
+
+          isActiveRef.current = false;
+          targetCornerPositionsRef.current = null;
+          gsap.set(activeStrengthRef, { current: 0, overwrite: true });
+          activeTarget = null;
+
+          if (cornersRef.current) {
+            const corners = Array.from(cornersRef.current);
+            gsap.killTweensOf(corners);
+            const { cornerSize } = constants;
+            const positions = [
+              { x: -cornerSize * 1.5, y: -cornerSize * 1.5 },
+              { x: cornerSize * 0.5, y: -cornerSize * 1.5 },
+              { x: cornerSize * 0.5, y: cornerSize * 0.5 },
+              { x: -cornerSize * 1.5, y: cornerSize * 0.5 }
+            ];
+            const tl = gsap.timeline();
+            corners.forEach((corner, index) => {
+              tl.to(
+                corner,
+                {
+                  x: positions[index].x,
+                  y: positions[index].y,
+                  duration: 0.3,
+                  ease: 'power3.out'
+                },
+                0
+              );
+            });
+          }
+
+          resumeTimeout = setTimeout(() => {
+            if (!activeTarget && cursorRef.current && spinTl.current) {
+              const currentRotation = gsap.getProperty(cursorRef.current, 'rotation');
+              const normalizedRotation = currentRotation % 360;
+              spinTl.current.kill();
+              spinTl.current = gsap
+                .timeline({ repeat: -1 })
+                .to(cursorRef.current, { rotation: '+=360', duration: spinDuration, ease: 'none' });
+              gsap.to(cursorRef.current, {
+                rotation: normalizedRotation + 360,
+                duration: spinDuration * (1 - normalizedRotation / 360),
+                ease: 'none',
+                onComplete: () => {
+                  spinTl.current?.restart();
+                }
+              });
+            }
+            resumeTimeout = null;
+          }, 50);
+
+          cleanupTarget(target);
+        };
+
+        currentLeaveHandler = leaveHandler;
+        target.addEventListener('mouseleave', leaveHandler);
+      };
+
+      window.addEventListener('mouseover', enterHandler, { passive: true });
+
+      return () => {
+        if (tickerFnRef.current) {
+          gsap.ticker.remove(tickerFnRef.current);
+        }
+
+        window.removeEventListener('mousemove', moveHandler);
+        window.removeEventListener('mouseover', enterHandler);
+        window.removeEventListener('scroll', scrollHandler);
+        window.removeEventListener('mousedown', mouseDownHandler);
+        window.removeEventListener('mouseup', mouseUpHandler);
+
+        if (activeTarget) {
+          cleanupTarget(activeTarget);
+        }
+
+        spinTl.current?.kill();
+        document.body.style.cursor = originalCursor;
+
+        isActiveRef.current = false;
+        targetCornerPositionsRef.current = null;
+        activeStrengthRef.current = 0;
+      };
+    }, [targetSelector, spinDuration, moveCursor, constants, hideDefaultCursor, isMobile, hoverDuration, parallaxOn]);
+
+    React.useEffect(() => {
+      if (isMobile || !cursorRef.current || !spinTl.current) return;
+      if (spinTl.current.isActive()) {
+        spinTl.current.kill();
+        spinTl.current = gsap
+          .timeline({ repeat: -1 })
+          .to(cursorRef.current, { rotation: '+=360', duration: spinDuration, ease: 'none' });
+      }
+    }, [spinDuration, isMobile]);
+
+    if (isMobile) {
+      return null;
+    }
+
+    return React.createElement('div', { ref: cursorRef, className: "target-cursor-wrapper" },
+      React.createElement('div', { ref: dotRef, className: "target-cursor-dot" }),
+      React.createElement('div', { className: "target-cursor-corner corner-tl" }),
+      React.createElement('div', { className: "target-cursor-corner corner-tr" }),
+      React.createElement('div', { className: "target-cursor-corner corner-br" }),
+      React.createElement('div', { className: "target-cursor-corner corner-bl" })
+    );
+  };
+
+  // --- DOCK COMPONENT ---
+  function DockItem({ children, className = '', onClick, mouseX, spring, distance, magnification, baseItemSize }) {
+    const ref = React.useRef(null);
+    const isHovered = useMotionValue(0);
+
+    const mouseDistance = useTransform(mouseX, val => {
+      const rect = ref.current?.getBoundingClientRect() ?? {
+        x: 0,
+        width: baseItemSize
+      };
+      return val - rect.x - baseItemSize / 2;
+    });
+
+    const targetSize = useTransform(mouseDistance, [-distance, 0, distance], [baseItemSize, magnification, baseItemSize]);
+    const size = useSpring(targetSize, spring);
+
+    return React.createElement(motion.div, {
+      ref: ref,
+      style: { width: size, height: size },
+      onHoverStart: () => isHovered.set(1),
+      onHoverEnd: () => isHovered.set(0),
+      onFocus: () => isHovered.set(1),
+      onBlur: () => isHovered.set(0),
+      onClick: onClick,
+      className: `dock-item ${className}`,
+      tabIndex: 0,
+      role: "button",
+      "aria-haspopup": "true"
+    }, React.Children.map(children, child => React.cloneElement(child, { isHovered })));
+  }
+
+  function DockLabel({ children, className = '', ...rest }) {
+    const { isHovered } = rest;
+    const [isVisible, setIsVisible] = React.useState(false);
+
+    React.useEffect(() => {
+      const unsubscribe = isHovered.on('change', latest => {
+        setIsVisible(latest === 1);
+      });
+      return () => unsubscribe();
+    }, [isHovered]);
+
+    return React.createElement(AnimatePresence, null,
+      isVisible && React.createElement(motion.div, {
+        initial: { opacity: 0, y: 0 },
+        animate: { opacity: 1, y: -10 },
+        exit: { opacity: 0, y: 0 },
+        transition: { duration: 0.2 },
+        className: `dock-label ${className}`,
+        role: "tooltip",
+        style: { x: '-50%' }
+      }, children)
+    );
+  }
+
+  function DockIcon({ children, className = '' }) {
+    return React.createElement('div', { className: `dock-icon ${className}` }, children);
+  }
+
+  function Dock({
+    items,
+    className = '',
+    spring = { mass: 0.1, stiffness: 150, damping: 12 },
+    magnification = 70,
+    distance = 200,
+    panelHeight = 68,
+    dockHeight = 256,
+    baseItemSize = 50
+  }) {
+    const mouseX = useMotionValue(Infinity);
+    const isHovered = useMotionValue(0);
+
+    const maxHeight = React.useMemo(
+      () => Math.max(dockHeight, magnification + magnification / 2 + 4),
+      [magnification, dockHeight]
+    );
+    const heightRow = useTransform(isHovered, [0, 1], [panelHeight, maxHeight]);
+    const height = useSpring(heightRow, spring);
+
+    return React.createElement(motion.div, { style: { height, scrollbarWidth: 'none' }, className: "dock-outer" },
+      React.createElement(motion.div, {
+        onMouseMove: ({ pageX }) => {
+          isHovered.set(1);
+          mouseX.set(pageX);
+        },
+        onMouseLeave: () => {
+          isHovered.set(0);
+          mouseX.set(Infinity);
+        },
+        className: `dock-panel ${className}`,
+        style: { height: panelHeight },
+        role: "toolbar",
+        "aria-label": "Application dock"
+      }, items.map((item, index) => React.createElement(DockItem, {
+        key: index,
+        onClick: item.onClick,
+        className: item.className,
+        mouseX: mouseX,
+        spring: spring,
+        distance: distance,
+        magnification: magnification,
+        baseItemSize: baseItemSize
+      },
+        React.createElement(DockIcon, null, item.icon),
+        React.createElement(DockLabel, null, item.label)
+      )))
+    );
+  }
+
+  // --- DOTFIELD COMPONENT ---
+  const TWO_PI = Math.PI * 2;
+
+  const DotField = React.memo(({
+    dotRadius = 1.5,
+    dotSpacing = 14,
+    cursorRadius = 500,
+    cursorForce = 0.1,
+    bulgeOnly = true,
+    bulgeStrength = 67,
+    glowRadius = 160,
+    sparkle = false,
+    waveAmplitude = 0,
+    gradientFrom = 'rgba(255, 215, 0, 0.35)', // Adapted to Gold
+    gradientTo = 'rgba(255, 215, 0, 0.15)',   // Adapted to Gold
+    glowColor = '#FFD700',                    // Adapted to Gold
+    ...rest
+  }) => {
+    const canvasRef = React.useRef(null);
+    const svgRef = React.useRef(null);
+    const glowRef = React.useRef(null);
+    const dotsRef = React.useRef([]);
+    const mouseRef = React.useRef({ x: -9999, y: -9999, prevX: -9999, prevY: -9999, speed: 0 });
+    const rafRef = React.useRef(null);
+    const sizeRef = React.useRef({ w: 0, h: 0, offsetX: 0, offsetY: 0 });
+    const glowOpacity = React.useRef(0);
+    const engagement = React.useRef(0);
+    const propsRef = React.useRef({});
+    propsRef.current = { dotRadius, dotSpacing, cursorRadius, cursorForce, bulgeOnly, bulgeStrength, sparkle, waveAmplitude, gradientFrom, gradientTo };
+    const rebuildRef = React.useRef(null);
+    const glowIdRef = React.useRef(`dot-field-glow-${Math.random().toString(36).slice(2, 9)}`);
+
+    React.useEffect(() => {
+      const canvas = canvasRef.current;
+      const glowEl = glowRef.current;
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d', { alpha: true });
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      let resizeTimer;
+
+      function resize() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(doResize, 100);
+      }
+
+      function doResize() {
+        const rect = canvas.parentElement.getBoundingClientRect();
+        const w = rect.width;
+        const h = rect.height;
+
+        canvas.width = w * dpr;
+        canvas.height = h * dpr;
+        canvas.style.width = `${w}px`;
+        canvas.style.height = `${h}px`;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+        sizeRef.current = {
+          w,
+          h,
+          offsetX: rect.left + window.scrollX,
+          offsetY: rect.top + window.scrollY,
+        };
+
+        buildDots(w, h);
+      }
+
+      function buildDots(w, h) {
+        const p = propsRef.current;
+        const step = p.dotRadius + p.dotSpacing;
+        const cols = Math.floor(w / step);
+        const rows = Math.floor(h / step);
+        const padX = (w % step) / 2;
+        const padY = (h % step) / 2;
+        const dots = new Array(rows * cols);
+        let idx = 0;
+
+        for (let row = 0; row < rows; row++) {
+          for (let col = 0; col < cols; col++) {
+            const ax = padX + col * step + step / 2;
+            const ay = padY + row * step + step / 2;
+            dots[idx++] = { ax, ay, sx: ax, sy: ay, vx: 0, vy: 0, x: ax, y: ay };
+          }
+        }
+        dotsRef.current = dots;
+      }
+
+      function onMouseMove(e) {
+        const s = sizeRef.current;
+        mouseRef.current.x = e.pageX - s.offsetX;
+        mouseRef.current.y = e.pageY - s.offsetY;
+      }
+
+      function updateMouseSpeed() {
+        const m = mouseRef.current;
+        const dx = m.prevX - m.x;
+        const dy = m.prevY - m.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        m.speed += (dist - m.speed) * 0.5;
+        if (m.speed < 0.001) m.speed = 0;
+        m.prevX = m.x;
+        m.prevY = m.y;
+      }
+
+      const speedInterval = setInterval(updateMouseSpeed, 20);
+
+      let frameCount = 0;
+
+      function tick() {
+        frameCount++;
+        const dots = dotsRef.current;
+        const m = mouseRef.current;
+        const { w, h } = sizeRef.current;
+        const p = propsRef.current;
+        const len = dots.length;
+        const t = frameCount * 0.02;
+
+        const targetEngagement = Math.min(m.speed / 5, 1);
+        engagement.current += (targetEngagement - engagement.current) * 0.06;
+        if (engagement.current < 0.001) engagement.current = 0;
+        const eng = engagement.current;
+
+        glowOpacity.current += (eng - glowOpacity.current) * 0.08;
+
+        if (glowEl) {
+          glowEl.setAttribute('cx', m.x);
+          glowEl.setAttribute('cy', m.y);
+          glowEl.style.opacity = glowOpacity.current;
+        }
+
+        ctx.clearRect(0, 0, w, h);
+
+        const grad = ctx.createLinearGradient(0, 0, w, h);
+        grad.addColorStop(0, p.gradientFrom);
+        grad.addColorStop(1, p.gradientTo);
+        ctx.fillStyle = grad;
+
+        const cr = p.cursorRadius;
+        const crSq = cr * cr;
+        const rad = p.dotRadius / 2;
+        const isBulge = p.bulgeOnly;
+
+        ctx.beginPath();
+
+        for (let i = 0; i < len; i++) {
+          const d = dots[i];
+          const dx = m.x - d.ax;
+          const dy = m.y - d.ay;
+          const distSq = dx * dx + dy * dy;
+
+          if (distSq < crSq && eng > 0.01) {
+            const dist = Math.sqrt(distSq);
+            if (isBulge) {
+              const t = 1 - dist / cr;
+              const push = t * t * p.bulgeStrength * eng;
+              const angle = Math.atan2(dy, dx);
+              d.sx += (d.ax - Math.cos(angle) * push - d.sx) * 0.15;
+              d.sy += (d.ay - Math.sin(angle) * push - d.sy) * 0.15;
+            } else {
+              const angle = Math.atan2(dy, dx);
+              const move = (500 / dist) * (m.speed * p.cursorForce);
+              d.vx += Math.cos(angle) * -move;
+              d.vy += Math.sin(angle) * -move;
+            }
+          } else if (isBulge) {
+            d.sx += (d.ax - d.sx) * 0.1;
+            d.sy += (d.ay - d.sy) * 0.1;
+          }
+
+          if (!isBulge) {
+            d.vx *= 0.9;
+            d.vy *= 0.9;
+            d.x = d.ax + d.vx;
+            d.y = d.ay + d.vy;
+            d.sx += (d.x - d.sx) * 0.1;
+            d.sy += (d.y - d.sy) * 0.1;
+          }
+
+          let drawX = d.sx;
+          let drawY = d.sy;
+          if (p.waveAmplitude > 0) {
+            drawY += Math.sin(d.ax * 0.03 + t) * p.waveAmplitude;
+            drawX += Math.cos(d.ay * 0.03 + t * 0.7) * p.waveAmplitude * 0.5;
+          }
+
+          if (p.sparkle) {
+            const hash = ((i * 2654435761) ^ (frameCount >> 3)) >>> 0;
+            if ((hash % 100) < 3) {
+              ctx.moveTo(drawX + rad * 1.8, drawY);
+              ctx.arc(drawX, drawY, rad * 1.8, 0, TWO_PI);
+            } else {
+              ctx.moveTo(drawX + rad, drawY);
+              ctx.arc(drawX, drawY, rad, 0, TWO_PI);
+            }
+          } else {
+            ctx.moveTo(drawX + rad, drawY);
+            ctx.arc(drawX, drawY, rad, 0, TWO_PI);
+          }
+        }
+
+        ctx.fill();
+
+        rafRef.current = requestAnimationFrame(tick);
+      }
+
+      doResize();
+      window.addEventListener('resize', resize);
+      window.addEventListener('mousemove', onMouseMove, { passive: true });
+      rafRef.current = requestAnimationFrame(tick);
+
+      rebuildRef.current = () => {
+        const { w, h } = sizeRef.current;
+        if (w > 0 && h > 0) buildDots(w, h);
+      };
+
+      return () => {
+        cancelAnimationFrame(rafRef.current);
+        clearInterval(speedInterval);
+        clearTimeout(resizeTimer);
+        window.removeEventListener('resize', resize);
+        window.removeEventListener('mousemove', onMouseMove);
+      };
+    }, []);
+
+    React.useEffect(() => {
+      rebuildRef.current?.();
+    }, [dotRadius, dotSpacing]);
+
+    return React.createElement('div', { className: "dot-field-container", ...rest },
+      React.createElement('canvas', {
+        ref: canvasRef,
+        style: { position: 'absolute', inset: 0, width: '100%', height: '100%' }
+      }),
+      React.createElement('svg', {
+        ref: svgRef,
+        style: { position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none' }
+      },
+        React.createElement('defs', null,
+          React.createElement('radialGradient', { id: glowIdRef.current },
+            React.createElement('stop', { offset: "0%", stopColor: glowColor }),
+            React.createElement('stop', { offset: "100%", stopColor: "transparent" })
+          )
+        ),
+        React.createElement('circle', {
+          ref: glowRef,
+          cx: "-9999",
+          cy: "-9999",
+          r: glowRadius,
+          fill: `url(#${glowIdRef.current})`,
+          style: { opacity: 0, willChange: 'opacity' }
+        })
+      )
+    );
+  });
+
+  DotField.displayName = 'DotField';
+
+  // --- RENDER COMPONENTS ---
+  
+  // 1. Render TargetCursor
+  const cursorRoot = document.createElement('div');
+  document.body.appendChild(cursorRoot);
+  ReactDOM.createRoot(cursorRoot).render(React.createElement(TargetCursor, {
+    targetSelector: '.cursor-target',
+    spinDuration: 2,
+    hideDefaultCursor: true,
+    parallaxOn: true
+  }));
+
+  // 2. Render Dock
+  const dockRoot = document.getElementById('dock-root');
+  
+  // Helper for icons
+  const IconHome = () => React.createElement('svg', { width: 24, height: 24, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round" }, React.createElement('path', { d: "m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" }), React.createElement('polyline', { points: "9 22 9 12 15 12 15 22" }));
+  const IconUser = () => React.createElement('svg', { width: 24, height: 24, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round" }, React.createElement('path', { d: "M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" }), React.createElement('circle', { cx: "12", cy: "7", r: "4" }));
+  const IconBook = () => React.createElement('svg', { width: 24, height: 24, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round" }, React.createElement('path', { d: "M4 19.5A2.5 2.5 0 0 1 6.5 17H20" }), React.createElement('path', { d: "M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" }));
+  const IconTag = () => React.createElement('svg', { width: 24, height: 24, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round" }, React.createElement('path', { d: "M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z" }), React.createElement('path', { d: "M7 7h.01" }));
+  const IconImage = () => React.createElement('svg', { width: 24, height: 24, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round" }, React.createElement('rect', { width: "18", height: "18", x: "3", y: "3", rx: "2", ry: "2" }), React.createElement('circle', { cx: "9", cy: "9", r: "2" }), React.createElement('path', { d: "m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" }));
+  const IconMessage = () => React.createElement('svg', { width: 24, height: 24, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round" }, React.createElement('path', { d: "M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" }));
+
+  const dockItems = [
+    { icon: React.createElement(IconHome), label: 'Главная', onClick: () => document.querySelector('#about').scrollIntoView({ behavior: 'smooth' }) },
+    { icon: React.createElement(IconUser), label: 'Обо мне', onClick: () => document.querySelector('#about').scrollIntoView({ behavior: 'smooth' }) },
+    { icon: React.createElement(IconBook), label: 'Курсы', onClick: () => document.querySelector('#courses').scrollIntoView({ behavior: 'smooth' }) },
+    { icon: React.createElement(IconTag), label: 'Цены', onClick: () => document.querySelector('#pricing').scrollIntoView({ behavior: 'smooth' }) },
+    { icon: React.createElement(IconImage), label: 'Галерея', onClick: () => document.querySelector('#gallery').scrollIntoView({ behavior: 'smooth' }) },
+    { icon: React.createElement(IconMessage), label: 'Контакты', onClick: () => document.querySelector('#contact').scrollIntoView({ behavior: 'smooth' }) },
+  ];
+
+  ReactDOM.createRoot(dockRoot).render(React.createElement(Dock, {
+    items: dockItems,
+    panelHeight: 70,
+    baseItemSize: 50,
+    magnification: 90
+  }));
+
+  // 3. Render DotField
+  const dotFieldRoot = document.getElementById('dotfield-root');
+  ReactDOM.createRoot(dotFieldRoot).render(React.createElement(DotField, {
+    dotRadius: 1.5,
+    dotSpacing: 14,
+    bulgeStrength: 67,
+    glowRadius: 160,
+    sparkle: false,
+    waveAmplitude: 0,
+    gradientFrom: 'rgba(255, 215, 0, 0.35)',
+    gradientTo: 'rgba(255, 215, 0, 0.15)',
+    glowColor: '#FFD700'
+  }));
+
+</script>
+
 <script>
+  // --- EXISTING SITE LOGIC ---
   const modalData = {
     'python': {
         title: 'Python с нуля',
@@ -793,7 +1627,7 @@
   const modalDesc = document.getElementById('modal-desc');
   const modalList = document.getElementById('modal-list');
 
-  function openModal(courseId) {
+  window.openModal = function(courseId) {
     const data = modalData[courseId];
     if (!data) return;
 
@@ -805,7 +1639,7 @@
     document.body.style.overflow = 'hidden';
   }
 
-  function closeModal() {
+  window.closeModal = function() {
     modalOverlay.classList.remove('active');
     document.body.style.overflow = '';
   }
