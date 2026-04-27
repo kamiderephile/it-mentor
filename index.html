@@ -33,11 +33,10 @@
       color: var(--text-main);
       line-height: 1.6;
       overflow-x: hidden;
-      /* Скрываем стандартный курсор */
-      cursor: none; 
+      cursor: none; /* Скрываем стандартный курсор */
     }
 
-    /* Если мышь ушла с окна или мобильное устройство - возвращаем курсор */
+    /* Возвращаем курсор на мобильных */
     @media (hover: none) and (pointer: coarse) {
       body { cursor: auto; }
       .target-cursor-wrapper { display: none !important; }
@@ -72,7 +71,6 @@
       padding: 5px 0;
     }
     
-    /* Эффект подчеркивания для навигации */
     .nav__link::after {
       content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px;
       background: var(--gold); transition: width 0.3s ease;
@@ -85,7 +83,7 @@
       background: transparent; color: var(--gold); border: 1px solid var(--gold);
       padding: 8px 24px; border-radius: 2px; box-shadow: 0 0 10px rgba(255, 215, 0, 0.1);
     }
-    .nav__link--primary::after { display: none; } /* Убираем подчеркивание у кнопки */
+    .nav__link--primary::after { display: none; }
     .nav__link--primary:hover { background: var(--gold); color: #000; box-shadow: 0 0 20px var(--gold-glow); }
 
     .mobile-toggle { display: none; flex-direction: column; gap: 6px; background: none; border: none; cursor: pointer; z-index: 1001; }
@@ -98,7 +96,7 @@
       overflow: hidden; padding-top: 80px;
     }
 
-    /* DotField Container */
+    /* DotField Container - Z-index fix */
     .hero__dotfield-container {
       position: absolute; top: 0; left: 0; width: 100%; height: 100%;
       z-index: 1; pointer-events: none;
@@ -447,7 +445,7 @@
     .contact__phone span { color: var(--gold); }
     .contact__form-note p { color: #888; margin-bottom: 20px; font-size: 0.85rem; }
 
-    .footer { background: #020202; border-top: 1px solid rgba(255, 215, 0, 0.1); padding-top: 60px; position: relative; padding-bottom: 100px; /* Space for Dock */ }
+    .footer { background: #020202; border-top: 1px solid rgba(255, 215, 0, 0.1); padding-top: 60px; position: relative; padding-bottom: 100px; }
     .footer__grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 40px; padding-bottom: 40px; }
     .footer__brand .logo { margin-bottom: 20px; }
     .footer__description { font-size: 0.8rem; color: #666; line-height: 1.6; max-width: 280px; }
@@ -586,7 +584,7 @@
       .about__features { max-width: 600px; margin: 0 auto; }
     }
     @media (max-width: 768px) {
-      .nav { display: none; } /* Hide top nav on mobile */
+      .nav { display: none; }
       .mobile-toggle { display: flex; }
       .hero__title { font-size: 2.5rem; }
       .hero__stats { gap: 20px; }
@@ -598,7 +596,6 @@
       .footer__bottom { flex-direction: column; gap: 12px; }
       .gallery-slide img { height: 250px; }
       .contact__content { padding: 32px 20px; }
-      /* Hide Dock on mobile if preferred, or adjust */
       .dock-outer { display: none; } 
     }
     @media (max-width: 480px) {
@@ -998,9 +995,9 @@
     glowRadius = 160,
     sparkle = false,
     waveAmplitude = 0,
-    gradientFrom = 'rgba(255, 215, 0, 0.35)', // Adapted to Gold
-    gradientTo = 'rgba(255, 215, 0, 0.15)',   // Adapted to Gold
-    glowColor = '#FFD700',                    // Adapted to Gold
+    gradientFrom = 'rgba(255, 215, 0, 0.35)', // Gold
+    gradientTo = 'rgba(255, 215, 0, 0.15)',   // Gold
+    glowColor = '#FFD700',                    // Gold
     ...rest
   }) => {
     const canvasRef = React.useRef(null);
@@ -1219,7 +1216,7 @@
       }),
       React.createElement('svg', {
         ref: svgRef,
-        style: { position: 'absolute', inset: 0, width: 100%', height: '100%', pointerEvents: 'none' }
+        style: { position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none' }
       },
         React.createElement('defs', null,
           React.createElement('radialGradient', { id: glowIdRef.current },
@@ -1246,7 +1243,6 @@
   // 1. Render Dock
   const dockRoot = document.getElementById('dock-root');
   
-  // Helper for icons
   const IconHome = () => React.createElement('svg', { width: 24, height: 24, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round" }, React.createElement('path', { d: "m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" }), React.createElement('polyline', { points: "9 22 9 12 15 12 15 22" }));
   const IconUser = () => React.createElement('svg', { width: 24, height: 24, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round" }, React.createElement('path', { d: "M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" }), React.createElement('circle', { cx: "12", cy: "7", r: "4" }));
   const IconBook = () => React.createElement('svg', { width: 24, height: 24, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round" }, React.createElement('path', { d: "M4 19.5A2.5 2.5 0 0 1 6.5 17H20" }), React.createElement('path', { d: "M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" }));
@@ -1362,17 +1358,7 @@
         const borderWidth = 3;
         const cornerSize = 12;
         
-        // Calculate positions relative to the cursor (which is at 0,0 in local space)
-        // Since cursor wrapper is at mouse X/Y, we need offsets from mouse to target edges.
-        // BUT simpler approach: The cursor wrapper is AT the mouse. 
-        // We want corners to be at Target Edges.
-        // So we set X/Y of corners to (TargetEdge - MousePos).
-        
-        // However, since we are using GSAP to move the WRAPPER to MousePos,
-        // the internal elements (corners) are at 0,0 relative to wrapper.
-        // So we just need to move them to (RectPos - MousePos).
-        
-        // Wait, getting MousePos every frame is expensive? No, we can use gsap.getProperty(cursor, 'x')
+        // Get current mouse/cursor position from GSAP
         const mouseX = gsap.getProperty(cursor, 'x');
         const mouseY = gsap.getProperty(cursor, 'y');
 
